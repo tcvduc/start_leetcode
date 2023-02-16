@@ -35,7 +35,7 @@
  *
  *
  * -- ------------------------------
- * -- Solving - O(n)
+ * -- Solving - O(n) - failed
  * -- ------------------------------
  * + Input
  *   ---------0 1 2 3 4
@@ -112,6 +112,7 @@
  *
  *
  *   + i: 2
+ *     + nl: nums.length = 5
  *     + 3: i + 1: ip1
  *     + 4: i + 2: ip2
  *     + 5: i + 3: ip3
@@ -133,94 +134,55 @@
  *         return [i, i + 4]
  *       }
  *
+ *
+ *
+ * -- ------------------------------
+ * -- Solving - O(n) -
+ * -- ------------------------------
+ * + Input
+ *   ---------0 1 2 3 4
+ *   + nums: [1,2,3,4,5]
+ *   + target: 5
+ * + Output
+ *   + ret: [1,2]
+ *
+ *
+ * -----------0 1 2 3 4
+ *   + nums: [1,2,3,4,5]
+ *   + nums[nums[i]]
+ *   + i: 0 -> 4
+ *     + i: 0
+ *       + nums[i]: nums[0]: 1
+ *       + nums[nums[i]]: nums[1]: 2
+ *     + i: 1
+ *       + nums[1] = 2
+ *       + nums[nums[1]] = nums[2] = 3
+ *     + i = 2
+ *       + nums[2] = 3
+ *       + nums[nums[2]] = nums[3] = 4
+ *
+ *
+ *
  */
 
-function on2() {
-  /**
-   * @param {number[]} nums
-   * @param {number} target
-   * @return {number[]}
-   */
-  var twoSum = function (nums, target) {
-    for (let i = 0; i <= nums.length - 1 - 1; ++i) {
-      for (let j = i + 1; j <= nums.length - 1; ++j) {
-        if (nums[i] + nums[j] === target) {
-          return [i, j];
-        }
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (nums, target) {
+  for (let i = 0; i <= nums.length - 1 - 1; i++) {
+    for (let j = i + 1; j <= nums.length - 1; ++j) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
       }
     }
-  };
-
-  {
-    const nums = [2, 7, 11, 15];
-    const target = 9;
-    console.log(twoSum(nums, target)); // [0,1]
   }
-
-  {
-    const nums = [3, 2, 4];
-    const target = 6;
-    console.log(twoSum(nums, target)); // [1,2]
-  }
-
-  {
-    const nums = [3, 3];
-    const target = 6;
-    console.log(twoSum(nums, target)); // [0,1]
-  }
-}
-
-function on1() {
-  /**
-   * @param {number[]} nums
-   * @param {number} target
-   * @return {number[]}
-   */
-  var twoSum = function (nums, target) {
-    for (let i = 0; i <= nums.length - 1; ++i) {
-      const ip1 = i + 1;
-      const ip2 = i + 2;
-      const ip3 = i + 3;
-      const ip4 = i + 4;
-
-      if (nums[i] + nums[ip1] === target) {
-        return [i, i + 1];
-      }
-
-      if (nums[i] + nums[ip2] === target) {
-        return [i, i + 2];
-      }
-
-      if (nums[i] + nums[ip3] === target) {
-        return [i, i + 3];
-      }
-
-      if (nums[i] + nums[ip4] === target) {
-        return [i, i + 4];
-      }
-    }
-  };
-
-  {
-    const nums = [2, 7, 11, 15];
-    const target = 9;
-    console.log(twoSum(nums, target)); // [0,1]
-  }
-
-  {
-    const nums = [3, 2, 4];
-    const target = 6;
-    console.log(twoSum(nums, target)); // [1,2]
-  }
-
-  {
-    const nums = [3, 3];
-    const target = 6;
-    console.log(twoSum(nums, target)); // [0,1]
-  }
-}
+};
 
 {
-  //   on2();
-  on1();
+  // -----------0  1  2  3  4  5  6  7  8  9 10 11
+  const nums = [1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1];
+  const target = 11;
+  console.log(twoSum(nums, target)); // [5,11]
 }
