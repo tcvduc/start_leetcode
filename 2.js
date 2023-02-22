@@ -175,11 +175,15 @@ function addTwoSinglyLinkedList(ll1, ll2) {
    * + ret: 7 -> 0 -> 8 -> null
    *   + code virtual
    *     + const memoryOneNumber = 1;
+   *     + const wasMemory = false;
    *     + node1 + node 2 < 10
    *       + node ret = node1 + node2
    *       + ret.add(node ret)
+   *       + wasMemory = false;
    *     + node1 + node 2 >= 10: [10 -> 19]
-   *       +
+   *       + const nodeAdd = getNumberLastDigit(node1 + node2)
+   *       + ret.add(nodeAdd)
+   *       + wasMemory = true
    *
    *
    *
@@ -194,12 +198,13 @@ function addTwoSinglyLinkedList(ll1, ll2) {
 
   if (ll1Length === ll2Length) {
     const singlyLinkedListRet = new SinglyLinkedList(null, null);
+    let wasMemory = false;
 
     for (
       let singlyLinkedList1NodeTraverse = ll1.head,
         singlyLinkedList2NodeTraverse = ll2.head;
-      singlyLinkedList1NodeTraverse !== null,
-        singlyLinkedList2NodeTraverse !== null;
+      singlyLinkedList1NodeTraverse !== null &&
+      singlyLinkedList2NodeTraverse !== null;
       singlyLinkedList1NodeTraverse = singlyLinkedList1NodeTraverse.next,
         singlyLinkedList2NodeTraverse = singlyLinkedList2NodeTraverse.next
     ) {
@@ -208,18 +213,37 @@ function addTwoSinglyLinkedList(ll1, ll2) {
 
       const node1Value = currentSinglyLinkedList1Node.value;
       const node2Value = currentSinglyLinkedList2Node.value;
-      const node1AddNode2Value = node1Value + node2Value;
+      let nodeAdd = node1Value + node2Value;
+      console.log("node1Value: ", node1Value);
+      console.log("node2Value: ", node2Value);
 
-      if (node1AddNode2Value < 10) {
-        const retNode = new Node(node1AddNode2Value, null);
-        singlyLinkedListRet.addNode(retNode);
+      const memoryOneNumber = 1;
+
+      if (wasMemory === true) {
+        console.log("flag true");
+        // singlyLinkedListRet.log();
+        console.log(singlyLinkedListRet);
+        nodeAdd += memoryOneNumber;
+        // bug
       }
 
-      if (node1AddNode2Value >= 10) {
+      if (wasMemory === false) {
+        if (nodeAdd < 10) {
+          const retNode = new Node(nodeAdd, null);
+          singlyLinkedListRet.addNode(retNode);
+          wasMemory = false;
+        }
+
+        if (nodeAdd >= 10) {
+          nodeAdd = getNumberLastDigit(nodeAdd);
+          nodeAdd = new Node(nodeAdd, null);
+
+          singlyLinkedListRet.addNode(nodeAdd);
+          wasMemory = true;
+        }
       }
     }
 
-    console.log("singlyLinkedListRet: ", singlyLinkedListRet);
     return;
   }
 
