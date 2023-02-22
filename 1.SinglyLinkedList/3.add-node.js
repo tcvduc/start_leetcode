@@ -62,6 +62,14 @@ class SinglyLinkedList {
     }
   }
 
+  getHead() {
+    return this.head;
+  }
+
+  getTail() {
+    return this.tail;
+  }
+
   /**
    *
    * @param {Node} node
@@ -110,7 +118,6 @@ class SinglyLinkedList {
     }
 
     if (countNode !== 1) {
-      console.log("here");
       for (
         let nodeTraverse = this.head;
         nodeTraverse !== null;
@@ -123,6 +130,7 @@ class SinglyLinkedList {
       }
 
       this.tail = node;
+
       return;
     }
   }
@@ -130,41 +138,17 @@ class SinglyLinkedList {
 
 const node5 = new Node(5, null);
 const node4 = new Node(4, null);
-
 const node3 = new Node(3, null);
 const node2 = new Node(2, null);
 const node1 = new Node(1, null);
 
-const node33 = new Node(3, null);
-const node22 = new Node(2, node33);
-const node11 = new Node(1, node22);
-console.log(node3);
-console.log(node2);
-console.log(node1);
-console.log("\n\n\n");
+const singlyLinkedList = new SinglyLinkedList(null, null);
+singlyLinkedList.addNode(node1);
+singlyLinkedList.addNode(node2);
+singlyLinkedList.addNode(node3);
+singlyLinkedList.addNode(node4);
+singlyLinkedList.addNode(node5);
 
-const singlyLinkedList1 = new SinglyLinkedList(node1, null);
-console.log(singlyLinkedList1);
-console.log("\n\n\n");
-
-const singlyLinkedList2 = new SinglyLinkedList(null, null);
-console.log(singlyLinkedList2);
-singlyLinkedList2.addNode(node1);
-console.log("after add node: ", singlyLinkedList2);
-console.log("node count: ", singlyLinkedList2.countNode());
-console.log("\n\n\n");
-
-const singlyLinkedList3 = new SinglyLinkedList(null, null);
-console.log(singlyLinkedList3);
-singlyLinkedList3.addNode(node1);
-console.log("after add node 1: ", singlyLinkedList3);
-singlyLinkedList3.addNode(node2);
-console.log("after add node 2: ", singlyLinkedList3);
-singlyLinkedList3.addNode(node3);
-console.log("after add node 3: ", singlyLinkedList3);
-singlyLinkedList3.addNode(node4);
-console.log("after add node 4: ");
-singlyLinkedList3.log();
-
-console.log("node count: ", singlyLinkedList3.countNode());
-console.log("\n\n\n");
+singlyLinkedList.log();
+console.log("head: ", singlyLinkedList.getHead());
+console.log("tail: ", singlyLinkedList.getTail());
