@@ -8,6 +8,8 @@
  * as a linked list.
  * You may assume the two numbers do not contain
  * any leading zero, except the number 0 itself.
+ *  + 0123 - not this
+ *  + 0 - this accepted
  *
  * + Example 1
  * linked list 1:   2 -> 4 -> 3
@@ -71,13 +73,71 @@ class ListNode {
   }
 }
 
+class SinglyLinkedList {
+  /**
+   * + 1 -> 2 -> 3 -> null
+   *   + node 1: 1 -> node2
+   *   + node 2: 2 -> node3
+   *   + node 3: 3 -> null
+   *   + SinglyLinkedList: node1 -> node2 -> node3 -> null
+   *     + head: node1
+   *
+   *
+   */
+
+  /**
+   *
+   * @param {ListNode} nodeHead
+   *
+   */
+  constructor(nodeHead) {
+    this.nodeHead = nodeHead;
+  }
+
+  /**
+   *
+   * @param {NodeList} newNode
+   */
+  addNode(newNode) {
+    /**
+     * case 1: done
+     * + nodeHead: null
+     * + newNode: 1 -> null
+     * + ret: 1 -> null
+     *
+     * case 2:
+     * + nodeHead: 1 -> null
+     * + newNode: 2 -> null
+     * + ret: 1 -> 2 -> null
+     *
+     * case 3:
+     * + nodeHead: 1 -> 2 -> 3 -> null
+     * + newNode: 4 -> null
+     * + ret: 1 -> 2 -> 3 -> 4 -> null
+     *
+     *
+     */
+
+    if (this.nodeHead === null) {
+      return (this.nodeHead = newNode);
+    }
+
+    if (this.nodeHead !== null) {
+      for (let nodeTraverse = this.nodeHead; nodeTraverse; ) {}
+    }
+  }
+}
+
 /**
  * @param {ListNode} l1
  * @param {ListNode} l2
  * @return {ListNode}
  *
  */
-const addTwoNumbers = function (l1, l2) {};
+const addTwoNumbers = function (l1, l2) {
+  const node1 = new ListNode(1, null);
+  console.log(node1);
+};
 
 const l1 = [2, 4, 3];
 const l2 = [5, 6, 4];
