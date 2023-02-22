@@ -33,16 +33,22 @@ class SinglyLinkedList {
      *   + ret: 1
      *
      */
+    let count = 0;
+
     if (this.head === null) {
-      return 0;
+      return count;
     }
 
     if (this.head !== null) {
       for (
         let nodeTraverse = this.head;
-        nodeTraverse.next !== null;
+        nodeTraverse !== null;
         nodeTraverse = nodeTraverse.next
-      ) {}
+      ) {
+        count++;
+      }
+
+      return count;
     }
   }
 
