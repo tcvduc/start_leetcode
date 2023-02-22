@@ -155,6 +155,14 @@ class SinglyLinkedList {
 
 /**
  *
+ * @param {number} n
+ */
+function getNumberLastDigit(n) {
+  return n % 10;
+}
+
+/**
+ *
  * @param {SinglyLinkedList} ll1
  * @param {SinglyLinkedList} ll2
  *
@@ -166,10 +174,12 @@ function addTwoSinglyLinkedList(ll1, ll2) {
    * + ll2: 5 -> 6 -> 4 -> null
    * + ret: 7 -> 0 -> 8 -> null
    *   + code virtual
+   *     + const memoryOneNumber = 1;
    *     + node1 + node 2 < 10
    *       + node ret = node1 + node2
    *       + ret.add(node ret)
-   *     + node1 + node 2 >= 10
+   *     + node1 + node 2 >= 10: [10 -> 19]
+   *       +
    *
    *
    *
