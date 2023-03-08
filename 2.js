@@ -224,7 +224,7 @@ function addTwoSinglyLinkedList(ll1, ll2) {
         // singlyLinkedListRet.log();
         console.log(singlyLinkedListRet);
         nodeAdd += memoryOneNumber;
-        // bug
+        // code here
       }
 
       if (wasMemory === false) {
