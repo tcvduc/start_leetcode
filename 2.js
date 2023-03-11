@@ -108,7 +108,8 @@ class SinglyLinkedList {
       }
 
       ret += "null";
-      console.log(ret);
+
+      return ret;
     }
   };
 
@@ -166,12 +167,20 @@ class SinglyLinkedList {
 
 /**
  *
+ * @param {Number} n
+ */
+function getNumberLastDigit(n) {
+  return n % 10;
+}
+
+/**
+ *
  * @param {SinglyLinkedList} ll1
  * @param {SinglyLinkedList} ll2
  *
  */
 function f(ll1, ll2) {
-  /* Case 1.
+  /* Case 1. done
    * + ll1: 1 -> 2 -> 3: 321
    * + ll2: 4 -> 5 -> 6: 654
    * + ret: 5 -> 7 -> 9: 975
@@ -179,7 +188,7 @@ function f(ll1, ll2) {
    * Case 2.
    * + ll1: 8 -> 6 -> 1: 168
    * + ll2: 4 -> 5 -> 2: 254
-   * + ret: 2 -> 2 -> 4: 42
+   * + ret: 2 -> 2 -> 4: 422
    *
    * Case 3
    * + ll1: 1 -> 2 -> 3 -> 4 -> null: 4321
@@ -200,17 +209,24 @@ function f(ll1, ll2) {
   const result = new SinglyLinkedList(undefined, undefined);
 
   if (length1 === length2) {
+    const numberOne = 1;
     for (
       let nt1 = ll1.head, nt2 = ll2.head;
       nt1 !== null && nt2 !== null;
       nt1 = nt1.next, nt2 = nt2.next
     ) {
-      const node = new Node(nt1.value + nt2.value);
-      result.addNode(node);
+      const addNodeValue = nt1.value + nt2.value;
+      if (addNodeValue < 10) {
+        const node = new Node(addNodeValue);
+        result.addNode(node);
+      }
+
+      if (addNodeValue >= 10) {
+        // code here
+      }
     }
 
-    console.log(result.getArt());
-    return;
+    return result;
   }
 
   if (length1 !== length2) {
@@ -239,10 +255,12 @@ ll2.addNode(n4);
 ll2.addNode(n5);
 ll2.addNode(n6);
 
-ll1.getArt();
-ll2.getArt();
+console.log(ll1.getArt());
+console.log(ll2.getArt());
 
-console.log(f(ll1, ll2));
-// ll1: 1 -> 2 -> 3: 321
-// ll2: 4 -> 5 -> 6: 654
-// ret: 5 -> 7 -> 9: 975
+const result = f(ll1, ll2);
+console.log(result.getArt());
+
+//  ll1: 8 -> 6 -> 1: 168
+//  ll2: 4 -> 5 -> 2: 254
+//  ret: 2 -> 2 -> 4: 422
