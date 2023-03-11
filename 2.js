@@ -11,118 +11,64 @@
  *  + 0123 - not this
  *  + 0 - this accepted
  *
- * + Example 1
- * linked list 1:   2 -> 4 -> 3
- * linked list 2:   5 -> 6 -> 4
- * ----------------------------
- * linked list ret: 7 -> 0 -> 8
  *
- * + input:
- *   + l1 =  [2,4,3]
- *   + l2 =  [5,6,4]
- * + output: [7,0,8]
- * + explanation: 342 + 465 = 807
+ * -- ------------------------------
+ * -- Understanding the problem
+ * -- ------------------------------
+ * 1.
+ * + ll1: 1 -> 2 -> 3: 321
+ * + ll2: 4 -> 5 -> 6: 654
+ * + ret: 5 -> 7 -> 9: 975
  *
- *
- * + Example 2
- * + input
- *   + l1 = [0]
- *   + l2 = [0]
- * + output
- *   + [0]
- *
- * + Example 3
- * + input
- *   + l1 = [9,9,9,9,9,9,9]
- *   + l2 = [9,9,9,9]
- * + output [8,9,9,9,0,0,0,1]
- * + 9999999 + 9999 = 10009998
- *
- * + constrains
- *   + the number of nodes in each linked list
- *   is in the range [1,100]
- *   + 0 <= node.val <= 9
- *   + it is guaranteed that the list represents
- *   a number that does not have leading zero
- *
+ * 2.
+ * + ll1: 8 -> 6 -> 1: 168
+ * + ll2: 4 -> 5 -> 2: 254
+ * + ret: 2 -> 2 -> 4: 422
  *
  *
  *
  */
 
 /**
- *
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- *
- *
+ * Node
+ * + n1: 1 -> null
+ * + n2: 2 -> null
  */
-
 class Node {
   /**
    *
    * @param {number} value
-   * @param {object} next
-   *
    */
-  constructor(value, next) {
-    this.value = value === undefined ? 0 : value;
-    this.next = next === undefined ? null : next;
+  constructor(value) {
+    this.value = value | 0;
+    this.next = null;
   }
 }
 
+/**
+ * Singly Linked List
+ * + ll1: 1 -> 2 -> null
+ * + ll2: 1 -> 2 -> 3 -> 4 -> 5 -> null
+ *
+ * + head: 1 -> 2
+ * + tail: 5 -> null
+ *
+ *
+ */
 class SinglyLinkedList {
-  constructor(head, tail) {
-    this.head = head;
-    this.tail = tail;
-  }
   /**
    *
-   * @param {Node} node
+   * @param {Node} head
+   * @param {Node} tail
+   *
    */
-  addNode(node) {
-    if (this.head === null) {
-      this.head = node;
-      this.tail = node;
-      return;
-    }
-
-    if (this.head !== null) {
-      for (
-        let nodeTraverse = this.head;
-        nodeTraverse !== null;
-        nodeTraverse = nodeTraverse.next
-      ) {
-        if (nodeTraverse.next === null) {
-          nodeTraverse.next = node;
-          break;
-        }
-      }
-
-      this.tail = node;
-    }
+  constructor(head, tail) {
+    this.head = head || undefined;
+    this.tail = tail || undefined;
   }
 
-  length() {
-    let ret = 0;
-
-    for (
-      let nodeTraverse = this.head;
-      nodeTraverse !== null;
-      nodeTraverse = nodeTraverse.next
-    ) {
-      ret++;
-    }
-
-    return ret;
-  }
-
-  countNode() {
+  length = function () {
     let count = 0;
-
     for (
       let nodeTraverse = this.head;
       nodeTraverse !== null;
@@ -130,35 +76,92 @@ class SinglyLinkedList {
     ) {
       count++;
     }
-
     return count;
+  };
+
+  getArt = function () {
+    /**
+     * Case 1: done
+     * + sll1: undefined
+     * + ret: undefined
+     *
+     * Case 2: done
+     * + sll: 1 -> 2 -> 3 -> 4 -> null
+     * + head: 1 -> 2
+     * + tail: 4 -> null
+     * + art: 1 -> 2 -> 3 -> 4 -> null
+     *
+     */
+
+    if (this.head === undefined) {
+      return undefined;
+    }
+
+    if (this.head !== undefined) {
+      let ret = "";
+      for (
+        let nodeTraverse = this.head;
+        nodeTraverse !== null;
+        nodeTraverse = nodeTraverse.next
+      ) {
+        ret += nodeTraverse.value + " -> ";
+      }
+
+      ret += "null";
+      console.log(ret);
+    }
+  };
+
+  /**
+   *
+   * @param {Node} node
+   *
+   */
+  addNode(node) {
+    /**
+     * Case 1: done
+     * + sll1: undefined
+     * + node: 1 -> null
+     *
+     * Case 2: done
+     * + sll: 1 -> null
+     * + node: 2 -> null
+     * + ret: 1 -> 2 -> null
+     *
+     * Case 3: done
+     * + sll: 1 -> 2 -> 3 -> 4 -> null
+     * + node: 5 -> null
+     * + ret: 1 -> 2 -> 3 -> 4 -> 5 -> null
+     *
+     */
+    if (this.head === undefined) {
+      this.head = node;
+      this.tail = node;
+      return;
+    }
+
+    if (this.head !== undefined) {
+      for (
+        let nodeTraverse = this.head;
+        nodeTraverse !== null;
+        nodeTraverse = nodeTraverse.next
+      ) {
+        if (nodeTraverse.next === null) {
+          nodeTraverse.next = node;
+          this.tail = node;
+          break;
+        }
+      }
+    }
   }
 
-  getHead() {
+  getHeadNode() {
     return this.head;
   }
 
-  getTail() {
+  getTailNode() {
     return this.tail;
   }
-
-  log() {
-    for (
-      let nodeTraverse = this.head;
-      nodeTraverse !== null;
-      nodeTraverse = nodeTraverse.next
-    ) {
-      console.log(nodeTraverse);
-    }
-  }
-}
-
-/**
- *
- * @param {number} n
- */
-function getNumberLastDigit(n) {
-  return n % 10;
 }
 
 /**
@@ -167,126 +170,79 @@ function getNumberLastDigit(n) {
  * @param {SinglyLinkedList} ll2
  *
  */
-function addTwoSinglyLinkedList(ll1, ll2) {
-  /**
-   * case 1: ll1 length === ll2 length
-   * + ll1: 2 -> 4 -> 3 -> null
-   * + ll2: 5 -> 6 -> 4 -> null
-   * + ret: 7 -> 0 -> 8 -> null
-   *   + code virtual
-   *     + const memoryOneNumber = 1;
-   *     + const wasMemory = false;
-   *     + node1 + node 2 < 10
-   *       + node ret = node1 + node2
-   *       + ret.add(node ret)
-   *       + wasMemory = false;
-   *     + node1 + node 2 >= 10: [10 -> 19]
-   *       + const nodeAdd = getNumberLastDigit(node1 + node2)
-   *       + ret.add(nodeAdd)
-   *       + wasMemory = true
+function f(ll1, ll2) {
+  /* Case 1.
+   * + ll1: 1 -> 2 -> 3: 321
+   * + ll2: 4 -> 5 -> 6: 654
+   * + ret: 5 -> 7 -> 9: 975
+   *
+   * Case 2.
+   * + ll1: 8 -> 6 -> 1: 168
+   * + ll2: 4 -> 5 -> 2: 254
+   * + ret: 2 -> 2 -> 4: 42
+   *
+   * Case 3
+   * + ll1: 1 -> 2 -> 3 -> 4 -> null: 4321
+   * + ll2: 4 -> 5 -> 6 -> null:      654
+   * + ret: 5 -> 7 -> 9 -> 4 -> null: 4975
+   *
+   * Case 4
+   * + ll1: 1 -> 2 -> 3 -> 4 -> null: 4321
+   * + ll2: 9 -> 8 -> 6 -> null:      689
+   * + ret: 0 -> 1 -> 0 -> 5 -> null: 5010
    *
    *
    *
-   * case 2: ll1 length !== ll2 length
-   * + ll1: 9 -> 9 -> 9 -> 9 -> 9 -> 9 -> 9 -> null
-   * + ll2: 9 -> 9 -> 9 -> 9 -> null
-   * + ret: 8 -> 9 -> 9 -> 9 -> 0 -> 0 -> 0 -> 1 -> null
-   *
-   */
-  const ll1Length = ll1.length();
-  const ll2Length = ll2.length();
+   **/
+  const length1 = ll1.length();
+  const length2 = ll2.length();
 
-  if (ll1Length === ll2Length) {
-    const singlyLinkedListRet = new SinglyLinkedList(null, null);
-    let wasMemory = false;
+  const result = new SinglyLinkedList(undefined, undefined);
 
+  if (length1 === length2) {
     for (
-      let singlyLinkedList1NodeTraverse = ll1.head,
-        singlyLinkedList2NodeTraverse = ll2.head;
-      singlyLinkedList1NodeTraverse !== null &&
-      singlyLinkedList2NodeTraverse !== null;
-      singlyLinkedList1NodeTraverse = singlyLinkedList1NodeTraverse.next,
-        singlyLinkedList2NodeTraverse = singlyLinkedList2NodeTraverse.next
+      let nt1 = ll1.head, nt2 = ll2.head;
+      nt1 !== null && nt2 !== null;
+      nt1 = nt1.next, nt2 = nt2.next
     ) {
-      const currentSinglyLinkedList1Node = singlyLinkedList1NodeTraverse;
-      const currentSinglyLinkedList2Node = singlyLinkedList2NodeTraverse;
-
-      const node1Value = currentSinglyLinkedList1Node.value;
-      const node2Value = currentSinglyLinkedList2Node.value;
-      let nodeAdd = node1Value + node2Value;
-      console.log("node1Value: ", node1Value);
-      console.log("node2Value: ", node2Value);
-
-      const memoryOneNumber = 1;
-
-      if (wasMemory === true) {
-        console.log("flag true");
-        // singlyLinkedListRet.log();
-        console.log(singlyLinkedListRet);
-        nodeAdd += memoryOneNumber;
-        // code here
-      }
-
-      if (wasMemory === false) {
-        if (nodeAdd < 10) {
-          const retNode = new Node(nodeAdd, null);
-          singlyLinkedListRet.addNode(retNode);
-          wasMemory = false;
-        }
-
-        if (nodeAdd >= 10) {
-          nodeAdd = getNumberLastDigit(nodeAdd);
-          nodeAdd = new Node(nodeAdd, null);
-
-          singlyLinkedListRet.addNode(nodeAdd);
-          wasMemory = true;
-        }
-      }
+      const node = new Node(nt1.value + nt2.value);
+      result.addNode(node);
     }
 
+    console.log(result.getArt());
     return;
   }
 
-  if (ll1Length !== ll2Length) {
+  if (length1 !== length2) {
     return;
   }
 }
 
-/**
- * @param {Array} l1
- * @param {Array} l2
- * @return {Array}
- *
- */
-const addTwoNumbers = function (l1, l2) {
-  const node1 = new Node(1, null);
-  const node2 = new Node(2, null);
-  const node3 = new Node(3, null);
-  const node4 = new Node(4, null);
-  const singlyLinkedList = new SinglyLinkedList(null, null);
-  singlyLinkedList.addNode(node1);
-  singlyLinkedList.addNode(node2);
-  singlyLinkedList.addNode(node3);
-  singlyLinkedList.addNode(node4);
-  const singlyLinkedList1 = new SinglyLinkedList(null, null);
-  const singlyLinkedList2 = new SinglyLinkedList(null, null);
+const n1 = new Node(1);
+const n2 = new Node(2);
+const n3 = new Node(3);
+const n4 = new Node(4);
+const n5 = new Node(5);
+const n6 = new Node(6);
+const n7 = new Node(7);
+const n8 = new Node(8);
+const n9 = new Node(9);
 
-  // initial linked list 1
-  for (let i = 0; i <= l1.length - 1; ++i) {
-    const nodei = new Node(l1[i], null);
-    singlyLinkedList1.addNode(nodei);
-  }
+const ll1 = new SinglyLinkedList(undefined, undefined);
+const ll2 = new SinglyLinkedList(undefined, undefined);
 
-  // initial linked list 2
-  for (let j = 0; j <= l2.length - 1; ++j) {
-    const nodej = new Node(l2[j], null);
-    singlyLinkedList2.addNode(nodej);
-  }
+ll1.addNode(n1);
+ll1.addNode(n2);
+ll1.addNode(n3);
 
-  addTwoSinglyLinkedList(singlyLinkedList1, singlyLinkedList2);
-};
+ll2.addNode(n4);
+ll2.addNode(n5);
+ll2.addNode(n6);
 
-const l1 = [2, 4, 3];
-const l2 = [5, 6, 4];
+ll1.getArt();
+ll2.getArt();
 
-console.log(addTwoNumbers(l1, l2)); // [7, 0, 8]
+console.log(f(ll1, ll2));
+// ll1: 1 -> 2 -> 3: 321
+// ll2: 4 -> 5 -> 6: 654
+// ret: 5 -> 7 -> 9: 975
