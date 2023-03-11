@@ -92,8 +92,9 @@ class SinglyLinkedList {
         nodeTraverse !== null;
         nodeTraverse = nodeTraverse.next
       ) {
-        console.log(nodeTraverse);
+        ret += nodeTraverse.value + " -> ";
       }
+      console.log(ret);
     }
   };
 
@@ -104,17 +105,39 @@ class SinglyLinkedList {
    */
   addNode(node) {
     /**
-     * Case 1:
+     * Case 1: done
      * + sll1: undefined
      * + node: 1 -> null
      *
+     * Case 2: done
+     * + sll: 1 -> null
+     * + node: 2 -> null
+     * + ret: 1 -> 2 -> null
      *
+     * Case 3: done
+     * + sll: 1 -> 2 -> 3 -> 4 -> null
+     * + node: 5 -> null
+     * + ret: 1 -> 2 -> 3 -> 4 -> 5 -> null
      *
      */
     if (this.head === undefined) {
       this.head = node;
       this.tail = node;
       return;
+    }
+
+    if (this.head !== undefined) {
+      for (
+        let nodeTraverse = this.head;
+        nodeTraverse !== null;
+        nodeTraverse = nodeTraverse.next
+      ) {
+        if (nodeTraverse.next === null) {
+          nodeTraverse.next = node;
+          this.tail = node;
+          break;
+        }
+      }
     }
   }
 
@@ -138,4 +161,8 @@ const n4 = new Node(4);
 
 const sll1 = new SinglyLinkedList(undefined, undefined);
 sll1.addNode(n1);
-console.log(sll1);
+sll1.addNode(n2);
+sll1.addNode(n3);
+sll1.addNode(n4);
+// console.log(sll1);
+// sll1.getArt();
