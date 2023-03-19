@@ -102,6 +102,30 @@ class SinglyLinkedList {
   }
 }
 
+/**
+ *
+ * @param {SinglyLinkedList} sll1
+ * @param {SinglyLinkedList} sll2
+ *
+ */
+function f(sll1, sll2) {
+  /* 1.
+   * + ll1: 1 -> 2 -> 3: 321
+   * + ll2: 4 -> 5 -> 6: 654
+   * + ret: 5 -> 7 -> 9: 975
+   *
+   * 2.
+   * + ll1: 8 -> 6 -> 1: 168
+   * + ll2: 4 -> 5 -> 2: 254
+   * + ret: 2 -> 2 -> 4: 422
+   *
+   * 3.
+   * + ll1: 5 -> 6 -> 7: 765
+   * + ll2: 6 -> 5 -> 2 -> 1: 1256
+   * + ret: 1 -> 2 -> 0 -> 2: 2021
+   */
+}
+
 function test1() {
   /**
    * 1.
