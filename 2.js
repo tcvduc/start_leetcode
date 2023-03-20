@@ -116,6 +116,24 @@ class SinglyLinkedList {
 
 /**
  *
+ * @param {Number} n
+ */
+function getNumberLastDigit(n) {
+  /**
+   * + 123
+   * + 123 % 10 = 3
+   * + 123 modulo 10 = 3
+   * + 123 mod 10 = 3
+   *   + 120 / 10 = 12
+   *   + 12 x 10 = 120
+   *   + 120 + 3 = 123
+   *
+   */
+  return n % 10;
+}
+
+/**
+ *
  * @param {SinglyLinkedList} sll1
  * @param {SinglyLinkedList} sll2
  *
@@ -126,6 +144,7 @@ function f(sll1, sll2) {
 
   if (l1 === l2) {
     const result = new SinglyLinkedList();
+    const oneReminder = 1;
 
     for (
       let nl1 = sll1.head, nl2 = sll2.head;
@@ -135,9 +154,15 @@ function f(sll1, sll2) {
       const value1 = nl1.value;
       const value2 = nl2.value;
       const vl1pvl2 = value1 + value2;
-      const node = new Node(vl1pvl2);
 
-      result.addNode(node);
+      if (vl1pvl2 < 10) {
+        const node = new Node(vl1pvl2);
+        result.addNode(node);
+      }
+
+      if (vl1pvl2 >= 10) {
+        const node = new Node();
+      }
     }
 
     return result;
@@ -199,15 +224,15 @@ function test2() {
   sll2.addNode(node5);
   sll2.addNode(node4);
 
-  console.log(f(sll1, sll2));
+  console.log(f(sll1, sll2)); // 4 -> 2 -> 2
 }
 function test3() {}
 function test4() {}
 function test5() {}
 
 {
-  test1();
-  // test2();
+  // test1();
+  test2();
   // test3();
   // test4();
   // test5();
