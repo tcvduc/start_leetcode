@@ -64,17 +64,17 @@ class SinglyLinkedList {
 
   show() {
     /**
-     * case 1:
+     * case 1: done
      * + sll: null
      * + ret: null
      *
-     * case 2:
+     * case 2: done
      * + sll: 1 -> 2 -> 3 -> null
      * + ret: 1 -> 2 -> 3 -> null
      *
      */
     if (this.head === null) {
-      return "null";
+      return console.log("null");
     }
 
     if (this.head !== null) {
@@ -182,9 +182,14 @@ function f(sll1, sll2) {
   const l1 = sll1.length();
   const l2 = sll2.length();
 
+  sll1.show();
+  sll2.show();
+
   if (l1 === l2) {
     const result = new SinglyLinkedList();
     const oneReminder = 1;
+    let wasReminder = false;
+    let count = 0;
 
     for (
       let nl1 = sll1.head, nl2 = sll2.head;
@@ -195,18 +200,32 @@ function f(sll1, sll2) {
       const value2 = nl2.value;
       const vl1pvl2 = value1 + value2;
 
-      if (vl1pvl2 < 10) {
-        const node = new Node(vl1pvl2);
-        result.addNode(node);
+      if (count === 0) {
+        if (vl1pvl2 < 10) {
+          const node = new Node(vl1pvl2);
+          result.addNode(node);
+        }
+
+        if (vl1pvl2 >= 10) {
+          wasReminder = true;
+          const node = new Node(0);
+          result.addNode(node);
+        }
       }
 
-      if (vl1pvl2 >= 10) {
-        const vl1pvl2LastDigit = getNumberLastDigit(vl1pvl2);
-        const valueAddResult = vl1pvl2LastDigit + oneReminder;
-        const node = new Node(valueAddResult);
-        result.addNode(node);
+      if (count !== 0) {
+        if (wasReminder === true) {
+        }
+
+        if (wasReminder !== true) {
+        }
       }
+
+      count++;
     }
+
+    console.log("wasReminder: ", wasReminder);
+
     return result;
   }
 
@@ -253,16 +272,16 @@ function test2() {
   const node6 = new Node(6);
   const node8 = new Node(8);
 
-  const node2 = new Node(2);
-  const node5 = new Node(5);
   const node4 = new Node(4);
+  const node5 = new Node(5);
+  const node2 = new Node(2);
 
   const sll1 = new SinglyLinkedList();
   const sll2 = new SinglyLinkedList();
 
-  sll1.addNode(node1);
-  sll1.addNode(node6);
   sll1.addNode(node8);
+  sll1.addNode(node6);
+  sll1.addNode(node1);
 
   sll2.addNode(node2);
   sll2.addNode(node5);
@@ -276,8 +295,8 @@ function test4() {}
 function test5() {}
 
 {
-  test1();
-  // test2();
+  // test1();
+  test2();
   // test3();
   // test4();
   // test5();
