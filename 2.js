@@ -214,10 +214,36 @@ function f(sll1, sll2) {
       }
 
       if (count !== 0) {
-        if (wasReminder === true) {
+        if (vl1pvl2 < 10) {
+          if (wasReminder === true) {
+            const nodeAddValue = oneReminder + vl1pvl2;
+
+            if (nodeAddValue >= 10) {
+              const nodeAddValueLastDigit = getNumberLastDigit(nodeAddValue);
+              const node = new Node(nodeAddValueLastDigit);
+              result.addNode(node);
+              wasReminder = true;
+              continue;
+            }
+
+            if (nodeAddValue < 10) {
+            }
+
+            const node = new Node(nodeAddValue);
+            result.addNode(node);
+          }
+
+          if (wasReminder !== true) {
+          }
         }
 
-        if (wasReminder !== true) {
+        if (vl1pvl2 >= 10) {
+          console.log("here ");
+          if (wasReminder === true) {
+          }
+
+          if (wasReminder !== true) {
+          }
         }
       }
 
