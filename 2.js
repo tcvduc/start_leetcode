@@ -62,6 +62,46 @@ class SinglyLinkedList {
     this.tail = tail;
   }
 
+  show() {
+    /**
+     * case 1:
+     * + sll: null
+     * + ret: null
+     *
+     * case 2:
+     * + sll: 1 -> 2 -> 3 -> null
+     * + ret: 1 -> 2 -> 3 -> null
+     *
+     */
+    if (this.head === null) {
+      return "null";
+    }
+
+    if (this.head !== null) {
+      let result = "";
+      const arrow = "->";
+      let count = 0;
+      const length = this.length();
+
+      for (
+        let nodeLoop = this.head;
+        nodeLoop !== null;
+        nodeLoop = nodeLoop.next
+      ) {
+        count++;
+
+        if (count === length) {
+          result += nodeLoop.value;
+          break;
+        }
+
+        result += nodeLoop.value + " " + arrow + " ";
+      }
+
+      console.log(result);
+    }
+  }
+
   length() {
     let count = 0;
     for (
@@ -161,10 +201,12 @@ function f(sll1, sll2) {
       }
 
       if (vl1pvl2 >= 10) {
-        const node = new Node();
+        const vl1pvl2LastDigit = getNumberLastDigit(vl1pvl2);
+        const valueAddResult = vl1pvl2LastDigit + oneReminder;
+        const node = new Node(valueAddResult);
+        result.addNode(node);
       }
     }
-
     return result;
   }
 
@@ -195,8 +237,10 @@ function test1() {
   sll2.addNode(node5);
   sll2.addNode(node6);
 
-  console.log(f(sll1, sll2));
+  const result = f(sll1, sll2);
+  result.show();
 }
+
 function test2() {
   /* case 2.
    * + ll1: 8 -> 6 -> 1: 168
@@ -224,15 +268,16 @@ function test2() {
   sll2.addNode(node5);
   sll2.addNode(node4);
 
-  console.log(f(sll1, sll2)); // 4 -> 2 -> 2
+  const result = f(sll1, sll2);
+  result.show(); // 4 -> 2 -> 2
 }
 function test3() {}
 function test4() {}
 function test5() {}
 
 {
-  // test1();
-  test2();
+  test1();
+  // test2();
   // test3();
   // test4();
   // test5();
