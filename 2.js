@@ -139,8 +139,8 @@ function f(sll1, sll2) {
 
       result.addNode(node);
     }
-    console.log(result);
-    return;
+
+    return result;
   }
 
   if (l1 !== l2) {
@@ -149,6 +149,12 @@ function f(sll1, sll2) {
 }
 
 function test1() {
+  /* case 1. done
+   * + ll1: 1 -> 2 -> 3: 321
+   * + ll2: 4 -> 5 -> 6: 654
+   * + ret: 5 -> 7 -> 9: 975
+   */
+
   const node1 = new Node(1);
   const node2 = new Node(2);
   const node3 = new Node(3);
@@ -164,7 +170,7 @@ function test1() {
   sll2.addNode(node5);
   sll2.addNode(node6);
 
-  f(sll1, sll2);
+  console.log(f(sll1, sll2));
 }
 function test2() {
   /* case 2.
@@ -172,7 +178,28 @@ function test2() {
    * + ll2: 4 -> 5 -> 2: 254
    * + ret: 2 -> 2 -> 4: 422
    *
+   *
    */
+  const node1 = new Node(1);
+  const node6 = new Node(6);
+  const node8 = new Node(8);
+
+  const node2 = new Node(2);
+  const node5 = new Node(5);
+  const node4 = new Node(4);
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  sll1.addNode(node1);
+  sll1.addNode(node6);
+  sll1.addNode(node8);
+
+  sll2.addNode(node2);
+  sll2.addNode(node5);
+  sll2.addNode(node4);
+
+  console.log(f(sll1, sll2));
 }
 function test3() {}
 function test4() {}
@@ -180,8 +207,8 @@ function test5() {}
 
 {
   test1();
-  test2();
-  test3();
-  test4();
-  test5();
+  // test2();
+  // test3();
+  // test4();
+  // test5();
 }
