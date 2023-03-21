@@ -288,7 +288,28 @@ function f(sll1, sll2) {
   }
 
   if (l1 !== l2) {
+    /**
+     * + case 1:
+     *   + l1 > l2
+     * + case 2:
+     *   + l1 < l2
+     */
     const result = new SinglyLinkedList();
+
+    if (l2 > l1) {
+      let nl1 = sll1.head;
+
+      for (let nl2 = sll2.head; nl2 !== null; nl2 = nl2.next) {
+        if (nl1.next !== null) {
+          const nl1Value = nl1.value;
+          const nl2Value = nl2.value;
+          console.log(nl1Value + " " + nl2Value);
+
+          nl1 = nl1.next;
+        }
+      }
+      console.log("here");
+    }
 
     return result;
   }
