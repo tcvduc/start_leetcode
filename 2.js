@@ -288,7 +288,9 @@ function f(sll1, sll2) {
   }
 
   if (l1 !== l2) {
-    return;
+    const result = new SinglyLinkedList();
+
+    return result;
   }
 }
 
@@ -378,7 +380,35 @@ function test3() {
   const result = f(sll1, sll2);
   result.show(); // ret: 2 -> 2 -> 1 -> 1
 }
-function test4() {}
+function test4() {
+  /* case 4.
+   * + ll1: 5 -> 6 -> 7: 765
+   * + ll2: 6 -> 5 -> 2 -> 1: 1256
+   * + ret: 1 -> 2 -> 0 -> 2: 2021
+   *
+   */
+  const node5 = new Node(5);
+  const node6 = new Node(6);
+  const node7 = new Node(7);
+  const sll1 = new SinglyLinkedList();
+  sll1.addNode(node5);
+  sll1.addNode(node6);
+  sll1.addNode(node7);
+
+  const n26 = new Node(6);
+  const n25 = new Node(5);
+  const n22 = new Node(2);
+  const n21 = new Node(1);
+
+  const sll2 = new SinglyLinkedList();
+  sll2.addNode(n26);
+  sll2.addNode(n25);
+  sll2.addNode(n22);
+  sll2.addNode(n21);
+
+  const result = f(sll1, sll2);
+  result.show();
+}
 function test5() {}
 
 {
