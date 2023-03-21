@@ -214,43 +214,58 @@ function f(sll1, sll2) {
       }
 
       if (count !== 0) {
-        if (vl1pvl2 < 10) {
-          if (wasReminder === true) {
-            const nodeAddValue = oneReminder + vl1pvl2;
-
-            if (nodeAddValue >= 10) {
-              const nodeAddValueLastDigit = getNumberLastDigit(nodeAddValue);
-              const node = new Node(nodeAddValueLastDigit);
-              result.addNode(node);
-              wasReminder = true;
-              continue;
-            }
-
-            if (nodeAddValue < 10) {
-            }
-
-            const node = new Node(nodeAddValue);
-            result.addNode(node);
+        if (wasReminder === true) {
+          const addValue = oneReminder + vl1pvl2;
+          /**
+           * + case 1:
+           *   + 1 + 9 = 10
+           * + case 2:
+           *   + 1 + 8 = 9
+           *
+           */
+          if (addValue >= 10) {
+            wasReminder = true;
+            const addValueLastDigit = getNumberLastDigit(addValue);
+            const nodeValue = new Node(addValueLastDigit);
+            result.addNode(nodeValue);
+            continue;
           }
 
-          if (wasReminder !== true) {
+          if (addValue < 10) {
+            const nodeValue = new Node(addValue);
+            result.addNode(nodeValue);
+            wasReminder = false;
+            continue;
           }
         }
 
-        if (vl1pvl2 >= 10) {
-          console.log("here ");
-          if (wasReminder === true) {
+        if (wasReminder !== true) {
+          /**
+           * + case 1:
+           *   + vl1pvl2 >= 10
+           * + case 2:
+           *   + vl1pvl2 < 10
+           *
+           */
+          if (vl1pvl2 >= 10) {
+            wasReminder = true;
+            const value = getNumberLastDigit(vl1pvl2);
+            const nodeValue = new Node(value);
+            result.addNode(nodeValue);
+            continue;
           }
 
-          if (wasReminder !== true) {
+          if (vl1pvl2 < 10) {
+            wasReminder = false;
+            const nodeValue = new Node(vl1pvl2);
+            result.addNode(nodeValue);
+            continue;
           }
         }
       }
 
       count++;
     }
-
-    console.log("wasReminder: ", wasReminder);
 
     return result;
   }
@@ -316,14 +331,43 @@ function test2() {
   const result = f(sll1, sll2);
   result.show(); // 4 -> 2 -> 2
 }
-function test3() {}
+function test3() {
+  /* case 3.
+   * + ll1: 8 -> 6 -> 1: 168
+   * + ll2: 4 -> 5 -> 9: 954
+   * + ret: 2 -> 2 -> 1 -> 1: 1122
+   *
+   *
+   */
+  const node8 = new Node(8);
+  const node6 = new Node(6);
+  const node1 = new Node(1);
+
+  const node4 = new Node(4);
+  const node5 = new Node(5);
+  const node9 = new Node(9);
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  sll1.addNode(node8);
+  sll1.addNode(node6);
+  sll1.addNode(node1);
+
+  sll2.addNode(node4);
+  sll2.addNode(node5);
+  sll2.addNode(node9);
+
+  const result = f(sll1, sll2);
+  result.show();
+}
 function test4() {}
 function test5() {}
 
 {
-  // test1();
-  test2();
-  // test3();
+  // test1(); // done
+  // test2(); // done
+  test3();
   // test4();
   // test5();
 }
