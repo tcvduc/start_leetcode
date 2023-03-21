@@ -202,14 +202,20 @@ function f(sll1, sll2) {
 
       if (count === 0) {
         if (vl1pvl2 < 10) {
+          wasReminder = false;
           const node = new Node(vl1pvl2);
           result.addNode(node);
+          count++;
+          continue;
         }
 
         if (vl1pvl2 >= 10) {
           wasReminder = true;
-          const node = new Node(0);
+          const nodeValue = getNumberLastDigit(vl1pvl2);
+          const node = new Node(nodeValue);
           result.addNode(node);
+          count++;
+          continue;
         }
       }
 
@@ -228,6 +234,7 @@ function f(sll1, sll2) {
             const addValueLastDigit = getNumberLastDigit(addValue);
             const nodeValue = new Node(addValueLastDigit);
             result.addNode(nodeValue);
+            count++;
             continue;
           }
 
@@ -235,6 +242,7 @@ function f(sll1, sll2) {
             const nodeValue = new Node(addValue);
             result.addNode(nodeValue);
             wasReminder = false;
+            count++;
             continue;
           }
         }
@@ -252,6 +260,7 @@ function f(sll1, sll2) {
             const value = getNumberLastDigit(vl1pvl2);
             const nodeValue = new Node(value);
             result.addNode(nodeValue);
+            count++;
             continue;
           }
 
@@ -259,12 +268,20 @@ function f(sll1, sll2) {
             wasReminder = false;
             const nodeValue = new Node(vl1pvl2);
             result.addNode(nodeValue);
+            count++;
             continue;
           }
         }
       }
+    }
 
-      count++;
+    /**
+     * add one more node to singly linked list
+     *
+     */
+    if (wasReminder === true) {
+      const nodeValue = new Node(oneReminder);
+      result.addNode(nodeValue);
     }
 
     return result;
@@ -359,7 +376,7 @@ function test3() {
   sll2.addNode(node9);
 
   const result = f(sll1, sll2);
-  result.show();
+  result.show(); // ret: 2 -> 2 -> 1 -> 1
 }
 function test4() {}
 function test5() {}
@@ -367,7 +384,7 @@ function test5() {}
 {
   // test1(); // done
   // test2(); // done
-  test3();
-  // test4();
+  // test3(); // done
+  test4();
   // test5();
 }
