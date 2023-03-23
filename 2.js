@@ -295,20 +295,78 @@ function f(sll1, sll2) {
      *   + l1 < l2
      */
     const result = new SinglyLinkedList();
+    const oneReminder = 1;
+    let wasReminder = false;
 
     if (l2 > l1) {
       let nl1 = sll1.head;
+      let countSLL1Node = 1;
 
       for (let nl2 = sll2.head; nl2 !== null; nl2 = nl2.next) {
-        if (nl1.next !== null) {
-          const nl1Value = nl1.value;
-          const nl2Value = nl2.value;
-          console.log(nl1Value + " " + nl2Value);
+        if (nl1 !== null) {
+          const nl1vl = nl1.value;
+          const nl2vl = nl2.value;
+          const addValue = nl1vl + nl2vl;
 
-          nl1 = nl1.next;
+          if (countSLL1Node === 1) {
+            /**
+             * case 1: done
+             * addValue < 10
+             *
+             * case 2: done
+             * addValue >= 10
+             *
+             */
+
+            if (addValue < 10) {
+              wasReminder = false;
+              const node = new Node(addValue);
+              result.addNode(node);
+              countSLL1Node++;
+              nl1 = nl1.next;
+              continue;
+            }
+
+            if (addValue >= 10) {
+              wasReminder = true;
+              const lastDigit = getNumberLastDigit(addValue);
+              const node = new Node(lastDigit);
+              result.addNode(node);
+              countSLL1Node++;
+              nl1 = nl1.next;
+              continue;
+            }
+          }
+
+          if (countSLL1Node < l1) {
+            if (wasReminder === true) {
+              const addNodeValue = addValue + oneReminder;
+              if (addNodeValue < 10) {
+                const node = new Node(addNodeValue);
+                result.addNode(node);
+                countSLL1Node++;
+                nl1 = nl1.next;
+                wasReminder = false;
+                continue;
+              }
+
+              if (addNodeValue >= 10) {
+                wasReminder = true;
+                const lastDigit = getNumberLastDigit(addNodeValue);
+                const node = new Node(lastDigit);
+                result.addNode(node);
+                countSLL1Node++;
+                nl1 = nl1.next;
+                continue;
+              }
+            }
+
+            if (wasReminder !== true) {
+            }
+          }
         }
       }
-      console.log("here");
+      console.log(countSLL1Node);
     }
 
     return result;
