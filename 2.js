@@ -43,6 +43,11 @@
  * + ret: 1 -> 2 -> 5 -> 2: 2521
  *
  *
+ * case 6.
+ * + ll1: 1 -> 3 -> 5:       531
+ * + ll2: 2 -> 4 -> 1 -> 1: 1142
+ * + ret: 3 -> 7 -> 6 -> 1: 1673
+ *
  */
 
 class Node {
@@ -362,6 +367,24 @@ function f(sll1, sll2) {
             }
 
             if (wasReminder !== true) {
+              if (addValue < 10) {
+                const node = new Node(addValue);
+                result.addNode(node);
+                countSLL1Node++;
+                nl1 = nl1.next;
+                wasReminder = false;
+                continue;
+              }
+
+              if (addValue >= 10) {
+                const lastDigit = getNumberLastDigit(addValue);
+                const node = new Node(lastDigit);
+                result.addNode(node);
+                wasReminder = true;
+                countSLL1Node++;
+                nl1 = nl1.next;
+                continue;
+              }
             }
           }
         }
@@ -371,6 +394,12 @@ function f(sll1, sll2) {
           const nl2vl = nl2.value;
           const nodeValue = nl2vl + oneReminder;
           const node = new Node(nodeValue);
+          result.addNode(node);
+        }
+
+        if (countSLL1Node > l1 && wasReminder !== true) {
+          const nl2vl = nl2.value;
+          const node = new Node(nl2vl);
           result.addNode(node);
         }
       }
@@ -527,10 +556,43 @@ function test5() {
   result.show();
 }
 
+function test6() {
+  /* case 6.
+   * + ll1: 1 -> 3 -> 5:       531
+   * + ll2: 2 -> 4 -> 1 -> 1: 1142
+   * + ret: 3 -> 7 -> 6 -> 1: 1673
+   *
+   */
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n11 = new Node(1);
+  const n13 = new Node(3);
+  const n15 = new Node(5);
+
+  const n22 = new Node(2);
+  const n24 = new Node(4);
+  const n211 = new Node(1);
+  const n212 = new Node(1);
+
+  sll1.addNode(n11);
+  sll1.addNode(n13);
+  sll1.addNode(n15);
+
+  sll2.addNode(n22);
+  sll2.addNode(n24);
+  sll2.addNode(n211);
+  sll2.addNode(n212);
+
+  const result = f(sll1, sll2);
+  result.show(); //  3 -> 7 -> 6 -> 1
+}
+
 {
   // test1(); // done
   // test2(); // done
   // test3(); // done
   // test4(); // done
-  test5();
+  // test5(); // done
+  test6();
 }
