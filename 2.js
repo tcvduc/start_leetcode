@@ -495,12 +495,42 @@ function test4() {
   const result = f(sll1, sll2);
   result.show();
 }
-function test5() {}
+function test5() {
+  /* case 5.
+   * + ll1: 5 -> 6 -> 7:      765
+   * + ll2: 6 -> 5 -> 7 -> 1: 1756
+   * + ret: 1 -> 2 -> 5 -> 2: 2521
+   *
+   */
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n51 = new Node(5);
+  const n61 = new Node(6);
+  const n71 = new Node(7);
+
+  const n62 = new Node(6);
+  const n52 = new Node(5);
+  const n72 = new Node(7);
+  const n12 = new Node(1);
+
+  sll1.addNode(n51);
+  sll1.addNode(n61);
+  sll1.addNode(n71);
+
+  sll2.addNode(n62);
+  sll2.addNode(n52);
+  sll2.addNode(n72);
+  sll2.addNode(n12);
+
+  const result = f(sll1, sll2);
+  result.show();
+}
 
 {
   // test1(); // done
   // test2(); // done
   // test3(); // done
-  test4();
-  // test5();
+  // test4(); // done
+  test5();
 }
