@@ -442,11 +442,74 @@ function f(sll1, sll2) {
           }
 
           if (addValue >= 10) {
+            wasReminder = true;
+            countNodeSLL2++;
+            nl2 = nl2.next;
+            const lastDigit = getNumberLastDigit(addValue);
+            result.addNode(lastDigit);
+            continue;
           }
         }
 
         if (countNodeSLL2 <= l2) {
+          if (wasReminder === true) {
+            const value = oneReminder + addValue;
+            if (value < 10) {
+              const node = new Node(value);
+              result.addNode(node);
+              countNodeSLL2++;
+              nl2 = nl2.next;
+              wasReminder = false;
+              continue;
+            }
+
+            if (value >= 10) {
+              const lastDigit = getNumberLastDigit(value);
+              const node = new Node(lastDigit);
+              result.addNode(node);
+              nl2 = nl2.next;
+              countNodeSLL2++;
+              wasReminder = true;
+              continue;
+            }
+          }
+
+          if (wasReminder !== true) {
+            const value = addValue;
+
+            if (value < 10) {
+              const node = new Node(value);
+              result.addNode(node);
+              wasReminder = false;
+              countNodeSLL2++;
+              nl2 = nl2.next;
+              continue;
+            }
+
+            if (value >= 10) {
+              const lastDigit = getNumberLastDigit(value);
+              const node = new Node(lastDigit);
+              result.addNode(node);
+              wasReminder = true;
+              countNodeSLL2++;
+              nl2 = nl2.next;
+              continue;
+            }
+          }
         }
+      }
+
+      if (wasReminder === true) {
+        const value = oneReminder + nl1.value;
+        const node = new Node(value);
+        result.addNode(node);
+        continue;
+      }
+
+      if (wasReminder !== true) {
+        const value = nl1.value;
+        const node = new Node(value);
+        result.addNode(node);
       }
     }
   }
