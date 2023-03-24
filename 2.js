@@ -338,7 +338,7 @@ function f(sll1, sll2) {
             }
           }
 
-          if (countSLL1Node < l1) {
+          if (countSLL1Node <= l1) {
             if (wasReminder === true) {
               const addNodeValue = addValue + oneReminder;
               if (addNodeValue < 10) {
@@ -365,8 +365,15 @@ function f(sll1, sll2) {
             }
           }
         }
+
+        if (countSLL1Node > l1 && wasReminder === true) {
+          wasReminder = false;
+          const nl2vl = nl2.value;
+          const nodeValue = nl2vl + oneReminder;
+          const node = new Node(nodeValue);
+          result.addNode(node);
+        }
       }
-      console.log(countSLL1Node);
     }
 
     return result;
