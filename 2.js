@@ -53,6 +53,12 @@
  * + ll1: 1 -> 3 -> 5:                531
  * + ll2: 2 -> 4 -> 1 -> 1 -> 1 -> 2: 211142
  * + ret: 3 -> 7 -> 6 -> 1 -> 1 -> 2: 211673
+ *
+ * case 8:
+ * + ll1: 7 -> 9 -> 5:                531
+ * + ll2: 7 -> 9 -> 5 -> 1 -> 1 -> 2: 211142
+ * + ret: 4 -> 9 -> 1 -> 2 -> 1 -> 2: 211673
+ *
  */
 
 class Node {
@@ -400,6 +406,7 @@ function f(sll1, sll2) {
           const nodeValue = nl2vl + oneReminder;
           const node = new Node(nodeValue);
           result.addNode(node);
+          continue;
         }
 
         if (countSLL1Node > l1 && wasReminder !== true) {
@@ -631,6 +638,79 @@ function test7() {
   result.show(); // 3 -> 7 -> 6 -> 1 -> 1 -> 2
 }
 
+function test8() {
+  /* + ll1: 7 -> 9 -> 5:                597
+   * + ll2: 7 -> 9 -> 5 -> 1 -> 1 -> 2: 211597
+   * + ret: 4 -> 9 -> 1 -> 2 -> 1 -> 2: 212194
+   *
+   */
+  console.log("Test 8");
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n17 = new Node(7);
+  const n19 = new Node(9);
+  const n15 = new Node(5);
+
+  const n21 = new Node(7);
+  const n22 = new Node(9);
+  const n23 = new Node(5);
+  const n24 = new Node(1);
+  const n25 = new Node(1);
+  const n26 = new Node(2);
+
+  sll1.addNode(n17);
+  sll1.addNode(n19);
+  sll1.addNode(n15);
+
+  sll2.addNode(n21);
+  sll2.addNode(n22);
+  sll2.addNode(n23);
+  sll2.addNode(n24);
+  sll2.addNode(n25);
+  sll2.addNode(n26);
+
+  const result = f(sll1, sll2);
+  result.show(); // 4 -> 9 -> 1 -> 2 -> 1 -> 2
+}
+
+function test9() {
+  /* + ll1: 7 -> 9 -> 5:                597
+   * + ll2: 7 -> 9 -> 5 -> 1 -> 2 -> 5: 211597
+   * + ret: 4 -> 9 -> 1 -> 2 -> 2 -> 5: 522194
+   *
+   */
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n17 = new Node(7);
+  const n19 = new Node(9);
+  const n15 = new Node(5);
+
+  const n21 = new Node(7);
+  const n22 = new Node(9);
+  const n23 = new Node(5);
+  const n24 = new Node(1);
+  const n25 = new Node(2);
+  const n26 = new Node(5);
+
+  sll1.addNode(n17);
+  sll1.addNode(n19);
+  sll1.addNode(n15);
+
+  sll2.addNode(n21);
+  sll2.addNode(n22);
+  sll2.addNode(n23);
+  sll2.addNode(n24);
+  sll2.addNode(n25);
+  sll2.addNode(n26);
+
+  const result = f(sll1, sll2);
+  result.show(); // 4 -> 9 -> 1 -> 2 -> 2 -> 5
+}
+
 {
   // test1(); // done
   // test2(); // done
@@ -639,4 +719,6 @@ function test7() {
   // test5(); // done
   // test6(); // done
   // test7(); // done
+  // test8();
+  test9();
 }
