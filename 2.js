@@ -48,6 +48,11 @@
  * + ll2: 2 -> 4 -> 1 -> 1: 1142
  * + ret: 3 -> 7 -> 6 -> 1: 1673
  *
+ *
+ * case 7.
+ * + ll1: 1 -> 3 -> 5:                531
+ * + ll2: 2 -> 4 -> 1 -> 1 -> 1 -> 2: 211142
+ * + ret: 3 -> 7 -> 6 -> 1 -> 1 -> 2: 211673
  */
 
 class Node {
@@ -562,6 +567,7 @@ function test6() {
    * + ll2: 2 -> 4 -> 1 -> 1: 1142
    * + ret: 3 -> 7 -> 6 -> 1: 1673
    *
+   *
    */
   const sll1 = new SinglyLinkedList();
   const sll2 = new SinglyLinkedList();
@@ -588,11 +594,49 @@ function test6() {
   result.show(); //  3 -> 7 -> 6 -> 1
 }
 
+function test7() {
+  /* case 7.
+   * + ll1: 1 -> 3 -> 5:                531
+   * + ll2: 2 -> 4 -> 1 -> 1 -> 1 -> 2: 211142
+   * + ret: 3 -> 7 -> 6 -> 1 -> 1 -> 2: 211673
+   *
+   */
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n11 = new Node(1);
+  const n13 = new Node(3);
+  const n15 = new Node(5);
+
+  const n221 = new Node(2);
+  const n24 = new Node(4);
+  const n211 = new Node(1);
+  const n212 = new Node(1);
+  const n213 = new Node(1);
+  const n222 = new Node(2);
+
+  sll1.addNode(n11);
+  sll1.addNode(n13);
+  sll1.addNode(n15);
+
+  sll2.addNode(n221);
+  sll2.addNode(n24);
+  sll2.addNode(n211);
+  sll2.addNode(n212);
+  sll2.addNode(n213);
+  sll2.addNode(n222);
+
+  const result = f(sll1, sll2);
+  result.show(); // 3 -> 7 -> 6 -> 1 -> 1 -> 2
+}
+
 {
   // test1(); // done
   // test2(); // done
   // test3(); // done
   // test4(); // done
   // test5(); // done
-  test6();
+  // test6(); // done
+  // test7(); // done
 }
