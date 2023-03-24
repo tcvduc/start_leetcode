@@ -879,6 +879,42 @@ function test11() {
   result.show(); // 4 -> 4 -> 4 -> 1 -> 2 -> 5
 }
 
+function test12() {
+  /* + ll1: 7 -> 8 -> 9 -> 1 -> 2 -> 5: 521987
+   * + ll2: 7 -> 8 -> 9               :    987
+   * + ret: 4 -> 7 -> 9 -> 2 -> 2 -> 5: 522974
+   *
+   */
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n11 = new Node(7);
+  const n12 = new Node(8);
+  const n13 = new Node(9);
+  const n14 = new Node(1);
+  const n15 = new Node(2);
+  const n16 = new Node(5);
+
+  const n21 = new Node(7);
+  const n22 = new Node(8);
+  const n23 = new Node(9);
+
+  sll1.addNode(n11);
+  sll1.addNode(n12);
+  sll1.addNode(n13);
+  sll1.addNode(n14);
+  sll1.addNode(n15);
+  sll1.addNode(n16);
+
+  sll2.addNode(n21);
+  sll2.addNode(n22);
+  sll2.addNode(n23);
+
+  const result = f(sll1, sll2);
+  result.show(); // 4 -> 7 -> 9 -> 2 -> 2 -> 5
+}
+
 {
   // test1(); // done
   // test2(); // done
@@ -890,5 +926,6 @@ function test11() {
   // test8();
   // test9();
   // test10();
-  test11();
+  // test11();
+  test12();
 }
