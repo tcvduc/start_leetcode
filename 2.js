@@ -201,6 +201,15 @@ function f(sll1, sll2) {
   sll1.show();
   sll2.show();
 
+  /**
+   * + case 1: done
+   *   + l1 = l2
+   * + case 2:
+   *   + l1 > l2
+   * + case 3: done
+   *   + l1 < l2
+   */
+
   if (l1 === l2) {
     const result = new SinglyLinkedList();
     const oneReminder = 1;
@@ -303,49 +312,65 @@ function f(sll1, sll2) {
     return result;
   }
 
-  if (l1 !== l2) {
-    /**
-     * + case 1:
-     *   + l1 > l2
-     * + case 2:
-     *   + l1 < l2
-     */
-    const result = new SinglyLinkedList();
-    const oneReminder = 1;
-    let wasReminder = false;
+  const result = new SinglyLinkedList();
+  const oneReminder = 1;
+  let wasReminder = false;
 
-    if (l2 > l1) {
-      let nl1 = sll1.head;
-      let countSLL1Node = 1;
+  if (l1 < l2) {
+    let nl1 = sll1.head;
+    let countSLL1Node = 1;
 
-      for (let nl2 = sll2.head; nl2 !== null; nl2 = nl2.next) {
-        if (nl1 !== null) {
-          const nl1vl = nl1.value;
-          const nl2vl = nl2.value;
-          const addValue = nl1vl + nl2vl;
+    for (let nl2 = sll2.head; nl2 !== null; nl2 = nl2.next) {
+      if (nl1 !== null) {
+        const nl1vl = nl1.value;
+        const nl2vl = nl2.value;
+        const addValue = nl1vl + nl2vl;
 
-          if (countSLL1Node === 1) {
-            /**
-             * case 1: done
-             * addValue < 10
-             *
-             * case 2: done
-             * addValue >= 10
-             *
-             */
+        if (countSLL1Node === 1) {
+          /**
+           * case 1: done
+           * addValue < 10
+           *
+           * case 2: done
+           * addValue >= 10
+           *
+           */
 
-            if (addValue < 10) {
-              wasReminder = false;
-              const node = new Node(addValue);
+          if (addValue < 10) {
+            wasReminder = false;
+            const node = new Node(addValue);
+            result.addNode(node);
+            countSLL1Node++;
+            nl1 = nl1.next;
+            continue;
+          }
+
+          if (addValue >= 10) {
+            wasReminder = true;
+            const lastDigit = getNumberLastDigit(addValue);
+            const node = new Node(lastDigit);
+            result.addNode(node);
+            countSLL1Node++;
+            nl1 = nl1.next;
+            continue;
+          }
+        }
+
+        if (countSLL1Node <= l1) {
+          if (wasReminder === true) {
+            const addNodeValue = addValue + oneReminder;
+            if (addNodeValue < 10) {
+              const node = new Node(addNodeValue);
               result.addNode(node);
               countSLL1Node++;
               nl1 = nl1.next;
+              wasReminder = false;
               continue;
             }
 
-            if (addValue >= 10) {
+            if (addNodeValue >= 10) {
               wasReminder = true;
-              const lastDigit = getNumberLastDigit(addValue);
+              const lastDigit = getNumberLastDigit(addNodeValue);
               const node = new Node(lastDigit);
               result.addNode(node);
               countSLL1Node++;
@@ -354,71 +379,79 @@ function f(sll1, sll2) {
             }
           }
 
-          if (countSLL1Node <= l1) {
-            if (wasReminder === true) {
-              const addNodeValue = addValue + oneReminder;
-              if (addNodeValue < 10) {
-                const node = new Node(addNodeValue);
-                result.addNode(node);
-                countSLL1Node++;
-                nl1 = nl1.next;
-                wasReminder = false;
-                continue;
-              }
-
-              if (addNodeValue >= 10) {
-                wasReminder = true;
-                const lastDigit = getNumberLastDigit(addNodeValue);
-                const node = new Node(lastDigit);
-                result.addNode(node);
-                countSLL1Node++;
-                nl1 = nl1.next;
-                continue;
-              }
+          if (wasReminder !== true) {
+            if (addValue < 10) {
+              const node = new Node(addValue);
+              result.addNode(node);
+              countSLL1Node++;
+              nl1 = nl1.next;
+              wasReminder = false;
+              continue;
             }
 
-            if (wasReminder !== true) {
-              if (addValue < 10) {
-                const node = new Node(addValue);
-                result.addNode(node);
-                countSLL1Node++;
-                nl1 = nl1.next;
-                wasReminder = false;
-                continue;
-              }
-
-              if (addValue >= 10) {
-                const lastDigit = getNumberLastDigit(addValue);
-                const node = new Node(lastDigit);
-                result.addNode(node);
-                wasReminder = true;
-                countSLL1Node++;
-                nl1 = nl1.next;
-                continue;
-              }
+            if (addValue >= 10) {
+              const lastDigit = getNumberLastDigit(addValue);
+              const node = new Node(lastDigit);
+              result.addNode(node);
+              wasReminder = true;
+              countSLL1Node++;
+              nl1 = nl1.next;
+              continue;
             }
           }
         }
+      }
 
-        if (countSLL1Node > l1 && wasReminder === true) {
-          wasReminder = false;
-          const nl2vl = nl2.value;
-          const nodeValue = nl2vl + oneReminder;
-          const node = new Node(nodeValue);
-          result.addNode(node);
-          continue;
+      if (countSLL1Node > l1 && wasReminder === true) {
+        wasReminder = false;
+        const nl2vl = nl2.value;
+        const nodeValue = nl2vl + oneReminder;
+        const node = new Node(nodeValue);
+        result.addNode(node);
+        continue;
+      }
+
+      if (countSLL1Node > l1 && wasReminder !== true) {
+        const nl2vl = nl2.value;
+        const node = new Node(nl2vl);
+        result.addNode(node);
+      }
+    }
+  }
+
+  if (l1 > l2) {
+    let nl2 = sll2.head;
+    let countNodeSLL2 = 1;
+    let wasReminder = false;
+    const oneReminder = 1;
+
+    for (let nl1 = sll1.head; nl1 !== null; nl1 = nl1.next) {
+      if (nl2 !== null) {
+        const nl1vl = nl1.value;
+        const nl2vl = nl2.value;
+        const addValue = nl1vl + nl2vl;
+
+        if (countNodeSLL2 === 1) {
+          if (addValue < 10) {
+            const node = new Node(addValue);
+            result.addNode(node);
+            nl2 = nl2.next;
+            wasReminder = false;
+            countNodeSLL2++;
+            continue;
+          }
+
+          if (addValue >= 10) {
+          }
         }
 
-        if (countSLL1Node > l1 && wasReminder !== true) {
-          const nl2vl = nl2.value;
-          const node = new Node(nl2vl);
-          result.addNode(node);
+        if (countNodeSLL2 <= l2) {
         }
       }
     }
-
-    return result;
   }
+
+  return result;
 }
 
 function test1() {
@@ -747,6 +780,42 @@ function test10() {
   result.show(); // 4 -> 4 -> 4 -> 1 -> 2 -> 5
 }
 
+function test11() {
+  /* + ll1: 3 -> 2 -> 1 -> 1 -> 2 -> 5: 521123
+   * + ll2: 1 -> 2 -> 3               :    321
+   * + ret: 4 -> 4 -> 4 -> 1 -> 2 -> 5: 521444
+   *
+   */
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n11 = new Node(3);
+  const n12 = new Node(2);
+  const n13 = new Node(1);
+  const n14 = new Node(1);
+  const n15 = new Node(2);
+  const n16 = new Node(5);
+
+  const n21 = new Node(1);
+  const n22 = new Node(2);
+  const n23 = new Node(3);
+
+  sll1.addNode(n11);
+  sll1.addNode(n12);
+  sll1.addNode(n13);
+  sll1.addNode(n14);
+  sll1.addNode(n15);
+  sll1.addNode(n16);
+
+  sll2.addNode(n21);
+  sll2.addNode(n22);
+  sll2.addNode(n23);
+
+  const result = f(sll1, sll2);
+  result.show(); // 4 -> 4 -> 4 -> 1 -> 2 -> 5
+}
+
 {
   // test1(); // done
   // test2(); // done
@@ -757,5 +826,6 @@ function test10() {
   // test7(); // done
   // test8();
   // test9();
-  test10();
+  // test10();
+  test11();
 }
