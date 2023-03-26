@@ -17,6 +17,12 @@ class ListNode {
    * @param {Number} newValue
    */
   add(newValue) {
+    if (this.value === 0) {
+      this.value = newValue;
+      this.next = null;
+      return;
+    }
+
     for (let nodeLoop = this; nodeLoop !== null; nodeLoop = nodeLoop.next) {
       if (nodeLoop.next === null) {
         nodeLoop.next = {
@@ -59,24 +65,57 @@ class ListNode {
 }
 
 /**
- *
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @returns {ListNode}
- *
- */
-function f(l1, l2) {}
-
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
+ * @param {ListNode} ln1
+ * @param {ListNode} ln2
  * @return {ListNode}
  */
-var addTwoNumbers = function (l1, l2) {
+var addTwoNumbers = function (ln1, ln2) {
+  /**
+   * + case 1:
+   *   + l1 = l2
+   * + case 2:
+   *   + l1 < l2
+   * + case 3:
+   *   + l1 > l2
+   *
+   */
+  ln1.show();
+  ln2.show();
+
+  const l1 = ln1.length();
+  const l2 = ln2.length();
+
   const result = new ListNode(undefined, undefined);
+
+  if (l1 === l2) {
+    for (
+      let nl1 = ln1, nl2 = ln2;
+      nl1 !== null && nl2 !== null;
+      nl1 = nl1.next, nl2 = nl2.next
+    ) {
+      const nl1vl = nl1.value;
+      const nl2vl = nl2.value;
+      const addValue = nl1vl + nl2vl;
+
+      if (addValue < 10) {
+      }
+
+      if (addValue >= 10) {
+      }
+    }
+  }
 
   return result;
 };
+
+function debug1() {
+  const result = new ListNode(undefined, undefined);
+  result.add(1);
+  result.add(2);
+  result.add(3);
+  result.add(4);
+  result.show();
+}
 
 function test1() {
   /**
@@ -101,9 +140,12 @@ function test1() {
   listNode2.add(value2);
   listNode2.add(value1);
 
-  listNode2.show();
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show();
 }
 
 {
-  test1();
+  debug1();
+
+  //   test1();
 }
