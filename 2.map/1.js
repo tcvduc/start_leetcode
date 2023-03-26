@@ -50,8 +50,11 @@ function f4() {
   for (let i = 0; i <= a.length - 1; ++i) {
     const x = target - a[i];
 
+    if (map.has(x)) {
+      return [map.get(x), i];
+    }
+
     map.set(a[i], i);
-    console.log(map);
   }
 }
 
@@ -71,6 +74,6 @@ function f5() {
   //   f1();
   //   f2();
   //   f3();
-  //   f4();
-  f5();
+  f4();
+  //   f5();
 }
