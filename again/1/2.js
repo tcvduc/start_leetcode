@@ -914,6 +914,82 @@ function test15() {
   result.show(); // 2 -> 4 -> 6 -> 8 -> 0 -> 0 -> 0 -> 1
 }
 
+function test16() {
+  /**
+   * + ln1: 9 -> 9 -> 9 -> 9 -> 9 -> 9 -> 9
+   * + ln2: 9 -> 9 -> 9 -> 9
+   * + ret: 8 -> 9 -> 9 -> 9 -> 0 -> 0 -> 0 -> 1
+   *
+   */
+  const value1 = 1;
+  const value2 = 2;
+  const value3 = 3;
+  const value4 = 4;
+  const value5 = 5;
+  const value6 = 6;
+  const value7 = 7;
+  const value8 = 8;
+  const value9 = 9;
+  const value0 = 0;
+
+  const listNode1 = new ListNode(undefined, undefined);
+  const listNode2 = new ListNode(undefined, undefined);
+
+  listNode1.add(value9);
+  listNode1.add(value9);
+  listNode1.add(value9);
+  listNode1.add(value9);
+  listNode1.add(value9);
+  listNode1.add(value9);
+  listNode1.add(value9);
+
+  listNode2.add(value9);
+  listNode2.add(value9);
+  listNode2.add(value9);
+  listNode2.add(value9);
+
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show(); // 8 -> 9 -> 9 -> 9 -> 0 -> 0 -> 0 -> 1
+}
+
+function test17() {
+  /**
+   * + ln1: 2 -> 2 -> 2 -> 2 -> 2 -> 2 -> 2
+   * + ln2: 2 -> 2 -> 2 -> 2
+   * + ret: 4 -> 4 -> 4 -> 4 -> 2 -> 2 -> 2
+   *
+   */
+  const value1 = 1;
+  const value2 = 2;
+  const value3 = 3;
+  const value4 = 4;
+  const value5 = 5;
+  const value6 = 6;
+  const value7 = 7;
+  const value8 = 8;
+  const value9 = 9;
+  const value0 = 0;
+
+  const listNode1 = new ListNode(undefined, undefined);
+  const listNode2 = new ListNode(undefined, undefined);
+
+  listNode1.add(value2);
+  listNode1.add(value2);
+  listNode1.add(value2);
+  listNode1.add(value2);
+  listNode1.add(value2);
+  listNode1.add(value2);
+  listNode1.add(value2);
+
+  listNode2.add(value2);
+  listNode2.add(value2);
+  listNode2.add(value2);
+  listNode2.add(value2);
+
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show(); // 4 -> 4 -> 4 -> 4 -> 2 -> 2 -> 2
+}
+
 {
   //   debug1();
   //   test1(); // done
@@ -930,5 +1006,7 @@ function test15() {
   // test12(); // done
   // test13(); // done
   // test14(); // done
-  test15();
+  // test15(); // done
+  // test16(); // done
+  test17();
 }
