@@ -42,10 +42,95 @@
  * + target: 9
  * + ret: [3,4]
  *
+ * -- --------------------------------
+ * -- Solution 1: O(n^2)
+ * -- -------------------------------
+ * ---------0 1 2 3 4
+ * + nums: [1,2,3,4,5]
+ * + target: 9
+ * + ret: [3,4]
+ *
  * + i: 0 -> 4
  *   + j: i + 1
  *     + if nums[i] + nums[j] = target
  *       return [i,j]
+ *
+ *
+ * -- --------------------------------
+ * -- Solution 2:
+ * -- -------------------------------
+ * ---------0 1 2 3 4
+ * + nums: [1,2,3,4,5]
+ * + target: 9
+ * + ret: [3,4]
+ *
+ * + l: nums.length
+ * + i: 0 -> 4
+ *   -- -----------------------------
+ * here
+ *   + x = target - nums[i]
+ *     + x = 9 - nums[0] = 9 - 1 = 8
+ *     + x = 9 - nums[1] = 9 - 2 = 7
+ *     + x = 9 - nums[2] = 9 - 3 = 6
+ *     + x = 9 - nums[3] = 9 - 4 = 5
+ *     + x = 9 - nums[4] = 9 - 5 = 4
+ *
+ *
+ *   -- -----------------------------
+ *   error
+ *   + nums[nums[i]]
+ *     + nums[nums[0]]
+ *       + nums[1]
+ *
+ *
+ *
+ *   -- -----------------------------
+ *   error
+ *
+ *   + target: 9
+ *   + nums[0]: 1
+ *   + nums[1]: 2
+ *   + nums[2]: 3
+ *   + nums[3]: 4
+ *   + nums[4]: 5
+ *   -> ret: [3,4]: nums[3] + nums[4] = target
+ *   + i: 0 -> 4
+ *   + count: 4
+ *   + nums3: [0,1,2,3,4]
+ *     + i: 0 -> 4
+ *       + nums[i]
+ *         + nums[0]: 1
+ *         + nums[1]: 2
+ *         + nums[2]: 3
+ *         + nums[3]: 4
+ *         + nums[4]: 5
+ *       + nums[nums3[i]]
+ *         + nums[0]: 1
+ *         + nums[1]: 2
+ *         + nums[2]: 3
+ *         + nums[3]: 4
+ *         + nums[4]: 5
+ *
+ *
+ *
+ *   + nums2: [5,4,3,2,1]
+ *     + nums[0]: 1
+ *     + nums[1]: 2
+ *     + nums[2]: 3
+ *     + nums[3]: 4
+ *     + nums[4]: 5
+ *
+ *
+ *
+ *   -- -----------------------------
+ *   error
+ *
+ *   + delta: l - i - 1: 4 -> 0
+ *   + nums[i] + nums[k] = target ?
+ *     + k > i
+ *
+ *
+ *
  *
  *
  */
@@ -65,6 +150,31 @@ var twoSum = function (nums, target) {
   }
 };
 
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+
+function twoSum2(nums, target) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const x = target - nums[i];
+    console.log(x);
+
+    if (map.has(x)) {
+      console.log("map has x: ", map.has(x));
+      console.log("map now: ", map);
+      return [map.get(x), i];
+    }
+
+    map.set(nums[i], i);
+    // console.log("map after set: ", map);
+  }
+
+  return [];
+}
+
 function test1() {
   /**
    * ---------0 1 2 3 4
@@ -79,6 +189,21 @@ function test1() {
   console.log(result); // [3,4]
 }
 
+function test2() {
+  /**
+   * ---------0 1 2 3 4
+   * + nums: [1,2,3,4,5]
+   * + target: 9
+   * + result: [3,4]
+   *
+   */
+  const nums = [1, 2, 3, 4, 5];
+  const target = 9;
+  const result = twoSum2(nums, target);
+  console.log(result); // [3,4]
+}
+
 {
-  test1();
+  //   test1(); // done
+  test2();
 }
