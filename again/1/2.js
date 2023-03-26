@@ -597,6 +597,44 @@ function test9() {
   result.show(); // 5 -> 5 -> 5 -> 6 -> 0 -> 6 -> 5
 }
 
+function test10() {
+  /**
+   * + ln1: 1 -> 2 -> 3 -> 8
+   * + ln2: 4 -> 3 -> 2 -> 8 -> 9 -> 9 -> 9
+   * + ret: 5 -> 5 -> 5 -> 6 -> 0 -> 0 -> 0 -> 1
+   *
+   */
+  const value1 = 1;
+  const value2 = 2;
+  const value3 = 3;
+  const value4 = 4;
+  const value5 = 5;
+  const value6 = 6;
+  const value7 = 7;
+  const value8 = 8;
+  const value9 = 9;
+  const value0 = 0;
+
+  const listNode1 = new ListNode(undefined, undefined);
+  const listNode2 = new ListNode(undefined, undefined);
+
+  listNode1.add(value1);
+  listNode1.add(value2);
+  listNode1.add(value3);
+  listNode1.add(value8);
+
+  listNode2.add(value4);
+  listNode2.add(value3);
+  listNode2.add(value2);
+  listNode2.add(value8);
+  listNode2.add(value9);
+  listNode2.add(value9);
+  listNode2.add(value9);
+
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show(); // 5 -> 5 -> 5 -> 6 -> 0 -> 0 -> 0 -> 1
+}
+
 {
   //   debug1();
   //   test1(); // done
@@ -606,6 +644,7 @@ function test9() {
   // test5(); // done
   // test6(); // done
   // test7(); // done
-  // test8();
-  test9();
+  // test8(); // done
+  // test9(); // done
+  test10();
 }
