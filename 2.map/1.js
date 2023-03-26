@@ -42,9 +42,35 @@ function f3() {
   console.log(map);
 }
 
+function f4() {
+  const a = [1, 2, 3, 4, 5];
+  const target = 9;
+  const map = new Map();
+
+  for (let i = 0; i <= a.length - 1; ++i) {
+    const x = target - a[i];
+
+    map.set(a[i], i);
+    console.log(map);
+  }
+}
+
+function f5() {
+  const a = [1, 2, 3, 4, 5];
+  const map = new Map();
+
+  for (let i = 0; i <= a.length - 1; ++i) {
+    map.set(a[i], i);
+  }
+
+  console.log(map);
+  console.log(map.has(3));
+}
+
 {
   //   f1();
   //   f2();
-
-  f3();
+  //   f3();
+  //   f4();
+  f5();
 }

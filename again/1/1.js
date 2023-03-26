@@ -158,18 +158,16 @@ var twoSum = function (nums, target) {
 
 function twoSum2(nums, target) {
   const map = new Map();
+
   for (let i = 0; i < nums.length; i++) {
     const x = target - nums[i];
     console.log(x);
 
     if (map.has(x)) {
-      console.log("map has x: ", map.has(x));
-      console.log("map now: ", map);
       return [map.get(x), i];
     }
 
     map.set(nums[i], i);
-    // console.log("map after set: ", map);
   }
 
   return [];
