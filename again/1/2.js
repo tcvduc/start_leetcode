@@ -1019,8 +1019,6 @@ function test17() {
 
   const result = addTwoNumbers(listNode1, listNode2);
   result.show(); // 4 -> 4 -> 4 -> 4 -> 2 -> 2 -> 2
-
-  console.log(result.toArray());
 }
 
 {
