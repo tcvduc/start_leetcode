@@ -204,7 +204,7 @@ function f(sll1, sll2) {
   /**
    * + case 1: done
    *   + l1 = l2
-   * + case 2:
+   * + case 2: done
    *   + l1 > l2
    * + case 3: done
    *   + l1 < l2
@@ -918,6 +918,42 @@ function test12() {
   result.show(); // 4 -> 7 -> 9 -> 2 -> 2 -> 5
 }
 
+function test13() {
+  /* + ll1: 1 -> 3 -> 4 -> 5 -> 6 -> 7: 765431
+   * + ll2: 2 -> 3 -> 4               :    432
+   * + ret: 3 -> 6 -> 8 -> 5 -> 6 -> 7: 765863
+   *
+   */
+
+  const sll1 = new SinglyLinkedList();
+  const sll2 = new SinglyLinkedList();
+
+  const n11 = new Node(1);
+  const n12 = new Node(3);
+  const n13 = new Node(4);
+  const n14 = new Node(5);
+  const n15 = new Node(6);
+  const n16 = new Node(7);
+
+  const n21 = new Node(2);
+  const n22 = new Node(3);
+  const n23 = new Node(4);
+
+  sll1.addNode(n11);
+  sll1.addNode(n12);
+  sll1.addNode(n13);
+  sll1.addNode(n14);
+  sll1.addNode(n15);
+  sll1.addNode(n16);
+
+  sll2.addNode(n21);
+  sll2.addNode(n22);
+  sll2.addNode(n23);
+
+  const result = f(sll1, sll2);
+  result.show(); // 3 -> 6 -> 8 -> 5 -> 6 -> 7
+}
+
 {
   // test1(); // done
   // test2(); // done
@@ -926,9 +962,10 @@ function test12() {
   // test5(); // done
   // test6(); // done
   // test7(); // done
-  // test8();
-  // test9();
-  // test10();
-  // test11();
-  test12();
+  // test8(); // done
+  // test9(); // done
+  // test10(); // done
+  // test11(); // done
+  // test12(); // done
+  test13(); // done
 }
