@@ -65,6 +65,14 @@ class ListNode {
 }
 
 /**
+ *
+ * @param {Number} n
+ */
+function getNumberLastDigit(n) {
+  return n % 10;
+}
+
+/**
  * @param {ListNode} ln1
  * @param {ListNode} ln2
  * @return {ListNode}
@@ -87,20 +95,67 @@ var addTwoNumbers = function (ln1, ln2) {
 
   const result = new ListNode(undefined, undefined);
 
+  let wasReminder = false;
+  const oneNumber = 1;
+
   if (l1 === l2) {
+    let countNode = 0;
+
     for (
       let nl1 = ln1, nl2 = ln2;
       nl1 !== null && nl2 !== null;
       nl1 = nl1.next, nl2 = nl2.next
     ) {
+      countNode++;
+
       const nl1vl = nl1.value;
       const nl2vl = nl2.value;
       const addValue = nl1vl + nl2vl;
 
-      if (addValue < 10) {
+      if (countNode === 1) {
+        if (addValue < 10) {
+          result.add(addValue);
+          countNode++;
+          wasReminder = false;
+          continue;
+        }
+
+        if (addValue >= 10) {
+          const newValue = getNumberLastDigit(addValue);
+          result.add(newValue);
+          wasReminder = true;
+          countNode++;
+          continue;
+        }
+        continue;
       }
 
-      if (addValue >= 10) {
+      if (countNode > 1) {
+        if (wasReminder === true) {
+          const newValue = addValue + 1;
+
+          if (newValue < 10) {
+            result.add(newValue);
+            wasReminder = false;
+            countNode++;
+            continue;
+          }
+
+          if (newValue >= 10) {
+            const lastDigit = getNumberLastDigit(newValue);
+            result.add(lastDigit);
+            wasReminder = true;
+            countNode++;
+            continue;
+          }
+        }
+
+        if (wasReminder === false) {
+          result.add(addValue);
+          wasReminder = false;
+          countNode++;
+          continue;
+        }
       }
     }
   }
@@ -145,7 +200,6 @@ function test1() {
 }
 
 {
-  debug1();
-
-  //   test1();
+  //   debug1();
+  test1();
 }
