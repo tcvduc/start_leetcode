@@ -407,33 +407,38 @@ function test4() {
 
 function test5() {
   /**
-   * + ln1: 7 -> 5 -> 6 -> 8
-   * + ln2: 7 -> 5 -> 6 -> 8 -> 1
-   * + ret: 4 -> 1 -> 3 -> 7 -> 2
+   * + ln1: 1 -> 2 -> 3 -> 9
+   * + ln2: 4 -> 3 -> 2 -> 9 -> 0
+   * + ret: 5 -> 5 -> 5 -> 8 -> 1
    *
    */
-  const value7 = 7;
+  const value1 = 1;
+  const value2 = 2;
+  const value3 = 3;
+  const value4 = 4;
   const value5 = 5;
   const value6 = 6;
+  const value7 = 7;
   const value8 = 8;
-  const value1 = 1;
+  const value9 = 9;
+  const value0 = 0;
 
   const listNode1 = new ListNode(undefined, undefined);
   const listNode2 = new ListNode(undefined, undefined);
 
-  listNode1.add(value7);
-  listNode1.add(value5);
-  listNode1.add(value6);
-  listNode1.add(value8);
+  listNode1.add(value1);
+  listNode1.add(value2);
+  listNode1.add(value3);
+  listNode1.add(value9);
 
-  listNode2.add(value7);
-  listNode2.add(value5);
-  listNode2.add(value6);
-  listNode2.add(value8);
-  listNode2.add(value1);
+  listNode2.add(value4);
+  listNode2.add(value3);
+  listNode2.add(value2);
+  listNode2.add(value9);
+  listNode2.add(value0);
 
   const result = addTwoNumbers(listNode1, listNode2);
-  result.show(); // 4 -> 1 -> 3 -> 7 -> 2
+  result.show(); // 5 -> 5 -> 5 -> 8 -> 1
 }
 
 {
@@ -441,6 +446,6 @@ function test5() {
   //   test1(); // done
   //   test2(); // done
   // test3(); // done
-  test4(); // done
-  // test5();
+  // test4(); // done
+  test5();
 }
