@@ -79,9 +79,9 @@ function getNumberLastDigit(n) {
  */
 var addTwoNumbers = function (ln1, ln2) {
   /**
-   * + case 1:
+   * + case 1: done
    *   + l1 = l2
-   * + case 2:
+   * + case 2: done
    *   + l1 < l2
    * + case 3:
    *   + l1 > l2
@@ -275,6 +275,106 @@ var addTwoNumbers = function (ln1, ln2) {
   }
 
   if (l1 > l2) {
+    let nl2 = ln2;
+    let countNode = 0;
+    let wasReminder = false;
+
+    for (let nl1 = ln1; nl1 !== null; nl1 = nl1.next) {
+      if (nl2 !== null) {
+        countNode++;
+
+        const nl1vl = nl1.value;
+        const nl2vl = nl2.value;
+        const addValue = nl1vl + nl2vl;
+
+        if (countNode === 1) {
+          if (addValue < 10) {
+            wasReminder = false;
+            countNode++;
+            nl2 = nl2.next;
+            result.add(addValue);
+            continue;
+          }
+
+          if (addValue >= 10) {
+            wasReminder = true;
+            nl2 = nl2.next;
+            countNode++;
+            const lastDigit = getNumberLastDigit(addValue);
+            result.add(lastDigit);
+            continue;
+          }
+        }
+
+        if (countNode !== 1) {
+          if (wasReminder === true) {
+            const newValue = oneNumber + addValue;
+
+            if (newValue < 10) {
+              countNode++;
+              nl2 = nl2.next;
+              wasReminder = false;
+              result.add(newValue);
+              continue;
+            }
+
+            if (newValue >= 10) {
+              wasReminder = true;
+              countNode++;
+              nl2 = nl2.next;
+              const lastDigit = getNumberLastDigit(newValue);
+              result.add(lastDigit);
+              continue;
+            }
+          }
+
+          if (wasReminder !== true) {
+            if (addValue < 10) {
+              countNode++;
+              nl2 = nl2.next;
+              wasReminder = false;
+              result.add(addValue);
+              continue;
+            }
+
+            if (addValue >= 10) {
+              wasReminder = true;
+              countNode++;
+              nl2 = nl2.next;
+              const lastDigit = getNumberLastDigit(addValue);
+              result.add(lastDigit);
+              continue;
+            }
+          }
+        }
+      }
+
+      if (wasReminder === true) {
+        const nl1vl = nl1.value;
+        const addValue = nl1vl + oneNumber;
+
+        if (addValue < 10) {
+          wasReminder = false;
+          countNode++;
+          result.add(addValue);
+          continue;
+        }
+
+        if (addValue >= 10) {
+          wasReminder = true;
+          countNode++;
+          const lastDigit = getNumberLastDigit(addValue);
+          result.add(lastDigit);
+          continue;
+        }
+      }
+
+      if (wasReminder === false) {
+        countNode++;
+        const nl1vl = nl1.value;
+        result.add(nl1vl);
+      }
+    }
   }
 
   return result;
@@ -635,6 +735,42 @@ function test10() {
   result.show(); // 5 -> 5 -> 5 -> 6 -> 0 -> 0 -> 0 -> 1
 }
 
+function test11() {
+  /**
+   * + ln1: 1 -> 2 -> 3 -> 4 -> 5
+   * + ln2: 1 -> 2 -> 3 -> 4
+   * + ret: 2 -> 4 -> 6 -> 8 -> 5
+   *
+   */
+  const value1 = 1;
+  const value2 = 2;
+  const value3 = 3;
+  const value4 = 4;
+  const value5 = 5;
+  const value6 = 6;
+  const value7 = 7;
+  const value8 = 8;
+  const value9 = 9;
+  const value0 = 0;
+
+  const listNode1 = new ListNode(undefined, undefined);
+  const listNode2 = new ListNode(undefined, undefined);
+
+  listNode1.add(value1);
+  listNode1.add(value2);
+  listNode1.add(value3);
+  listNode1.add(value4);
+  listNode1.add(value5);
+
+  listNode2.add(value1);
+  listNode2.add(value2);
+  listNode2.add(value3);
+  listNode2.add(value4);
+
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show(); // 2 -> 4 -> 6 -> 8 -> 5
+}
+
 {
   //   debug1();
   //   test1(); // done
@@ -646,5 +782,6 @@ function test10() {
   // test7(); // done
   // test8(); // done
   // test9(); // done
-  test10();
+  // test10(); // done
+  test11();
 }
