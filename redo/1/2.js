@@ -31,11 +31,7 @@ class ListNode {
   length() {
     let count = 0;
 
-    for (
-      let nodeLoop = this.value;
-      nodeLoop !== null;
-      nodeLoop = nodeLoop.next
-    ) {
+    for (let nodeLoop = this; nodeLoop !== null; nodeLoop = nodeLoop.next) {
       count++;
     }
 
@@ -44,16 +40,21 @@ class ListNode {
 
   show() {
     let show = "";
+    let count = 0;
+    let length = this.length();
 
-    for (
-      let nodeLoop = this.head;
-      nodeLoop !== null;
-      nodeLoop = nodeLoop.next
-    ) {
-      show += nodeLoop.value + " ->";
+    for (let nodeLoop = this; nodeLoop !== null; nodeLoop = nodeLoop.next) {
+      count++;
+
+      if (count === length) {
+        show += nodeLoop.value;
+        break;
+      }
+
+      show += nodeLoop.value + " -> ";
     }
 
-    return show;
+    return console.log(show);
   }
 }
 
@@ -78,17 +79,29 @@ var addTwoNumbers = function (l1, l2) {
 };
 
 function test1() {
+  /**
+   * + ln1: 1 -> 2 -> 3 -> 4
+   * + ln2: 4 -> 3 -> 2 -> 1
+   * + ret: 5 -> 5 -> 5 -> 5
+   *
+   */
   const value1 = 1;
   const value2 = 2;
   const value3 = 3;
   const value4 = 4;
 
   const listNode1 = new ListNode(value1, undefined);
+  const listNode2 = new ListNode(value4, undefined);
+
   listNode1.add(value2);
   listNode1.add(value3);
   listNode1.add(value4);
 
-  console.log(listNode1);
+  listNode2.add(value3);
+  listNode2.add(value2);
+  listNode2.add(value1);
+
+  listNode2.show();
 }
 
 {
