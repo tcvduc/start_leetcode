@@ -442,11 +442,13 @@ function f(sll1, sll2) {
           }
 
           if (addValue >= 10) {
+            const lastDigit = getNumberLastDigit(addValue);
+            const node = new Node(lastDigit);
+            result.addNode(node);
             wasReminder = true;
             countNodeSLL2++;
             nl2 = nl2.next;
-            const lastDigit = getNumberLastDigit(addValue);
-            result.addNode(lastDigit);
+
             continue;
           }
         }
@@ -503,6 +505,7 @@ function f(sll1, sll2) {
         const value = oneReminder + nl1.value;
         const node = new Node(value);
         result.addNode(node);
+        wasReminder = false;
         continue;
       }
 
