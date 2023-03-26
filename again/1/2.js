@@ -6,10 +6,41 @@
  * }
  */
 
+/**
+ *
+ * @param {Array} a
+ */
+function push(a, element) {
+  /**
+   * + a = [1,2,3,4,5]
+   * + element = 6
+   * + ret = [1,2,3,4,5,6]
+   */
+  const result = new Array(a.length + 1);
+
+  for (let i = 0; i <= result.length - 1 - 1; ++i) {
+    result[i] = a[i];
+  }
+
+  result[result.length - 1] = element;
+
+  return result;
+}
+
 class ListNode {
   constructor(value, next) {
     this.value = value === undefined ? 0 : value;
     this.next = next === undefined ? null : next;
+  }
+
+  toArray() {
+    let result = [];
+
+    for (let nl = this; nl !== null; nl = nl.next) {
+      result = push(result, nl.value);
+    }
+
+    return result;
   }
 
   /**
@@ -988,6 +1019,8 @@ function test17() {
 
   const result = addTwoNumbers(listNode1, listNode2);
   result.show(); // 4 -> 4 -> 4 -> 4 -> 2 -> 2 -> 2
+
+  console.log(result.toArray());
 }
 
 {
