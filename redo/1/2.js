@@ -132,7 +132,7 @@ var addTwoNumbers = function (ln1, ln2) {
 
       if (countNode > 1) {
         if (wasReminder === true) {
-          const newValue = addValue + 1;
+          const newValue = addValue + oneNumber;
 
           if (newValue < 10) {
             result.add(newValue);
@@ -157,6 +157,14 @@ var addTwoNumbers = function (ln1, ln2) {
           continue;
         }
       }
+    }
+    if (wasReminder === true) {
+      result.add(oneNumber);
+      return result;
+    }
+
+    if (wasReminder === false) {
+      return result;
     }
   }
 
@@ -199,7 +207,68 @@ function test1() {
   result.show();
 }
 
+function test2() {
+  /**
+   * + ln1: 6 -> 7 -> 8 -> 1
+   * + ln2: 6 -> 7 -> 8 -> 2
+   * + ret: 2 -> 5 -> 7 -> 4
+   *
+   */
+  const value1 = 6;
+  const value2 = 7;
+  const value3 = 8;
+  const value4 = 1;
+  const value5 = 2;
+
+  const listNode1 = new ListNode(undefined, undefined);
+  const listNode2 = new ListNode(undefined, undefined);
+
+  listNode1.add(value1);
+  listNode1.add(value2);
+  listNode1.add(value3);
+  listNode1.add(value4);
+
+  listNode2.add(value1);
+  listNode2.add(value2);
+  listNode2.add(value3);
+  listNode2.add(value5);
+
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show(); // 2 -> 5 -> 7 -> 4
+}
+
+function test3() {
+  /**
+   * + ln1: 6 -> 7 -> 8 -> 7
+   * + ln2: 6 -> 7 -> 8 -> 7
+   * + ret: 2 -> 5 -> 7 -> 5 -> 1
+   *
+   */
+  const value1 = 6;
+  const value2 = 7;
+  const value3 = 8;
+  const value4 = 7;
+
+  const listNode1 = new ListNode(undefined, undefined);
+  const listNode2 = new ListNode(undefined, undefined);
+
+  listNode1.add(value1);
+  listNode1.add(value2);
+  listNode1.add(value3);
+  listNode1.add(value4);
+
+  listNode2.add(value1);
+  listNode2.add(value2);
+  listNode2.add(value3);
+  listNode2.add(value4);
+
+  const result = addTwoNumbers(listNode1, listNode2);
+  result.show(); // 2 -> 5 -> 7 -> 5 -> 1
+}
+
 {
   //   debug1();
-  test1();
+  //   test1(); // done
+  //   test2(); // done
+  //   test3(); // done
 }
