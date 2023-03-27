@@ -39,9 +39,20 @@ function ListNode(val, next) {
  * @return {ListNode}
  */
 var addTwoNumbers = function (l1, l2) {
-  //   console.log(l1);
-  //   console.log(l2);
   l1.show();
+  l2.show();
+
+  const result = new ListNode(undefined, undefined);
+
+  while (l1.next !== null || l2.next !== null) {
+    const vl1 = l1.val;
+    const vl2 = l2.val;
+
+    console.log(vl1);
+
+    l1 = l1.next;
+    l2 = l2.next;
+  }
 };
 
 function test1() {
