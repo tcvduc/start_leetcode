@@ -43,6 +43,16 @@ function f3() {
 }
 
 function f4() {
+  /**
+   * -------0 1 2 3 4
+   * + a = [1,2,3,4,5]
+   * + target: 9
+   * + i: 0 -> 4
+   *   a[i] + x = target
+   *   x = target - a[i]
+   *     + x < target
+   *
+   */
   const a = [1, 2, 3, 4, 5];
   const target = 9;
   const map = new Map();
@@ -51,11 +61,14 @@ function f4() {
     const x = target - a[i];
 
     if (map.has(x)) {
+      console.log([map.get(x), i]);
       return [map.get(x), i];
     }
 
     map.set(a[i], i);
   }
+
+  return [];
 }
 
 function f5() {
