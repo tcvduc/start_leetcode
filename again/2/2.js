@@ -79,6 +79,28 @@ function wasListNode1LongerThanListNode2(listNode1, listNode2) {
 }
 
 /**
+ *
+ * @param {ListNode} listNode
+ * @param {Number} value
+ *
+ */
+function addNode(listNode, value) {
+  const node = new ListNode(value, null);
+
+  let nodeLoop = listNode;
+
+  while (nodeLoop !== null) {
+    if (nodeLoop.next === null) {
+      nodeLoop.next = node;
+      break;
+    }
+    nodeLoop = nodeLoop.next;
+  }
+
+  return listNode;
+}
+
+/**
  * @param {ListNode} l1
  * @param {ListNode} l2
  * @return {ListNode}
@@ -107,16 +129,42 @@ var addTwoNumbers = function (l1, l2) {
 
   console.log("");
 
-  while (next1 !== null) {
-    countNode1++;
+  const flag = wasListNode1LongerThanListNode2(l1, l2);
 
-    const node1Val = next1.val;
+  // List Node 1 Longer Than List Node 2
+  if (flag === true) {
+    while (next1 !== null) {
+      countNode1++;
 
-    if (next2 !== null) {
+      const node1Val = next1.val;
+
+      if (next2 !== null) {
+      }
+
+      next1 = next1.next;
+      next2 = next2.next;
     }
+  }
 
-    next1 = next1.next;
-    next2 = next2.next;
+  // List Node 1 length less than List Node 2 length
+  if (flag === false) {
+    console.log("here");
+    let next1 = l1;
+    let next2 = l2;
+
+    while (next2 !== null) {
+      if (next1 !== null) {
+        const val1 = next1.val;
+        const val2 = next2.val;
+
+        // console.log(val1);
+        console.log(val2);
+
+        next1 = next1.next;
+      }
+
+      next2 = next2.next;
+    }
   }
 };
 
@@ -189,12 +237,24 @@ function testFunction3() {
   console.log(result);
 }
 
+function testFunction4() {
+  const n4 = new ListNode(4, null);
+  const n3 = new ListNode(3, n4);
+  const listNode = new ListNode(2, n3);
+
+  const value = 5;
+  const result = addNode(listNode, value);
+  result.show();
+}
+
 function wrapTestFunctionList() {
-  testFunction1();
-  testFunction2();
-  testFunction3();
+  // testFunction1();
+  // testFunction2();
+  // testFunction3();
+  testFunction4();
 }
 
 {
   test1();
+  // wrapTestFunctionList();
 }
