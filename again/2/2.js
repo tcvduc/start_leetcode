@@ -53,7 +53,7 @@ function getListNodeLength(listNode) {
  * @param {ListNode} listNode2
  *
  */
-function wasListNode1LongerThanListNode2(listNode1, listNode2) {
+function wasListNode1LengthGreaterThanListNode2Length(listNode1, listNode2) {
   /**
    * Problem
    * Case 1
@@ -80,6 +80,30 @@ function wasListNode1LongerThanListNode2(listNode1, listNode2) {
 
 /**
  *
+ * @param {ListNode} listNode1
+ * @param {ListNode} listNode2
+ *
+ */
+function wasListNode1LengthLessThanListNode2Length(listNode1, listNode2) {
+  const length1 = getListNodeLength(listNode1);
+  const length2 = getListNodeLength(listNode2);
+  return length1 < length2;
+}
+
+/**
+ *
+ * @param {ListNode} listNode1
+ * @param {ListNode} listNode2
+ *
+ */
+function wasListNode1LengthEqualListNode2Length(listNode1, listNode2) {
+  const length1 = getListNodeLength(listNode1);
+  const length2 = getListNodeLength(listNode2);
+  return length1 === length2;
+}
+
+/**
+ *
  * @param {ListNode} listNode
  * @param {Number} value
  *
@@ -88,6 +112,11 @@ function addNode(listNode, value) {
   const node = new ListNode(value, null);
 
   let nodeLoop = listNode;
+
+  if (nodeLoop.val === 0) {
+    nodeLoop = node;
+    return nodeLoop;
+  }
 
   while (nodeLoop !== null) {
     if (nodeLoop.next === null) {
@@ -101,6 +130,14 @@ function addNode(listNode, value) {
 }
 
 /**
+ *
+ * @param {Number} n
+ */
+function getNumberLastDigit(n) {
+  return n % 10;
+}
+
+/**
  * @param {ListNode} l1
  * @param {ListNode} l2
  * @return {ListNode}
@@ -109,63 +146,132 @@ var addTwoNumbers = function (l1, l2) {
   l1.show();
   l2.show();
 
-  const length1 = getListNodeLength(l1);
-  const length2 = getListNodeLength(l2);
+  let result = new ListNode(undefined, undefined);
 
-  console.log("List Node 1 Length: ", length1);
-  console.log("List Node 2 Length: ", length2);
-
-  const result = new ListNode(undefined, undefined);
   let wasReminder = false;
-
-  let l1n1vl = l1.val;
-  let l2n1vl = l2.val;
-
   let next1 = l1;
   let next2 = l2;
 
-  let countNode1 = 0;
-  let countNode2 = 0;
-
-  console.log("");
-
-  const flag = wasListNode1LongerThanListNode2(l1, l2);
-
-  // List Node 1 Longer Than List Node 2
-  if (flag === true) {
-    while (next1 !== null) {
-      countNode1++;
-
-      const node1Val = next1.val;
-
-      if (next2 !== null) {
-      }
-
-      next1 = next1.next;
-      next2 = next2.next;
-    }
-  }
+  const flag1 = wasListNode1LengthLessThanListNode2Length(l1, l2);
+  const flag2 = wasListNode1LengthEqualListNode2Length(l1, l2);
+  const flag3 = wasListNode1LengthGreaterThanListNode2Length(l1, l2);
 
   // List Node 1 length less than List Node 2 length
-  if (flag === false) {
-    console.log("here");
+  if (flag1 === true) {
     let next1 = l1;
     let next2 = l2;
+    const oneVal = 1;
+    let countNode = 0;
 
     while (next2 !== null) {
-      if (next1 !== null) {
-        const val1 = next1.val;
-        const val2 = next2.val;
+      countNode++;
+      if (countNode === 1) {
+        if (next1 !== null) {
+          const val1 = next1.val;
+          const val2 = next2.val;
+          const addValue = val1 + val2;
 
-        // console.log(val1);
-        console.log(val2);
+          if (addValue < 10) {
+            wasReminder = false;
+            result = addNode(result, addValue);
+            next1 = next1.next;
+            next2 = next2.next;
+            continue;
+          }
 
-        next1 = next1.next;
+          if (addValue >= 10) {
+            const lastDigit = getNumberLastDigit(addValue);
+            result = addNode(result, lastDigit);
+
+            wasReminder = true;
+            next1 = next1.next;
+            next2 = next2.next;
+            continue;
+          }
+        }
       }
 
-      next2 = next2.next;
+      if (countNode !== 1) {
+        if (next1 !== null) {
+          if (wasReminder === true) {
+            const val1 = next1.val;
+            const val2 = next2.val;
+            const addVal = val1 + val2 + oneVal;
+
+            if (addVal < 10) {
+              result = addNode(result, addVal);
+
+              wasReminder = false;
+              next1 = next1.next;
+              next2 = next2.next;
+              continue;
+            }
+
+            if (addVal >= 10) {
+              const lastDigit = getNumberLastDigit(addVal);
+              result = addNode(result, lastDigit);
+
+              wasReminder = true;
+              next1 = next1.next;
+              next2 = next2.next;
+              continue;
+            }
+          }
+
+          if (wasReminder === false) {
+            const val1 = next1.val;
+            const val2 = next2.val;
+            const addVal = val1 + val2;
+
+            if (addVal < 10) {
+              result = addNode(result, addVal);
+              wasReminder = false;
+              next1 = next1.next;
+              next2 = next2.next;
+              continue;
+            }
+
+            if (addVal >= 10) {
+              const lastDigit = getNumberLastDigit(addVal);
+              result = addNode(result, lastDigit);
+
+              wasReminder = true;
+              next1 = next1.next;
+              next2 = next2.next;
+              continue;
+            }
+          }
+        }
+
+        if (next1 === null) {
+          if (wasReminder === true) {
+            const val2 = next2.val;
+            const addVal = val2 + oneVal;
+            result = addNode(result, addVal);
+            next2 = next2.next;
+            continue;
+          }
+
+          if (wasReminder === false) {
+            const val2 = next2.val;
+            result = addNode(result, val2);
+            next2 = next2.next;
+            continue;
+          }
+        }
+      }
     }
   }
+
+  // List Node 1 length equal List Node 2 length
+  if (flag2 === true) {
+  }
+
+  // List Node 1 length greater than List Node 2 length
+  if (flag3 === true) {
+  }
+
+  return result;
 };
 
 function test1() {
@@ -179,6 +285,7 @@ function test1() {
   const l2 = new ListNode(4, n5);
 
   const result = addTwoNumbers(l1, l2);
+  result.show();
 }
 
 function testFunction1() {
@@ -194,7 +301,7 @@ function testFunction1() {
   l1.show();
   l2.show();
 
-  const result = wasListNode1LongerThanListNode2(l1, l2);
+  const result = wasListNode1LengthGreaterThanListNode2Length(l1, l2);
   console.log(result);
 }
 
@@ -213,7 +320,7 @@ function testFunction2() {
   l1.show();
   l2.show();
 
-  const result = wasListNode1LongerThanListNode2(l1, l2);
+  const result = wasListNode1LengthGreaterThanListNode2Length(l1, l2);
   console.log(result);
 }
 
@@ -233,7 +340,7 @@ function testFunction3() {
   l1.show();
   l2.show();
 
-  const result = wasListNode1LongerThanListNode2(l1, l2);
+  const result = wasListNode1LengthGreaterThanListNode2Length(l1, l2);
   console.log(result);
 }
 
