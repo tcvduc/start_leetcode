@@ -149,8 +149,6 @@ var addTwoNumbers = function (l1, l2) {
   let result = new ListNode(undefined, undefined);
 
   let wasReminder = false;
-  let next1 = l1;
-  let next2 = l2;
 
   const flag1 = wasListNode1LengthLessThanListNode2Length(l1, l2);
   const flag2 = wasListNode1LengthEqualListNode2Length(l1, l2);
@@ -162,6 +160,7 @@ var addTwoNumbers = function (l1, l2) {
     let next2 = l2;
     const oneVal = 1;
     let countNode = 0;
+    const length2 = getListNodeLength(l2);
 
     while (next2 !== null) {
       countNode++;
@@ -247,9 +246,26 @@ var addTwoNumbers = function (l1, l2) {
           if (wasReminder === true) {
             const val2 = next2.val;
             const addVal = val2 + oneVal;
-            result = addNode(result, addVal);
-            next2 = next2.next;
-            continue;
+
+            if (addVal < 10) {
+              result = addNode(result, addVal);
+              next2 = next2.next;
+              wasReminder = false;
+              continue;
+            }
+
+            if (addVal >= 10) {
+              const lastDigit = getNumberLastDigit(addVal);
+              result = addNode(result, lastDigit);
+
+              if (countNode === length2) {
+                result = addNode(result, oneVal);
+              }
+
+              next2 = next2.next;
+              wasReminder = true;
+              continue;
+            }
           }
 
           if (wasReminder === false) {
@@ -283,6 +299,21 @@ function test1() {
   const n6 = new ListNode(6, n7);
   const n5 = new ListNode(5, n6);
   const l2 = new ListNode(4, n5);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test2() {
+  const n3 = new ListNode(3, null);
+  const n2 = new ListNode(7, n3);
+  const l1 = new ListNode(9, n2);
+
+  const n7 = new ListNode(9, null);
+  const n6 = new ListNode(9, n7);
+  const n5 = new ListNode(9, n6);
+  const n8 = new ListNode(9, n5);
+  const l2 = new ListNode(9, n8);
 
   const result = addTwoNumbers(l1, l2);
   result.show();
@@ -362,6 +393,7 @@ function wrapTestFunctionList() {
 }
 
 {
-  test1();
+  // test1();
+  test2();
   // wrapTestFunctionList();
 }
