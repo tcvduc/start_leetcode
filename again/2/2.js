@@ -34,6 +34,51 @@ function ListNode(val, next) {
 }
 
 /**
+ *
+ * @param {ListNode} listNode
+ */
+function getListNodeLength(listNode) {
+  let length = 0;
+
+  for (let node = listNode; node !== null; node = node.next) {
+    length++;
+  }
+
+  return length;
+}
+
+/**
+ *
+ * @param {ListNode} listNode1
+ * @param {ListNode} listNode2
+ *
+ */
+function wasListNode1LongerThanListNode2(listNode1, listNode2) {
+  /**
+   * Problem
+   * Case 1
+   * + List Node 1: 1 -> 2 -> 3
+   * + List Node 2: 1 -> 2 -> 3 -> 4
+   * + result: false
+   *
+   * Case 2
+   * + List Node 1: 1 -> 2 -> 3 -> 4
+   * + List Node 2: 1 -> 2 -> 3
+   * + result: true
+   *
+   * Case 3
+   * + List Node 1: 1 -> 2 -> 3
+   * + List Node 2: 1 -> 2 -> 3
+   * + result: false
+   *
+   */
+  const length1 = getListNodeLength(listNode1);
+  const length2 = getListNodeLength(listNode2);
+
+  return length1 > length2 ? true : false;
+}
+
+/**
  * @param {ListNode} l1
  * @param {ListNode} l2
  * @return {ListNode}
@@ -42,23 +87,36 @@ var addTwoNumbers = function (l1, l2) {
   l1.show();
   l2.show();
 
+  const length1 = getListNodeLength(l1);
+  const length2 = getListNodeLength(l2);
+
+  console.log("List Node 1 Length: ", length1);
+  console.log("List Node 2 Length: ", length2);
+
   const result = new ListNode(undefined, undefined);
   let wasReminder = false;
 
   let l1n1vl = l1.val;
   let l2n1vl = l2.val;
 
-  let next1 = l1.next;
-  let next2 = l2.next;
+  let next1 = l1;
+  let next2 = l2;
 
-  while (true) {
-    if (next1 !== null) {
-      const l1vl = next1.val;
-      console.log(l1vl);
-      next1 = next1.next;
+  let countNode1 = 0;
+  let countNode2 = 0;
+
+  console.log("");
+
+  while (next1 !== null) {
+    countNode1++;
+
+    const node1Val = next1.val;
+
+    if (next2 !== null) {
     }
 
-    break;
+    next1 = next1.next;
+    next2 = next2.next;
   }
 };
 
@@ -73,6 +131,68 @@ function test1() {
   const l2 = new ListNode(4, n5);
 
   const result = addTwoNumbers(l1, l2);
+}
+
+function testFunction1() {
+  const n3 = new ListNode(3, null);
+  const n2 = new ListNode(2, n3);
+  const l1 = new ListNode(1, n2);
+
+  const n7 = new ListNode(7, null);
+  const n6 = new ListNode(6, n7);
+  const n5 = new ListNode(5, n6);
+  const l2 = new ListNode(4, n5);
+
+  l1.show();
+  l2.show();
+
+  const result = wasListNode1LongerThanListNode2(l1, l2);
+  console.log(result);
+}
+
+function testFunction2() {
+  console.log("");
+  const n4 = new ListNode(4, null);
+  const n3 = new ListNode(3, n4);
+  const n2 = new ListNode(2, n3);
+  const l1 = new ListNode(1, n2);
+
+  const n7 = new ListNode(7, null);
+  const n6 = new ListNode(6, n7);
+  const n5 = new ListNode(5, n6);
+  const l2 = new ListNode(4, n5);
+
+  l1.show();
+  l2.show();
+
+  const result = wasListNode1LongerThanListNode2(l1, l2);
+  console.log(result);
+}
+
+function testFunction3() {
+  console.log("");
+  const n51 = new ListNode(5, null);
+  const n4 = new ListNode(4, n51);
+  const n3 = new ListNode(3, n4);
+  const n2 = new ListNode(2, n3);
+  const l1 = new ListNode(1, n2);
+
+  const n7 = new ListNode(7, null);
+  const n6 = new ListNode(6, n7);
+  const n5 = new ListNode(5, n6);
+  const l2 = new ListNode(4, n5);
+
+  l1.show();
+  l2.show();
+
+  const result = wasListNode1LongerThanListNode2(l1, l2);
+  console.log(result);
+}
+
+function wrapTestFunctionList() {
+  testFunction1();
+  testFunction2();
+  testFunction3();
 }
 
 {
