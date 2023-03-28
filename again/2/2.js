@@ -45,29 +45,20 @@ var addTwoNumbers = function (l1, l2) {
   const result = new ListNode(undefined, undefined);
   let wasReminder = false;
 
+  let l1n1vl = l1.val;
+  let l2n1vl = l2.val;
+
+  let next1 = l1.next;
+  let next2 = l2.next;
+
   while (true) {
-    if (l1 !== null) {
-      if (l2 === null) {
-        if (wasReminder === true) {
-        }
-
-        if (wasReminder === false) {
-        }
-      }
-
-      if (l2 !== null) {
-      }
-
-      const vl1 = l1.val;
-      const vl2 = l2.val;
-      l1 = l1.next;
-      l2 = l2.next;
+    if (next1 !== null) {
+      const l1vl = next1.val;
+      console.log(l1vl);
+      next1 = next1.next;
     }
 
-    if (l1 === null) {
-      console.log(l1);
-      break;
-    }
+    break;
   }
 };
 
