@@ -281,6 +281,23 @@ var addTwoNumbers = function (l1, l2) {
 
   // List Node 1 length equal List Node 2 length
   if (flag2 === true) {
+    console.log("here");
+    let next1 = l1;
+    let next2 = l2;
+    let wasReminder = false;
+    let countNode = 0;
+    const oneVal = 1;
+
+    while (next1 !== null) {
+      countNode++;
+
+      const val1 = next1.val;
+      const val2 = next2.val;
+      console.log(val2);
+
+      next1 = next1.next;
+      next2 = next2.next;
+    }
   }
 
   // List Node 1 length greater than List Node 2 length
@@ -309,11 +326,26 @@ function test2() {
   const n2 = new ListNode(7, n3);
   const l1 = new ListNode(9, n2);
 
-  const n7 = new ListNode(9, null);
+  const n7 = new ListNode(0, null);
   const n6 = new ListNode(9, n7);
   const n5 = new ListNode(9, n6);
   const n8 = new ListNode(9, n5);
   const l2 = new ListNode(9, n8);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test3() {
+  const n4 = new ListNode(1, null);
+  const n3 = new ListNode(1, n4);
+  const n2 = new ListNode(1, n3);
+  const l1 = new ListNode(1, n2);
+
+  const n7 = new ListNode(2, null);
+  const n6 = new ListNode(2, n7);
+  const n5 = new ListNode(2, n6);
+  const l2 = new ListNode(2, n5);
 
   const result = addTwoNumbers(l1, l2);
   result.show();
@@ -394,6 +426,7 @@ function wrapTestFunctionList() {
 
 {
   // test1();
-  test2();
+  // test2();
+  test3();
   // wrapTestFunctionList();
 }
