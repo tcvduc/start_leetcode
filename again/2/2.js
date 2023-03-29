@@ -338,6 +338,7 @@ var addTwoNumbers = function (l1, l2) {
 
         if (wasReminder === true) {
           const addOneVal = addVal + oneVal;
+
           if (addOneVal < 10) {
             result = addNode(result, addOneVal);
             wasReminder = false;
@@ -345,6 +346,7 @@ var addTwoNumbers = function (l1, l2) {
             next2 = next2.next;
             continue;
           }
+
           if (addOneVal >= 10) {
             const lastDigit = getNumberLastDigit(addOneVal);
             result = addNode(result, lastDigit);
@@ -372,6 +374,11 @@ var addTwoNumbers = function (l1, l2) {
           if (addVal >= 10) {
             const lastDigit = getNumberLastDigit(addVal);
             result = addNode(result, lastDigit);
+
+            if (countNode === length1) {
+              result = addNode(result, oneVal);
+            }
+
             wasReminder = true;
             next1 = next1.next;
             next2 = next2.next;
@@ -592,6 +599,24 @@ function test6() {
   const l1 = new ListNode(5, null);
 
   const l2 = new ListNode(5, null);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test7() {
+  /**
+   * + l1: [2,8,9]
+   * + l2: [5,1,9]
+   *
+   */
+  const n13 = new ListNode(9, null);
+  const n12 = new ListNode(8, n13);
+  const l1 = new ListNode(2, n12);
+
+  const n22 = new ListNode(9, null);
+  const n21 = new ListNode(1, n22);
+  const l2 = new ListNode(5, n21);
 
   const result = addTwoNumbers(l1, l2);
   result.show();
