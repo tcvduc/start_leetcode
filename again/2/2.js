@@ -281,7 +281,6 @@ var addTwoNumbers = function (l1, l2) {
 
   // List Node 1 length equal List Node 2 length
   if (flag2 === true) {
-    console.log("here");
     let next1 = l1;
     let next2 = l2;
     let wasReminder = false;
@@ -290,13 +289,73 @@ var addTwoNumbers = function (l1, l2) {
 
     while (next1 !== null) {
       countNode++;
+      if (countNode === 1) {
+        const val1 = next1.val;
+        const val2 = next2.val;
+        const addVal = val1 + val2;
 
-      const val1 = next1.val;
-      const val2 = next2.val;
-      console.log(val2);
+        if (addVal < 10) {
+          result = addNode(result, addVal);
+          wasReminder = false;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
 
-      next1 = next1.next;
-      next2 = next2.next;
+        if (addVal >= 10) {
+          const lastDigit = getNumberLastDigit(addVal);
+          result = addNode(result, lastDigit);
+
+          wasReminder = true;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
+      }
+
+      if (countNode !== 1) {
+        const val1 = next1.val;
+        const val2 = next2.val;
+        const addVal = val1 + val2;
+
+        if (wasReminder === true) {
+          const addOneVal = addVal + oneVal;
+          if (addOneVal < 10) {
+            result = addNode(result, addOneVal);
+            wasReminder = false;
+            next1 = next1.next;
+            next2 = next2.next;
+            continue;
+          }
+          if (addOneVal >= 10) {
+            const lastDigit = getNumberLastDigit(addOneVal);
+            result = addNode(result, lastDigit);
+            wasReminder = true;
+            next1 = next1.next;
+            next2 = next2.next;
+            continue;
+          }
+        }
+
+        if (wasReminder === false) {
+          if (addVal < 10) {
+            result = addNode(result, addVal);
+            wasReminder = false;
+            next1 = next1.next;
+            next2 = next2.next;
+            continue;
+          }
+
+          if (addVal >= 10) {
+            const lastDigit = getNumberLastDigit(addVal);
+            result = addNode(lastDigit);
+            wasReminder = true;
+            next1 = next1.next;
+            next2 = next2.next;
+            continue;
+          }
+        }
+      }
     }
   }
 
