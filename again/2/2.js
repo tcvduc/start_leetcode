@@ -7,14 +7,21 @@
  */
 
 function ListNode(val, next) {
-  this.val = val === undefined ? 0 : val;
+  this.val = val === undefined ? undefined : val;
   this.next = next === undefined ? null : next;
 
   this.show = function () {
     let result = "";
 
+    const length = getListNodeLength(this);
+
     const fistNode = this.val;
     let nextLoop = this.next;
+
+    if (length === 1) {
+      result += fistNode;
+      return console.log(result);
+    }
 
     result += fistNode + " -> ";
 
@@ -113,9 +120,8 @@ function addNode(listNode, value) {
 
   let nodeLoop = listNode;
 
-  if (nodeLoop.val === 0) {
-    nodeLoop = node;
-    return nodeLoop;
+  if (listNode.val === undefined) {
+    return node;
   }
 
   while (nodeLoop !== null) {
@@ -148,8 +154,6 @@ var addTwoNumbers = function (l1, l2) {
 
   let result = new ListNode(undefined, undefined);
 
-  let wasReminder = false;
-
   const flag1 = wasListNode1LengthLessThanListNode2Length(l1, l2);
   const flag2 = wasListNode1LengthEqualListNode2Length(l1, l2);
   const flag3 = wasListNode1LengthGreaterThanListNode2Length(l1, l2);
@@ -158,35 +162,43 @@ var addTwoNumbers = function (l1, l2) {
   if (flag1 === true) {
     let next1 = l1;
     let next2 = l2;
-    const oneVal = 1;
     let countNode = 0;
+    let wasReminder = false;
+    const oneVal = 1;
     const length2 = getListNodeLength(l2);
 
     while (next2 !== null) {
       countNode++;
+
       if (countNode === 1) {
         if (next1 !== null) {
           const val1 = next1.val;
           const val2 = next2.val;
-          const addValue = val1 + val2;
+          const addVal = val1 + val2;
 
-          if (addValue < 10) {
+          if (addVal < 10) {
+            result = addNode(result, addVal);
+            next1 = next1.next;
+            next2 = next2.next;
             wasReminder = false;
-            result = addNode(result, addValue);
-            next1 = next1.next;
-            next2 = next2.next;
             continue;
           }
 
-          if (addValue >= 10) {
-            const lastDigit = getNumberLastDigit(addValue);
+          if (addVal >= 10) {
+            const lastDigit = getNumberLastDigit(addVal);
             result = addNode(result, lastDigit);
-
-            wasReminder = true;
             next1 = next1.next;
             next2 = next2.next;
+            wasReminder = true;
             continue;
           }
+        }
+
+        if (next1 === null) {
+          const val2 = next2.val;
+          result = addNode(result, val2);
+          next2 = next2.next;
+          continue;
         }
       }
 
@@ -246,7 +258,6 @@ var addTwoNumbers = function (l1, l2) {
           if (wasReminder === true) {
             const val2 = next2.val;
             const addVal = val2 + oneVal;
-
             if (addVal < 10) {
               result = addNode(result, addVal);
               next2 = next2.next;
@@ -290,6 +301,7 @@ var addTwoNumbers = function (l1, l2) {
 
     while (next1 !== null) {
       countNode++;
+
       if (countNode === 1) {
         const val1 = next1.val;
         const val2 = next2.val;
@@ -305,7 +317,12 @@ var addTwoNumbers = function (l1, l2) {
 
         if (addVal >= 10) {
           const lastDigit = getNumberLastDigit(addVal);
+
           result = addNode(result, lastDigit);
+
+          if (countNode === length1) {
+            result = addNode(result, oneVal);
+          }
 
           wasReminder = true;
           next1 = next1.next;
@@ -354,7 +371,7 @@ var addTwoNumbers = function (l1, l2) {
 
           if (addVal >= 10) {
             const lastDigit = getNumberLastDigit(addVal);
-            result = addNode(lastDigit);
+            result = addNode(result, lastDigit);
             wasReminder = true;
             next1 = next1.next;
             next2 = next2.next;
@@ -549,6 +566,37 @@ function test4() {
   result.show();
 }
 
+function test5() {
+  /**
+   * + l1: [5,6]
+   * + l2: [5,4,9]
+   *
+   */
+  const n12 = new ListNode(6, null);
+  const l1 = new ListNode(5, n12);
+
+  const n22 = new ListNode(9, null);
+  const n21 = new ListNode(4, n22);
+  const l2 = new ListNode(5, n21);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test6() {
+  /**
+   * + l1: [5]
+   * + l2: [5]
+   *
+   */
+  const l1 = new ListNode(5, null);
+
+  const l2 = new ListNode(5, null);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
 function testFunction1() {
   const n3 = new ListNode(3, null);
   const n2 = new ListNode(2, n3);
@@ -626,6 +674,10 @@ function wrapTestFunctionList() {
   // test1();
   // test2();
   // test3();
-  test4();
+  // test4();
+  // test5();
+  // test6();
+  test7();
+
   // wrapTestFunctionList();
 }
