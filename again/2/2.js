@@ -367,6 +367,122 @@ var addTwoNumbers = function (l1, l2) {
 
   // List Node 1 length greater than List Node 2 length
   if (flag3 === true) {
+    let next1 = l1;
+    let next2 = l2;
+    let countNode = 0;
+    let wasReminder = false;
+    const length1 = getListNodeLength(l1);
+    const oneVal = 1;
+
+    while (next1 !== null) {
+      countNode++;
+
+      if (countNode === 1) {
+        const val1 = next1.val;
+        const val2 = next2.val;
+        const addVal = val1 + val2;
+
+        if (addVal < 10) {
+          result = addNode(result, addVal);
+          wasReminder = false;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
+
+        if (addVal >= 10) {
+          const lastDigit = getNumberLastDigit(addVal);
+          result = addNode(result, lastDigit);
+          next1 = next1.next;
+          next2 = next2.next;
+          wasReminder = true;
+          continue;
+        }
+      }
+
+      if (countNode !== 1) {
+        if (next2 !== null) {
+          if (wasReminder === true) {
+            const val1 = next1.val;
+            const val2 = next2.val;
+            const addVal = val1 + val2 + oneVal;
+
+            if (addVal < 10) {
+              result = addNode(result, addVal);
+              next1 = next1.next;
+              next2 = next2.next;
+              wasReminder = false;
+              continue;
+            }
+
+            if (addVal >= 10) {
+              const lastDigit = getNumberLastDigit(addVal);
+              result = addNode(result, lastDigit);
+              next1 = next1.next;
+              next2 = next2.next;
+              wasReminder = true;
+              continue;
+            }
+          }
+
+          if (wasReminder === false) {
+            const val1 = next1.val;
+            const val2 = next2.val;
+            const addVal = val1 + val2;
+
+            if (addVal < 10) {
+              result = addNode(result, addVal);
+              next1 = next1.next;
+              next2 = next2.next;
+              wasReminder = false;
+              continue;
+            }
+
+            if (addVal >= 10) {
+              const lastDigit = getNumberLastDigit(addVal);
+              result = addNode(result, lastDigit);
+              next1 = next1.next;
+              next2 = next2.next;
+              wasReminder = true;
+              continue;
+            }
+          }
+        }
+
+        if (next2 === null) {
+          if (wasReminder === true) {
+            const val1 = next1.val;
+            const addVal = val1 + oneVal;
+
+            if (addVal < 10) {
+              result = addNode(result, addVal);
+              wasReminder = false;
+              next1 = next1.next;
+              continue;
+            }
+
+            if (addVal >= 10) {
+              const lastDigit = getNumberLastDigit(addVal);
+              result = addNode(result, lastDigit);
+
+              if (countNode === length1) {
+                result = addNode(result, oneVal);
+              }
+
+              wasReminder = true;
+              next1 = next1.next;
+              continue;
+            }
+          }
+
+          if (wasReminder === false) {
+            const val1 = next1.val;
+            result = addNode(result, val1);
+            next1 = next1.next;
+          }
+        }
+      }
+    }
   }
 
   return result;
@@ -411,6 +527,23 @@ function test3() {
   const n6 = new ListNode(9, n7);
   const n5 = new ListNode(9, n6);
   const l2 = new ListNode(9, n5);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test4() {
+  const n16 = new ListNode(9, null);
+  const n15 = new ListNode(9, n16);
+  const n14 = new ListNode(1, n15);
+  const n13 = new ListNode(1, n14);
+  const n12 = new ListNode(7, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n23 = new ListNode(9, null);
+  const n22 = new ListNode(8, n23);
+  const n21 = new ListNode(7, n22);
+  const l2 = new ListNode(9, n21);
 
   const result = addTwoNumbers(l1, l2);
   result.show();
@@ -492,6 +625,7 @@ function wrapTestFunctionList() {
 {
   // test1();
   // test2();
-  test3();
+  // test3();
+  test4();
   // wrapTestFunctionList();
 }
