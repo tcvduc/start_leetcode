@@ -285,6 +285,7 @@ var addTwoNumbers = function (l1, l2) {
     let next2 = l2;
     let wasReminder = false;
     let countNode = 0;
+    const length1 = getListNodeLength(l1);
     const oneVal = 1;
 
     while (next1 !== null) {
@@ -330,6 +331,11 @@ var addTwoNumbers = function (l1, l2) {
           if (addOneVal >= 10) {
             const lastDigit = getNumberLastDigit(addOneVal);
             result = addNode(result, lastDigit);
+
+            if (countNode === length1) {
+              result = addNode(result, oneVal);
+            }
+
             wasReminder = true;
             next1 = next1.next;
             next2 = next2.next;
@@ -396,15 +402,15 @@ function test2() {
 }
 
 function test3() {
-  const n4 = new ListNode(1, null);
-  const n3 = new ListNode(1, n4);
-  const n2 = new ListNode(1, n3);
-  const l1 = new ListNode(1, n2);
+  const n4 = new ListNode(9, null);
+  const n3 = new ListNode(9, n4);
+  const n2 = new ListNode(9, n3);
+  const l1 = new ListNode(9, n2);
 
-  const n7 = new ListNode(2, null);
-  const n6 = new ListNode(2, n7);
-  const n5 = new ListNode(2, n6);
-  const l2 = new ListNode(2, n5);
+  const n7 = new ListNode(9, null);
+  const n6 = new ListNode(9, n7);
+  const n5 = new ListNode(9, n6);
+  const l2 = new ListNode(9, n5);
 
   const result = addTwoNumbers(l1, l2);
   result.show();
