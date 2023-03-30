@@ -296,9 +296,24 @@ function test4() {
   result.show();
 }
 
+function test5() {
+  const n13 = new ListNode(9, null);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(9, null);
+  const n23 = new ListNode(9, n24);
+  const n22 = new ListNode(9, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
 {
   // test1();
   // test2();
   // test3();
-  test4();
+  // test4();
+  test5();
 }
