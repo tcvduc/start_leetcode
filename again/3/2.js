@@ -690,6 +690,20 @@ function test16() {
   result.show();
 }
 
+function test17() {
+  const n14 = new ListNode(8, null);
+  const n13 = new ListNode(9, n14);
+  const n12 = new ListNode(7, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n23 = new ListNode(9, null);
+  const n22 = new ListNode(7, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
 {
   // test1();
   // test2();
@@ -706,5 +720,6 @@ function test16() {
   // test13();
   // test14();
   // test15();
-  test16();
+  // test16();
+  test17();
 }
