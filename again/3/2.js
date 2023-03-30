@@ -90,7 +90,7 @@ var addTwoNumbers = function (l1, l2) {
   /**
    * Case 1: l1 < l2 : done
    * Case 2: l1 = l2 : done
-   * Case 3: l1 > l2
+   * Case 3: l1 > l2 : done
    *
    */
   l1.show();
