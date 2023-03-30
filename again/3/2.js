@@ -480,6 +480,21 @@ function test10() {
   result.show();
 }
 
+function test11() {
+  const n14 = new ListNode(4, null);
+  const n13 = new ListNode(7, n14);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(5, null);
+  const n23 = new ListNode(7, n24);
+  const n22 = new ListNode(9, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
 {
   // test1();
   // test2();
@@ -490,5 +505,6 @@ function test10() {
   // test7();
   // test8();
   // test9();
-  test10();
+  // test10();
+  test11();
 }
