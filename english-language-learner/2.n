@@ -21,6 +21,11 @@ affect other things
   + Parents play a crucial role in preparing their child for school.
   + Parents play a crucial role in preparing their child for school.
   + Parents play a crucial role in preparing their child for school.
-
++ Iterative: that involves repeating a process
+or set of instructions again and again, each time
+applying it to the result of the previous stage.
+  + We used an iterative process of refinement and modification
+  + We used an iterative process of refinement and modification
+  + We used an iterative process of refinement and modification
 
 2. writes
