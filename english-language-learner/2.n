@@ -29,3 +29,12 @@ applying it to the result of the previous stage.
   + We used an iterative process of refinement and modification
 
 2. writes
++ Play skateboard in an iterative way 
++ Play skateboard in an iterative way
++ Play skateboard in an iterative way
++ In JavaScript there is exist an iterative concept
++ In JavaScript there is exist an iterative concept
++ In JavaScript there is exist an iterative concept
++ I used iterative concepts in coding.
++ I used iterative concepts in coding.
++ I used iterative concepts in coding.
