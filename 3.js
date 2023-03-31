@@ -74,7 +74,7 @@ function getArrayMaxNumber(a) {
    *     + max = a[i]
    *
    */
-  let max = Number.NEGATIVE_INFINITY;
+  let max = 1;
 
   for (let i = a.length - 1; i >= 0; --i) {
     if (a[i] > max) {
@@ -83,6 +83,30 @@ function getArrayMaxNumber(a) {
   }
 
   return max;
+}
+
+/**
+ *
+ * @param {Number} max
+ * @param {Array} arraySubString
+ * @param {String} defaultString
+ *
+ *
+ */
+function getInfoSubStringMax(max, arraySubString, defaultString) {
+  const info = [];
+
+  for (let i = 0; i <= arraySubString.length - 1; i++) {
+    if (arraySubString[i].length === max) {
+      info.push({
+        defaultString: defaultString,
+        length: max,
+        info: arraySubString[i],
+      });
+    }
+  }
+
+  return info;
 }
 
 /**
@@ -118,14 +142,20 @@ const lengthOfLongestSubstring = function (s) {
     }
   }
 
+  if (arraySubString.length === 0) {
+    arraySubString.push(s[0]);
+  }
+
   const arraySubStringLength = [];
   const delta3 = arraySubString.length - 1;
 
   for (let i = 0; i <= delta3; ++i) {
     arraySubStringLength.push(arraySubString[i].length);
   }
-
   const max = getArrayMaxNumber(arraySubStringLength);
+
+  const info = getInfoSubStringMax(max, arraySubString, s);
+  console.log(info);
 
   return max;
 };
@@ -136,6 +166,20 @@ function test1() {
   console.log(result);
 }
 
+function test2() {
+  const s = "bbbbb";
+  const result = lengthOfLongestSubstring(s);
+  console.log(result);
+}
+
+function test3() {
+  const s = "pwwkew";
+  const result = lengthOfLongestSubstring(s);
+  console.log(result);
+}
+
 {
-  test1();
+  //   test1();
+  //   test2();
+  test3();
 }
