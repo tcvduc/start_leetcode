@@ -191,6 +191,71 @@ var addTwoNumbers = function (l1, l2) {
   }
 
   if (length1 === length2) {
+    let next1 = l1;
+    let next2 = l2;
+    let wasReminder = false;
+    let countNode = 0;
+    const oneVal = 1;
+
+    while (next1 !== null) {
+      countNode++;
+
+      if (wasReminder === true) {
+        const val1 = next1.val;
+        const val2 = next2.val;
+        const addVal = val1 + val2 + oneVal;
+
+        if (addVal < 10) {
+          result = addNode(result, addVal);
+          wasReminder = false;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
+
+        if (addVal >= 10) {
+          const lastDigit = getNumberLastDigit(addVal);
+          result = addNode(result, lastDigit);
+
+          if (countNode === length1) {
+            result = addNode(result, oneVal);
+          }
+
+          wasReminder = true;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
+      }
+
+      if (wasReminder === false) {
+        const val1 = next1.val;
+        const val2 = next2.val;
+        const addVal = val1 + val2;
+
+        if (addVal < 10) {
+          result = addNode(result, addVal);
+          wasReminder = false;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
+
+        if (addVal >= 10) {
+          const lastDigit = getNumberLastDigit(addVal);
+          result = addNode(result, lastDigit);
+
+          if (countNode === length1) {
+            result = addNode(result, oneVal);
+          }
+
+          wasReminder = true;
+          next1 = next1.next;
+          next2 = next2.next;
+          continue;
+        }
+      }
+    }
   }
 
   if (length1 > length2) {
@@ -269,10 +334,105 @@ function test5() {
   result.show();
 }
 
+function test6() {
+  const n14 = new ListNode(4, null);
+  const n13 = new ListNode(3, n14);
+  const n12 = new ListNode(2, n13);
+  const l1 = new ListNode(1, n12);
+
+  const n24 = new ListNode(4, null);
+  const n23 = new ListNode(3, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(1, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test7() {
+  const n14 = new ListNode(4, null);
+  const n13 = new ListNode(3, n14);
+  const n12 = new ListNode(2, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(4, null);
+  const n23 = new ListNode(3, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test8() {
+  const n14 = new ListNode(4, null);
+  const n13 = new ListNode(3, n14);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(4, null);
+  const n23 = new ListNode(3, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test9() {
+  const n14 = new ListNode(4, null);
+  const n13 = new ListNode(3, n14);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(4, null);
+  const n23 = new ListNode(7, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test10() {
+  const n14 = new ListNode(4, null);
+  const n13 = new ListNode(3, n14);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(7, null);
+  const n23 = new ListNode(7, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test11() {
+  const n14 = new ListNode(2, null);
+  const n13 = new ListNode(3, n14);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(7, null);
+  const n23 = new ListNode(7, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
 {
   //   test1();
   //   test2();
   //   test3();
   //   test4();
-  test5();
+  //   test5();
+  //   test6();
+  //   test7();
+  //   test8();
+  //   test9();
+  //   test10();
+  test11();
 }
