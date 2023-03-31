@@ -229,7 +229,7 @@ function test2() {
 
 function test3() {
   const n13 = new ListNode(3, null);
-  const n12 = new ListNode(2, n13);
+  const n12 = new ListNode(9, n13);
   const l1 = new ListNode(9, n12);
 
   const n24 = new ListNode(4, null);
@@ -241,8 +241,38 @@ function test3() {
   result.show();
 }
 
+function test4() {
+  const n13 = new ListNode(9, null);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(4, null);
+  const n23 = new ListNode(3, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
+function test5() {
+  const n13 = new ListNode(9, null);
+  const n12 = new ListNode(9, n13);
+  const l1 = new ListNode(9, n12);
+
+  const n24 = new ListNode(9, null);
+  const n23 = new ListNode(3, n24);
+  const n22 = new ListNode(2, n23);
+  const l2 = new ListNode(9, n22);
+
+  const result = addTwoNumbers(l1, l2);
+  result.show();
+}
+
 {
   //   test1();
   //   test2();
-  test3();
+  //   test3();
+  //   test4();
+  test5();
 }
