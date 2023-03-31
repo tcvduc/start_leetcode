@@ -15,5 +15,127 @@
  * + Explanation: The answer is "b",
  * with the length of 1.
  *
+ * - Example 3
+ * + s = "pwwkew"
+ * + output: 3
+ * + Explanation: The answer is "wke", with the length of 3.
+ * Notice that the answer must be a substring, "pwke" is a
+ * subsequence and not a substring.
+ *
+ *
+ * Constraints
+ * + 0 <= s.length <= 5 x 10^4
+ * + s consists of English letter, digits, symbols and spaces.
+ *
+ *
  *
  */
+
+/**
+ *
+ * @param {string} subString
+ * @param {string} character
+ */
+function wasCharacterExist(subString, character) {
+  /**
+   * + subString = "abc"
+   * + character = b
+   * + result = true
+   *
+   * + subString = "abc"
+   * + character = d
+   * + result = false
+   */
+  let result = false;
+
+  for (let i = subString.length - 1; i >= 0; --i) {
+    if (subString[i] === character) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
+}
+
+/**
+ *
+ * @param {Array} a
+ */
+function getArrayMaxNumber(a) {
+  /**
+   * -------0 1 2 3
+   * + a = [1,2,3,4]
+   * + result = 4
+   *
+   * + max = -infinity
+   * + i: a.length - 1 -> 0
+   *   + if a[i] > max
+   *     + max = a[i]
+   *
+   */
+  let max = Number.NEGATIVE_INFINITY;
+
+  for (let i = a.length - 1; i >= 0; --i) {
+    if (a[i] > max) {
+      max = a[i];
+    }
+  }
+
+  return max;
+}
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+const lengthOfLongestSubstring = function (s) {
+  /**
+   * -------01234567
+   * + s = "abcabcbb"
+   * + result = 3
+   * + "abc" = 3
+   *
+   * + i: 0 -> length - 1 - 1
+   *   + subString = s[i]
+   *   + j: i + 1 -> length - 1
+   *
+   *     + subString += s[j]
+   */
+  const length = s.length;
+  const delta1 = length - 1 - 1;
+  const delta2 = length - 1;
+  const arraySubString = [];
+
+  for (let i = 0; i <= delta1; ++i) {
+    let subString = s[i];
+    for (let j = i + 1; j <= delta2; j++) {
+      if (wasCharacterExist(subString, s[j])) {
+        break;
+      }
+      subString += s[j];
+      arraySubString.push(subString);
+    }
+  }
+
+  const arraySubStringLength = [];
+  const delta3 = arraySubString.length - 1;
+
+  for (let i = 0; i <= delta3; ++i) {
+    arraySubStringLength.push(arraySubString[i].length);
+  }
+
+  const max = getArrayMaxNumber(arraySubStringLength);
+
+  return max;
+};
+
+function test1() {
+  const s = "abcabcbb";
+  const result = lengthOfLongestSubstring(s);
+  console.log(result);
+}
+
+{
+  test1();
+}
