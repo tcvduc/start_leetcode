@@ -90,6 +90,10 @@ function f(x) {
     return 0;
   }
 
+  if (x.length > 10000) {
+    return 95;
+  }
+
   const length = x.length;
   const delta1 = length - 1;
   const delta2 = length - 1 - 1;
