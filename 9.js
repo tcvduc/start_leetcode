@@ -17,6 +17,92 @@
  * -121, from right to left it becomes 121-.
  * Therefore it is not a palindrome.
  *
+ * - Example 3
+ * + x = 10
+ * + result = false
+ * + Explanation: Read 01 from right to left.
+ * Therefore it is not a palindrome
+ *
+ * - Constraints
+ * + -2^31 <= x <= 2^31 - 1
+ *
+ * - Follow up: Could you solve it without
+ * converting the integer to string?
  *
  *
  */
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome1 = function (x) {
+  const xString = x.toString();
+  const index = xString.length - 1;
+
+  if (index % 2 === 0) {
+    const delta = index / 2;
+    let flag = true;
+    for (let i = 0; i <= delta; i++) {
+      const j = xString.length - i - 1;
+      if (xString[i] !== xString[j]) {
+        flag = false;
+        break;
+      }
+    }
+    return flag;
+  }
+
+  if (index % 2 !== 0) {
+    let flag = true;
+    const delta = (index + 1) / 2;
+    for (let i = 0; i <= delta; i++) {
+      const j = xString.length - i - 1;
+      if (xString[i] !== xString[j]) {
+        flag = false;
+        break;
+      }
+    }
+    return flag;
+  }
+};
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function (x) {
+  /**
+   * --01234
+   *   12321
+   *
+   */
+  console.log(x);
+  const lastNum = x % 10;
+  const firstNum = (x - (x % 10000)) / 10000;
+  console.log(firstNum);
+};
+
+function test1() {
+  const x = 12345;
+  const result = isPalindrome(x);
+  console.log(result);
+}
+
+function test2() {
+  const x = -121;
+  const result = isPalindrome(x);
+  console.log(result);
+}
+
+function test3() {
+  const x = 10;
+  const result = isPalindrome(x);
+  console.log(result);
+}
+
+{
+  test1();
+  //   test2();
+  //   test3();
+}
