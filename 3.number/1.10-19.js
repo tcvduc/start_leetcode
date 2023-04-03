@@ -8,5 +8,7 @@ for (let i = 10; i <= 19; ++i) {
   const number = i;
   const numberModuloTen = number % 10;
 
-  console.log(numberModuloTen);
+  // console.log(numberModuloTen);
 }
+
+console.log(1 % 10);
