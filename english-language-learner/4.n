@@ -10,3 +10,10 @@ In a way that is not permanent
 + We regret this service is temporarily unavailable.
 
 2. writes
++ I used temporary variable yesterday.
++ I used temporary variable yesterday.
++ I used temporary variable yesterday.
+
++ I used temporary variable nested in loop yesterday.
++ I used temporary variable nested in loop yesterday.
++ I used temporary variable nested in loop yesterday.
