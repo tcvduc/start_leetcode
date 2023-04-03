@@ -99,5 +99,5 @@ function test1() {
   const result = fx(n);
   console.log(result);
 
-  test1();
+  //   test1();
 }
