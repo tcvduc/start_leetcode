@@ -81,6 +81,12 @@ var isPalindrome = function (x) {
   const lastNum = x % 10;
   const firstNum = (x - (x % 10000)) / 10000;
   console.log(firstNum);
+  console.log(lastNum);
+  console.log("");
+  const secondNum = ((x - (x % 1000)) / 1000) % 10;
+  const nearLastNum = (x % 100) / 10;
+  console.log(secondNum);
+  console.log(nearLastNum);
 };
 
 function test1() {
