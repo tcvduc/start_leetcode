@@ -50,6 +50,7 @@ function getNumberLength(x) {
    * + temporary = v3
    * + length++
    *
+   *
    */
   let temporary = x;
   let length = 0;
@@ -70,8 +71,83 @@ function getNumberLength(x) {
  * @return {boolean}
  */
 var isPalindrome = function (x) {
-  console.log(x);
+  if (x < 0) return false;
+  if (x === 0) return true;
   const length = getNumberLength(x);
+  let i = 0;
+  let temporary1 = x;
+  let temporary2 = x;
+
+  let rightValue = 0;
+  let leftValue = 0;
+
+  if (length % 2 === 0) {
+    const breakIndex = length / 2;
+    let i = 0;
+    let temporary1 = x;
+    let temporary2 = x;
+    let rightValue = 0;
+    let leftValue = 0;
+    let delta = Math.pow(10, length - 1);
+    let flag = true;
+
+    while (i < breakIndex) {
+      i++;
+
+      const v1 = temporary1 % 10;
+      const v2 = temporary1 - v1;
+      const v3 = v2 / 10;
+      temporary1 = v3;
+      rightValue = v1;
+
+      const b1 = temporary2 % delta;
+      const b2 = temporary2 - b1;
+      const b3 = b2 / delta;
+      temporary2 = b1;
+      leftValue = b3;
+      delta = delta / 10;
+
+      if (leftValue !== rightValue) {
+        flag = false;
+        break;
+      }
+    }
+
+    return flag;
+  }
+
+  if (length % 2 !== 0) {
+    const middleIndex = (length + 1) / 2;
+    let delta = Math.pow(10, length - 1);
+    let flag = true;
+
+    while (i < middleIndex) {
+      i++;
+
+      // Right Value
+      const v1 = temporary1 % 10;
+      const v2 = temporary1 - v1;
+      const v3 = v2 / 10;
+
+      rightValue = v1;
+      temporary1 = v3;
+
+      // Left Value
+      const b1 = temporary2 % delta;
+      const b2 = temporary2 - b1;
+      const b3 = b2 / delta;
+      delta = delta / 10;
+
+      temporary2 = b1;
+      leftValue = b3;
+
+      if (leftValue !== rightValue) {
+        flag = false;
+        break;
+      }
+    }
+    return flag;
+  }
 };
 
 function test1() {
@@ -92,8 +168,22 @@ function test3() {
   console.log(result);
 }
 
+function test4() {
+  const x = 12321;
+  const result = isPalindrome(x);
+  console.log(result);
+}
+
+function test5() {
+  const x = 1221;
+  const result = isPalindrome(x);
+  console.log(result);
+}
+
 {
   test1();
-  // test2();
-  // test3();
+  test2();
+  test3();
+  test4();
+  test5();
 }
