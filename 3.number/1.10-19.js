@@ -12,3 +12,4 @@ for (let i = 10; i <= 19; ++i) {
 }
 
 console.log(1 % 10);
+console.log(4321 % 1000);
