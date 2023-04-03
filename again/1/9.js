@@ -34,10 +34,45 @@
  */
 
 /**
+ *
+ * @param {Number} x
+ */
+function getNumberLength(x) {
+  /**
+   * + x = 1234
+   * + result = 4
+   *
+   *
+   * + temporary = 1234
+   * + v1 = 1234 % 10 = 4
+   * + v2 = temporary - v1 = 1234 - 4 = 1230
+   * + v3 = v2 / 10 = 1230 / 10 = 123
+   * + temporary = v3
+   * + length++
+   *
+   */
+  let temporary = x;
+  let length = 0;
+
+  while (temporary !== 0) {
+    const v1 = temporary % 10;
+    const v2 = temporary - v1;
+    const v3 = v2 / 10;
+    temporary = v3;
+    length++;
+  }
+
+  return length;
+}
+
+/**
  * @param {number} x
  * @return {boolean}
  */
-var isPalindrome = function (x) {};
+var isPalindrome = function (x) {
+  console.log(x);
+  const length = getNumberLength(x);
+};
 
 function test1() {
   const x = 12345;
@@ -59,6 +94,6 @@ function test3() {
 
 {
   test1();
-  test2();
-  test3();
+  // test2();
+  // test3();
 }
