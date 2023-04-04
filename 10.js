@@ -78,4 +78,6 @@ function test3() {
   test1();
   test2();
   test3();
+  console.log(1);
+  console.log(2);
 }
