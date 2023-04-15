@@ -162,9 +162,22 @@ var romanToInt = function (s) {
    *
    *
    * + i: 0
-   *   + 1900
+   *   + M: 1000
+   *   + C: 100
+   *   + M: 1000
+   *   + result: 1000 + 900 = 1900
    * + i: 3
-   *   +
+   *   + X: 10
+   *   + C: 100
+   *   + V: 5
+   *   + result: 90 + 5 = 95
+   *   + result: 1995
+   *
+   *
+   * 0123456
+   * MCMXCVI
+   * + 1990 + 6 = 1996
+   *
    *
    *
    *
@@ -197,6 +210,12 @@ var romanToInt = function (s) {
 
     if (si >= sip1) {
       const sip2 = map.get(s[i + 2]);
+
+      if (sip2 === undefined) {
+        result += si + sip1;
+        break;
+      }
+
       if (sip1 < sip2) {
         const delta = sip2 - sip1;
         result += si + delta;
