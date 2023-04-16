@@ -59,6 +59,9 @@ var romanToInt = function (s) {
    * C       100
    * D       500
    * M       1000
+   *
+   * --01234
+   * + length: 5
    * --01234
    * + MMLCD
    * + 1000 + 1000 + 50 + 100 + 500
@@ -85,12 +88,9 @@ var romanToInt = function (s) {
     const sip1 = romans.get(s[i + 1]);
     const sip2 = romans.get(s[i + 2]);
 
-    if (i === 2) {
-      console.log("i = ", 2);
-      console.log("si ", si);
-      console.log("sip1 ", sip1);
-      console.log("sip2 ", sip2);
-      console.log("result ", result);
+    if (i === s.length - 1) {
+      result += si;
+      break;
     }
 
     if (si < sip1) {
@@ -107,8 +107,8 @@ var romanToInt = function (s) {
       }
 
       if (sip1 >= sip2) {
-        result += si + sip1 + sip2;
-        i += 3;
+        result += si + sip1;
+        i += 2;
         continue;
       }
 
@@ -142,7 +142,7 @@ function test3() {
 }
 
 {
-  //   test1();
-  //   test2();
+  test1();
+  test2();
   test3();
 }
