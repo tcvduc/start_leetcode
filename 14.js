@@ -12,6 +12,8 @@
  * + s = ["beer","bee","veee"]
  * + result = "ee"
  *
+ * - Requirement: O(n^2)
+ *
  *
  */
 
@@ -20,65 +22,43 @@
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
-  if (strs.length === 1) {
-    if (strs[0] === "") return "";
-    if (strs[0].length === 1) return strs[0][0];
-  }
+  const prefixs = [];
 
-  let max = 0;
-  let longestPrefix = "";
-  const listPrefix = [];
+  const s0 = strs[0];
+  let preFlag = false;
+  let index = 0;
 
-  for (let i = 0; i <= strs.length - 1 - 1; ++i) {
+  for (let i = 1; i <= strs.length - 1; ++i) {
     const si = strs[i];
 
-    for (let j = i + 1; j <= strs.length - 1; ++j) {
-      const sj = strs[j];
-      let l = 0;
-      let prefix = "";
-
-      for (let k = 0; k <= si.length - 1; ++k) {
-        if (si[l] === sj[l]) {
-          l++;
-          prefix += si[k];
-        }
-      }
-
-      listPrefix.push(prefix);
+    if (si[index] !== s0[index]) {
+      preFlag = true;
+      break;
     }
   }
 
-  if (listPrefix.length === 1) return listPrefix[0];
+  if (preFlag === true) {
+    return "";
+  }
 
-  console.log(listPrefix);
+  index++;
+  let secondFlag = false;
 
-  for (let i = 0; i <= listPrefix.length - 1; ++i) {
-    if (listPrefix[i] === "") {
-      return "";
+  for (let i = 1; i <= strs.length - 1; ++i) {
+    const si = strs[i];
+
+    if (s0[index] !== si[index]) {
+      secondFlag = true;
+      break;
     }
   }
 
-  const filter = [];
-
-  for (let i = 0; i <= listPrefix.length - 1 - 1; ++i) {
-    const lpi = listPrefix[i];
-
-    for (let j = i + 1; j <= listPrefix.length - 1; j++) {
-      const lpj = listPrefix[j];
-      let l = 0;
-      let prefix = "";
-
-      for (let k = 0; k <= lpi.length - 1; ++k) {
-        if (lpi[k] === lpj[l]) {
-          prefix += lpi[k];
-          l++;
-        }
-      }
-
-      filter.push(prefix);
-    }
+  let longestPrefix = "";
+  for (let i = 0; i <= index; ++i) {
+    longestPrefix += s0[i];
   }
-  return filter[0];
+
+  return longestPrefix;
 };
 
 function test1() {
@@ -224,8 +204,8 @@ function test6() {
 {
   //   test1();
   //   test2();
-  //   test3();
+  test3();
   //   test4();
   //   test5();
-  test6();
+  //   test6();
 }
