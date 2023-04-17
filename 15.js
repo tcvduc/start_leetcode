@@ -156,11 +156,113 @@ function advanceLogArray(a) {
 }
 
 /**
+ *
+ * @param {Array} a
+ * @param {Number} pos
+ */
+function arrayMoveLeftOnePosition(a, pos) {
+  /**
+   * -------0 1 2 3 4
+   * + a = [1,2,3,4,5]
+   * + pos = 2
+   * ------------0 1 2 3
+   * + result = [1,2,4,5]
+   *
+   */
+  const result = new Array(a.length - 1);
+
+  for (let i = pos - 1; i >= 0; --i) {
+    result[i] = a[i];
+  }
+
+  for (let j = pos; j <= result.length - 1; ++j) {
+    result[j] = a[j + 1];
+  }
+
+  return result;
+}
+
+/**
+ *
+ * @param {Array} a
+ */
+function arrayRemoveDuplicateElement(a) {
+  /**
+   * -------0 1 2 3 4 5
+   * + a = [1,2,3,4,4,4]
+   *
+   * ------------0 1 2 3
+   * + result = [1,2,3,4]
+   *
+   * ------------------------
+   * -------0 1 2 3 4 5
+   * + a = [1,2,3,4,4,4]
+   * + i = 3, j = 4
+   *   + a = [1,2,3,4,4]
+   *
+   *
+   */
+  let result = a;
+
+  for (let i = 0; i <= result.length - 1 - 1; ++i) {
+    for (let j = i + 1; j <= result.length - 1; j++) {
+      if (result[i] === result[j]) {
+        const pos = i;
+        result = arrayMoveLeftOnePosition(result, pos);
+        i--;
+      }
+    }
+  }
+
+  return result.sort((a, b) => a - b);
+}
+
+/**
+ *
+ * @param {Array} a1
+ * @param {Array} a2
+ *
+ */
+function isArrayTheSame(a1, a2) {
+  if (a1.length !== a2.length) return false;
+
+  let flag = true;
+
+  for (let i = a1.length - 1; i >= 0; --i) {
+    if (a1[i] !== a2[i]) {
+      flag = false;
+      break;
+    }
+  }
+
+  return flag;
+}
+
+/**
+ *
+ * @param {Array[]} a2d
+ */
+function array2dRemoveDuplicateElement(a2d) {
+  /**
+   * + a2d:    [[1,2,3],[4,5,6],[1,2,3]]
+   * + result: [[1,2,3],[4,5,6]]
+   *
+   */
+
+  for (let i = 0; i <= a2d.length - 1; ++i) {
+    const ai = a2d[i];
+
+    for (let j = i + 1; j <= a2d.length - 1; ++j) {
+      const aj = a2d[j];
+    }
+  }
+}
+
+/**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  let ijk = [];
   advanceLogArray(nums);
 
   const result = [];
@@ -171,7 +273,6 @@ var threeSum = function (nums) {
         if (nums[i] + nums[j] + nums[k] === 0) {
           const ninjnk = [nums[i], nums[j], nums[k]];
           ninjnk.sort((a, b) => a - b);
-
           result.push(ninjnk);
         }
       }
