@@ -110,6 +110,20 @@ function getNumberLength(n) {
 
 /**
  *
+ * @param {Number} n
+ */
+function generateSpaces(n) {
+  let result = "";
+
+  for (let i = n; i >= 1; --i) {
+    result += " ";
+  }
+
+  return result;
+}
+
+/**
+ *
  * @param {Array} a
  */
 function logArrayWithIndex(a) {
@@ -125,12 +139,15 @@ function logArrayWithIndex(a) {
   let arrayBar = "a = [";
 
   for (let i = 0; i <= a.length - 1; ++i) {
+    const nLength = getNumberLength(a[i]);
+
     if (i === a.length - 1) {
       indexBar += i;
       arrayBar += a[i] + "]";
       break;
     }
-    indexBar += i + " ";
+
+    indexBar += i + generateSpaces(nLength);
     arrayBar += a[i] + ",";
   }
 
