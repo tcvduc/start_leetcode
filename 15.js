@@ -184,9 +184,37 @@ function arrayMoveLeftOnePosition(a, pos) {
 
 /**
  *
+ * @param {Array} a1d
+ * @param {Number} pos
+ *
+ */
+function array1dRemoveElementAtPos(a1d, pos) {
+  /**
+   * -------0 1 2 3 4
+   * + a = [1,2,3,4,5]
+   * + pos = 2
+   * ------------0 1 2 3
+   * + result = [1,2,4,5]
+   *
+   */
+  const result = new Array(a1d.length - 1);
+
+  for (let i = pos - 1; i >= 0; --i) {
+    result[i] = a1d[i];
+  }
+
+  for (let i = pos; i <= result.length - 1; ++i) {
+    result[i] = a1d[i + 1];
+  }
+
+  return result;
+}
+
+/**
+ *
  * @param {Array} a
  */
-function arrayRemoveDuplicateElement(a) {
+function array1DRemoveDuplicateElement(a) {
   /**
    * -------0 1 2 3 4 5
    * + a = [1,2,3,4,4,4]
@@ -249,13 +277,25 @@ function array2dRemoveDuplicateElement(a2d) {
    *
    */
 
-  for (let i = 0; i <= a2d.length - 1; ++i) {
-    const ai = a2d[i];
+  let temporary = a2d;
 
-    for (let j = i + 1; j <= a2d.length - 1; ++j) {
-      const aj = a2d[j];
+  for (let i = 0; i <= temporary.length - 1 - 1; ++i) {
+    const ai = temporary[i];
+
+    for (let j = i + 1; j <= temporary.length - 1; ++j) {
+      const aj = temporary[j];
+      const isArrayDuplicate = isArrayTheSame(ai, aj);
+
+      if (isArrayDuplicate) {
+        const pos = j;
+        temporary = array1dRemoveElementAtPos(temporary, pos);
+        i--;
+        break;
+      }
     }
   }
+
+  return temporary;
 }
 
 /**
