@@ -39,6 +39,27 @@ function array1dRemoveElementAtPos(a1d, pos) {
 
 /**
  *
+ * @param {Array} a1
+ * @param {Array} a2
+ *
+ */
+function isArrayTheSame(a1, a2) {
+  if (a1.length !== a2.length) return false;
+
+  let flag = true;
+
+  for (let i = a1.length - 1; i >= 0; --i) {
+    if (a1[i] !== a2[i]) {
+      flag = false;
+      break;
+    }
+  }
+
+  return flag;
+}
+
+/**
+ *
  * @param {Number[]} nums
  */
 function threeSum(nums) {
@@ -56,7 +77,21 @@ function threeSum(nums) {
     }
   }
 
-  console.log(result);
+  for (let i = 0; i <= result.length - 1 - 1; ++i) {
+    const ai = result[i];
+
+    for (let j = i + 1; j <= result.length - 1; ++j) {
+      const aj = result[j];
+      const flag = isArrayTheSame(ai, aj);
+
+      if (flag) {
+        const pos = j;
+        result = array1dRemoveElementAtPos(result, pos);
+      }
+    }
+  }
+
+  return result;
 }
 
 function test1() {
