@@ -303,9 +303,7 @@ function array2dRemoveDuplicateElement(a2d) {
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  advanceLogArray(nums);
-
-  const result = [];
+  let result = [];
 
   for (let i = 0; i <= nums.length - 1 - 1 - 1; ++i) {
     for (let j = i + 1; j <= nums.length - 1 - 1; ++j) {
@@ -319,7 +317,9 @@ var threeSum = function (nums) {
     }
   }
 
-  console.log(result);
+  result = array2dRemoveDuplicateElement(result);
+
+  return result;
 };
 
 function test1() {
