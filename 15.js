@@ -126,7 +126,7 @@ function generateSpaces(n) {
  *
  * @param {Array} a
  */
-function logArrayWithIndex(a) {
+function advanceLogArray(a) {
   /**
    * -------0 1 2 3 4
    * + a = [1,2,3,4,5]
@@ -155,24 +155,30 @@ function logArrayWithIndex(a) {
   console.log(arrayBar);
 }
 
-logArrayWithIndex([1, 2, 3, 4, 5, 123, 321, 12, 23, 34]);
-
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var threeSum = function (nums) {
   let ijk = [];
-  console.log(nums);
+  advanceLogArray(nums);
+
+  const result = [];
+
   for (let i = 0; i <= nums.length - 1 - 1 - 1; ++i) {
     for (let j = i + 1; j <= nums.length - 1 - 1; ++j) {
       for (let k = j + 1; k <= nums.length - 1; ++k) {
-        ijk.push([i, j, k]);
+        if (nums[i] + nums[j] + nums[k] === 0) {
+          const ninjnk = [nums[i], nums[j], nums[k]];
+          ninjnk.sort((a, b) => a - b);
+
+          result.push(ninjnk);
+        }
       }
     }
   }
 
-  //   console.log(ijk);
+  console.log(result);
 };
 
 function test1() {
