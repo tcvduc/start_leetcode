@@ -67,9 +67,48 @@ function openNestedLoopO2nToO1n() {
     }
   }
 
-  const jiOn1 = [];
+  console.log("\x1b[31m%s\x1b[0m", "ji O(n^2)");
+  console.log(jiOn2);
 
-  for (let i = 0; i <= a.length - 1 - 1; ++i) {}
+  const jiOn = [];
+  let j = 0;
+  let isIChange = false;
+  let oldI = 0;
+
+  for (let i = 0; i <= a.length - 1 - 1; ++i) {
+    if (oldI !== i) {
+      oldI = i;
+      isIChange = true;
+    }
+
+    if (isIChange) {
+      j++;
+
+      if (j > a.length - 1) {
+        continue;
+      }
+
+      jiOn.push(`(${i},${j})`);
+
+      i--;
+    }
+
+    if (!isIChange) {
+      j++;
+
+      if (j > a.length - 1) {
+        j = i + 1;
+        continue;
+      }
+
+      jiOn.push(`(${i},${j})`);
+
+      i--;
+    }
+  }
+
+  console.log("\x1b[31m%s\x1b[0m", "ji O(n)");
+  console.log(jiOn);
 }
 
 openNestedLoopO2nToO1n();
