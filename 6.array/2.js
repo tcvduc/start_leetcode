@@ -49,7 +49,58 @@ function generateArray1d(n) {
   return result;
 }
 
-function openNestedLoopO2nToO1n() {
+/**
+ *
+ * @param {Array} a
+ */
+function advanceLogArray(a) {
+  /**
+   * -------0 1 2 3 4
+   * + a = [1,2,3,4,5]
+   * + result
+   * -----0 1 2 3 4
+   * a = [1,2,3,4,5]
+   *
+   */
+  let indexBar = "-----";
+  let arrayBar = "a = [";
+
+  for (let i = 0; i <= a.length - 1; ++i) {
+    if (i === a.length - 1) {
+      indexBar += i;
+      arrayBar += a[i] + "]";
+      break;
+    }
+    indexBar += i + " ";
+    arrayBar += a[i] + ",";
+  }
+
+  console.log(indexBar);
+  console.log(arrayBar);
+}
+
+/**
+ *
+ * @param {Array} a1
+ * @param {Array} a2
+ *
+ */
+function isTwoArrayTheSame(a1, a2) {
+  if (a1.length !== a2.length) return false;
+
+  let flag = true;
+
+  for (let i = a1.length - 1; i >= 0; --i) {
+    if (a1[i] !== a2[i]) {
+      flag = false;
+      break;
+    }
+  }
+
+  return flag;
+}
+
+function openNestedLoopO2nToO1nT1() {
   /* Expected ji result
    * + (i,j)
    *   + (0,1), (0,2), (0,3)
@@ -111,4 +162,56 @@ function openNestedLoopO2nToO1n() {
   console.log(jiOn);
 }
 
-openNestedLoopO2nToO1n();
+function openNestedLoopO2nToOnT2() {
+  const a = generateArray1d(6);
+
+  advanceLogArray(a);
+  const jiOn2 = [];
+
+  for (let i = 0; i <= a.length - 1 - 1; ++i) {
+    for (let j = i + 1; j <= a.length - 1; j++) {
+      jiOn2.push(`(${i},${j})`);
+    }
+  }
+
+  console.log(jiOn2);
+  const jiOn = [];
+  let j = 0;
+  let isIChanged = false;
+
+  for (let i = 0; i <= a.length - 1 - 1; ++i) {
+    if (isIChanged) {
+      j++;
+
+      if (j > a.length - 1) {
+        isIChanged = false;
+        j = i + 1;
+        continue;
+      }
+
+      jiOn.push(`(${i},${j})`);
+
+      i--;
+    }
+
+    if (!isIChanged) {
+      j++;
+
+      if (j > a.length - 1) {
+        isIChanged = true;
+        j = i + 1;
+        continue;
+      }
+
+      jiOn.push(`(${i},${j})`);
+
+      i--;
+    }
+  }
+
+  console.log("\nO(n)");
+  console.log(jiOn);
+  console.log(isTwoArrayTheSame(jiOn, jiOn2));
+}
+
+openNestedLoopO2nToOnT2();
