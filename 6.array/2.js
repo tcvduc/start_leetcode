@@ -1,5 +1,5 @@
 /**
- * 2. Open Nested Loop
+ * 2. Open Nested Loop O(n^2) To O(n)
  *
  * + From:
  * for
