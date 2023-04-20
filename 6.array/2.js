@@ -214,4 +214,56 @@ function openNestedLoopO2nToOnT2() {
   console.log(isTwoArrayTheSame(jiOn, jiOn2));
 }
 
-openNestedLoopO2nToOnT2();
+function onboardOpenNestedLoopO2nToOnT3() {
+  const a = generateArray1d(4);
+  advanceLogArray(a);
+
+  const jiO2n = [];
+  for (let i = 0; i <= a.length - 1 - 1; ++i) {
+    for (let j = i + 1; j <= a.length - 1; j++) {
+      jiO2n.push(`(${i},${j})`);
+    }
+  }
+
+  console.log("\nO(n^2)");
+  console.log(jiO2n);
+
+  let j = 0;
+  let isIndexChanged = false;
+  const jiOn = [];
+
+  for (let i = 0; i <= a.length - 1 - 1; ++i) {
+    if (isIndexChanged) {
+      j++;
+
+      if (j > a.length - 1) {
+        j = i + 1;
+        isIndexChanged = false;
+        continue;
+      }
+
+      jiOn.push(`(${i},${j})`);
+
+      i--;
+    }
+
+    if (!isIndexChanged) {
+      j++;
+
+      if (j > a.length - 1) {
+        j = i + 1;
+        isIndexChanged = true;
+        continue;
+      }
+
+      jiOn.push(`(${i},${j})`);
+
+      i--;
+    }
+  }
+
+  console.log("\nO(n)");
+  console.log(jiOn);
+}
+
+onboardOpenNestedLoopO2nToOnT3();
