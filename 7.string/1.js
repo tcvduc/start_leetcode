@@ -133,5 +133,12 @@ function test8() {
   const result = isTwoArrayStringTheSame(as1, as2);
   console.log(result);
 }
+
+function test9() {
+  // * + as1: ["abc","def",.... 10000 elements,"jik"]
+  // * + as2: ["abc","def",.... 10000 elements,"jik"]
+  const result = isTwoArrayStringTheSame(as1, as2);
+  console.log(result);
+}
 {
 }
