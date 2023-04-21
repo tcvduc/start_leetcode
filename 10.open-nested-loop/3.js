@@ -68,6 +68,31 @@ function onboardOpenO3nToOn() {
 
   console.log("\nO(n^3)");
   console.log(jikOn3);
+
+  console.log("\nO(n)");
+
+  let j = 0;
+  let k = 1;
+  const jikOn = [];
+
+  for (let i = 0; i <= a.length - 1 - 1 - 1; i++) {
+    j++;
+
+    k++;
+
+    if (k > a.length - 1) {
+      continue;
+    }
+
+    if (k <= a.length - 1) {
+      jikOn.push(`(${i},${j},${k})`);
+
+      i--;
+      j--;
+    }
+  }
+
+  console.log(jikOn);
 }
 
 {
