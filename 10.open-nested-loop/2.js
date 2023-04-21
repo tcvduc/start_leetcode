@@ -87,9 +87,83 @@ function advanceLogArray(a) {
   console.log(arrayBar);
 }
 
+/**
+ *
+ * @param {String} s1
+ * @param {String} s2
+ *
+ */
+function isTwoStringTheSame(s1, s2) {
+  if (s1.length !== s2.length) return false;
+
+  for (let i = s1.length - 1; i >= 0; i--) {
+    if (s1[i] !== s2[i]) return false;
+  }
+
+  return true;
+}
+
+/**
+ *
+ * @param {String[]} as1
+ * @param {String[]} as2
+ *
+ */
+function isTwoArrayStringTheSame(as1, as2) {
+  if (as1.length !== as2.length) return false;
+
+  for (let i = as1.length - 1; i >= 0; --i) {
+    const flag2 = isTwoStringTheSame(as1[i], as2[i]);
+
+    if (!flag2) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function openNestedLoopOn3ToOn2() {
-  const a = generateArray(4);
+  const a = generateArray(8);
   advanceLogArray(a);
+
+  const jikOn3 = [];
+
+  for (let i = 0; i <= a.length - 1 - 1 - 1; ++i) {
+    for (let j = i + 1; j <= a.length - 1 - 1; j++) {
+      for (let k = j + 1; k <= a.length - 1; k++) {
+        jikOn3.push(`(${i},${j},${k})`);
+      }
+    }
+  }
+
+  console.log("\nO(n^3)");
+  console.log(jikOn3);
+
+  console.log("\nO(n^2)");
+  const jikOn2 = [];
+  for (let i = 0; i <= a.length - 1 - 1 - 1; i++) {
+    let k = i + 1;
+
+    for (let j = i + 1; j <= a.length - 1 - 1; j++) {
+      k++;
+
+      if (k > a.length - 1) {
+        k = j + 1;
+        continue;
+      }
+
+      jikOn2.push(`(${i},${j},${k})`);
+
+      j--;
+    }
+  }
+
+  console.log(jikOn2);
+  console.log(
+    "Is two array the same: ",
+    isTwoArrayStringTheSame(jikOn2, jikOn3)
+  );
 }
 
 {
