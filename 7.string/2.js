@@ -62,8 +62,7 @@ function generateRandomString(n) {
 
   let result = "";
 
-  const characters =
-    "abcdefghijklmnopqrstuvwxyz0123456789~!@#$%^&*()_+[]{}\\|;':,./<>?";
+  const characters = "abcdefghijklmnopqrstuvwxyz";
 
   const min = 0;
   const max = characters.length - 1;

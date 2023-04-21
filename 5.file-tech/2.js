@@ -53,8 +53,7 @@ function generateRandomString(n) {
 
   let result = "";
 
-  const characters =
-    "abcdefghijklmnopqrstuvwxyz0123456789~!@#$%^&*()_+[]{}\\|;':,./<>?";
+  const characters = "abcdefghijklmnopqrstuvwxyz";
 
   const min = 0;
   const max = characters.length - 1;
@@ -78,12 +77,35 @@ function generateArrayOf10000Elements() {
   return result;
 }
 
+/**
+ *
+ * @param {String[]} a
+ */
+function convertArrayOfStringToStringArray(a) {
+  if (a.length === 0) return "";
+
+  let result = `[`;
+
+  for (let i = 0; i <= a.length - 1; ++i) {
+    if (i === a.length - 1) {
+      result += '"' + a[i] + '"';
+      break;
+    }
+    result += '"' + a[i] + '"' + ",";
+  }
+
+  result += "]";
+
+  return result;
+}
+
 function writeArrayOf10000Elements() {
   const fs = require("fs");
   const path = __dirname + "/2.txt";
   const data = generateArrayOf10000Elements();
-  console.log(data);
-  // fs.writeFileSync(path, data.toString(), {});
+  const textToWriteFile = convertArrayOfStringToStringArray(data);
+  fs.writeFileSync(path, textToWriteFile, {});
+  console.log("Write file success!");
 }
 
 {
