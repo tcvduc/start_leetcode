@@ -82,6 +82,8 @@ function isTwoStringTheSame(s1, s2) {
   for (let i = s1.length - 1; i >= 0; --i) {
     if (s1[i] !== s2[i]) return false;
   }
+
+  return true;
 }
 
 /**
@@ -93,10 +95,21 @@ function isTwoStringTheSame(s1, s2) {
 function isTwoArrayStringTheSame(as1, as2) {
   if (as1.length !== as2.length) return false;
 
+  let flag1 = true;
+
   for (let i = as1.length - 1; i >= 0; --i) {
     const sas1i = as1[i];
     const sas2i = as2[i];
+
+    const flag2 = isTwoStringTheSame(sas1i, sas2i);
+
+    if (!flag2) {
+      flag1 = false;
+      break;
+    }
   }
+
+  return flag1;
 }
 
 function test1() {
@@ -156,6 +169,9 @@ function test8() {
 }
 
 function test9() {
+  const startDate = new Date();
+  const startSecond = startDate.getMilliseconds();
+  console.log("\nTest case 20,000 elements");
   const as1 = [
     "",
     "lkxolc",
@@ -20162,6 +20178,9 @@ function test9() {
   ];
   const result = isTwoArrayStringTheSame(as1, as2);
   console.log(result);
+  const endDate = new Date();
+  const endSecond = endDate.getMilliseconds();
+  console.log("Total run time: ", endSecond - startSecond, " ms");
 }
 
 function test10() {
@@ -50183,5 +50202,13 @@ function test11() {
 }
 
 {
-  test1();
+  // test1();
+  // test2();
+  // test3();
+  // test4();
+  // test5();
+  // test6();
+  // test7();
+  // test8();
+  test9();
 }
