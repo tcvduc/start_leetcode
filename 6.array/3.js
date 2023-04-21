@@ -57,8 +57,62 @@ function advanceLogArray(a) {
   console.log(arrayBar);
 }
 
+/**
+ *
+ * @param {String[]} as1
+ * @param {String[]} as2
+ *
+ */
+function isTwoArrayStringTheSame(as1, as2) {
+  /**
+   * Problem: Given two array of string, find out
+   * if both of it are equal.
+   *
+   * - Example 1
+   * + as1: ["abc","def"]
+   * + as2: ["abc","def"]
+   * + result: true
+   *
+   * - Example 2
+   * + as1: ["abc"]
+   * + as2: ["abc","def"]
+   * + result: false
+   *
+   * - Example 3
+   * + as1: []
+   * + as2: []
+   * + result: true
+   *
+   * - Example 4
+   * + as1: []
+   * + as2: ["abc","def"]
+   * + result: false
+   *
+   * - Example 5
+   * + as1: ["abc","def"]
+   * + as2: []
+   * + result: false
+   *
+   * - Example 6
+   * + as1: ["abc","defg","hjkl","qwerty"]
+   * + as2: ["abc","defg","hjkl","qwerty"]
+   * + result: true
+   *
+   * - Example 7
+   * + as1: ["abc","defg","hjkl","qwerty"]
+   * + as2: ["abc","defg","hjkl","qwerty2"]
+   * + result: false
+   *
+   * - Example 8
+   * + as1: ["123456",".,.,.,.,","[][][][]","qwerty"]
+   * + as2: ["123456",".,.,.,.,","[][][][]","qwerty"]
+   * + result: true
+   *
+   */
+}
+
 function onboardOpenNestedLoopOn3ToOn2Try1() {
-  const a = generateArray1d(4);
+  const a = generateArray1d(6);
   advanceLogArray(a);
 
   const jikOn3 = [];
@@ -76,9 +130,25 @@ function onboardOpenNestedLoopOn3ToOn2Try1() {
 
   console.log("\nO(n^2)");
   const jikOn2 = [];
+
   for (let i = 0; i <= a.length - 1 - 1 - 1; i++) {
-    for (let j = i + 1; j <= a.length - 1 - 1; j++) {}
+    let k = i + 1;
+
+    for (let j = i + 1; j <= a.length - 1 - 1; j++) {
+      k++;
+
+      if (k > a.length - 1) {
+        k = j + 1;
+        continue;
+      }
+
+      jikOn2.push(`(${i},${j},${k})`);
+
+      j--;
+    }
   }
+
+  console.log(jikOn2);
 }
 
 onboardOpenNestedLoopOn3ToOn2Try1();
