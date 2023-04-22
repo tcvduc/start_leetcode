@@ -108,6 +108,7 @@ function onboardOpenO3nToOn() {
   let j = 0;
   let k = 1;
   let isKMeetLimit = false;
+  let isKUpdate = false;
   const jikOn = [];
 
   for (let i = 0; i <= a.length - 1 - 1 - 1; i++) {
@@ -115,6 +116,7 @@ function onboardOpenO3nToOn() {
       j++;
       k = j + 1;
       isKMeetLimit = false;
+      isKUpdate = true;
 
       jikOn.push(`(${i},${j},${k})`);
 
@@ -130,6 +132,11 @@ function onboardOpenO3nToOn() {
     }
 
     if (j < a.length - 1 - 1) {
+      if (isKUpdate) {
+        j--;
+        isKUpdate = false;
+      }
+
       j++;
       k++;
 
