@@ -15,6 +15,33 @@
 
 /**
  *
+ * @param {Number} min
+ * @param {Number} max
+ *
+ */
+function generateRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ *
+ * @param {Number} n
+ */
+function generateArray(n) {
+  const result = [];
+  const min = 0;
+  const max = 9;
+
+  for (let i = n; i >= 1; --i) {
+    const rand = generateRandomNumber(min, max);
+    result.push(rand);
+  }
+
+  return result;
+}
+
+/**
+ *
  * @param {Number} n
  */
 function generateSpace(n) {
@@ -75,8 +102,8 @@ function logHorizontallyTwoArrays(a1, a2) {
 }
 
 function test1() {
-  const a1 = [1, 2, 3, 4, 5];
-  const a2 = [6, 7, 8];
+  const a1 = generateArray(9);
+  const a2 = generateArray(9);
 
   logHorizontallyTwoArrays(a1, a2);
 }
