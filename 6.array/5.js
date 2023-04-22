@@ -1,5 +1,5 @@
 /**
- * 5. Given two array of elements, log
+ * 5. Given two array of single digit elements, log
  * horizontally two array on console screen.
  *
  * - Example 1
