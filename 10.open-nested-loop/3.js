@@ -160,5 +160,5 @@ function onboardOpenO3nToOn() {
 }
 
 {
-  onboardOpenO3nToOn();
+  onboardOpenO3nToOn(); // error - working
 }

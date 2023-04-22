@@ -35,31 +35,45 @@
 
 /**
  *
- * @param {Number} x
+ * @param {Number} n
  */
-function getNumberLength(x) {
+function getNumberLength(n) {
   /**
-   * + x = 1234
-   * + result = 4
+   * + n = 12345
+   * + result = 5
    *
-   *
-   * + temporary = 1234
-   * + v1 = 1234 % 10 = 4
-   * + v2 = temporary - v1 = 1234 - 4 = 1230
-   * + v3 = v2 / 10 = 1230 / 10 = 123
-   * + temporary = v3
-   * + length++
-   *
+   * + i = 1
+   *   + 12345 % 10 = 5
+   *   + 12345 - 5  = 12340
+   *   + 12340 / 10 = 1234
+   * + i = 2
+   *   + 1234 % 10 = 4
+   *   + 1234 - 4  = 1230
+   *   + 1230 / 10 = 123
+   * + i = 3
+   *   + 123 % 10 = 3
+   *   + 123 - 3  = 120
+   *   + 120 / 10 = 12
+   * + i = 4
+   *   + 12 % 10 = 2
+   *   + 12 - 2  = 10
+   *   + 10 / 10 = 1
+   * + i = 5
+   *   + 1 % 10 = 1
+   *   + 1 - 1  = 0
+   *   + 0 / 10 = 0
    *
    */
-  let temporary = x;
+
   let length = 0;
+  let temporary = n;
 
   while (temporary !== 0) {
     const v1 = temporary % 10;
     const v2 = temporary - v1;
     const v3 = v2 / 10;
     temporary = v3;
+
     length++;
   }
 
@@ -67,86 +81,77 @@ function getNumberLength(x) {
 }
 
 /**
- * @param {number} x
+ *
+ * @param {Number} n
+ */
+function getTenExponent(n) {
+  /**
+   * + n = 4
+   * + result = 10000
+   *
+   * + i = 1
+   *   + result = 100
+   * + i = 2
+   *   + result = 1000
+   * + i = 3
+   *   + result = 10000
+   * + i = 3
+   *
+   *
+   */
+  let result = 1;
+  for (let i = n; i >= 1; --i) {
+    result = result * 10;
+  }
+  return result;
+}
+
+/**
+ * @param {number} n
  * @return {boolean}
  */
-var isPalindrome = function (x) {
-  if (x < 0) return false;
-  if (x === 0) return true;
-  const length = getNumberLength(x);
-  let i = 0;
-  let temporary1 = x;
-  let temporary2 = x;
+var isPalindrome = function (n) {
+  /**
+   * ------123
+   * + n = 12321
+   * + length = 5
+   *
+   *
+   */
+  if (n < 0) return false;
 
-  let rightValue = 0;
-  let leftValue = 0;
+  const length = getNumberLength(n);
+  const isLengthOdd = length % 2 !== 0;
+  const delta = getTenExponent(length - 1);
 
-  if (length % 2 === 0) {
-    const breakIndex = length / 2;
-    let i = 0;
-    let temporary1 = x;
-    let temporary2 = x;
-    let rightValue = 0;
-    let leftValue = 0;
-    let delta = Math.pow(10, length - 1);
-    let flag = true;
+  console.log(`Information\nNumber: ${n}\nLength: ${length}`);
 
-    while (i < breakIndex) {
-      i++;
+  if (!isLengthOdd) {
+    let temporaryNumberBackwardly = n;
+    let temporaryNumberForwardly = n;
 
-      const v1 = temporary1 % 10;
-      const v2 = temporary1 - v1;
+    const breakLoop = (length + 1) / 2;
+
+    for (let i = breakLoop; i >= 1; i--) {
+      const v1 = temporaryNumberBackwardly % 10;
+      const v2 = temporaryNumberBackwardly - v1;
       const v3 = v2 / 10;
-      temporary1 = v3;
-      rightValue = v1;
+      temporaryNumberBackwardly = v3;
 
-      const b1 = temporary2 % delta;
-      const b2 = temporary2 - b1;
-      const b3 = b2 / delta;
-      temporary2 = b1;
-      leftValue = b3;
-      delta = delta / 10;
-
-      if (leftValue !== rightValue) {
-        flag = false;
-        break;
-      }
+      /**
+       * 12345
+       * 12321
+       * + c1 = 12321 % 10000 = 2321
+       * + c2 = 12321 - 2321  = 10000
+       * + c3 = 10000 / 10000 = 1
+       *
+       *
+       */
+      console.log(v3);
     }
-
-    return flag;
   }
 
-  if (length % 2 !== 0) {
-    const middleIndex = (length + 1) / 2;
-    let delta = Math.pow(10, length - 1);
-    let flag = true;
-
-    while (i < middleIndex) {
-      i++;
-
-      // Right Value
-      const v1 = temporary1 % 10;
-      const v2 = temporary1 - v1;
-      const v3 = v2 / 10;
-
-      rightValue = v1;
-      temporary1 = v3;
-
-      // Left Value
-      const b1 = temporary2 % delta;
-      const b2 = temporary2 - b1;
-      const b3 = b2 / delta;
-      delta = delta / 10;
-
-      temporary2 = b1;
-      leftValue = b3;
-
-      if (leftValue !== rightValue) {
-        flag = false;
-        break;
-      }
-    }
-    return flag;
+  if (isLengthOdd) {
   }
 };
 
@@ -182,8 +187,8 @@ function test5() {
 
 {
   test1();
-  test2();
-  test3();
-  test4();
-  test5();
+  // test2();
+  // test3();
+  // test4();
+  // test5();
 }

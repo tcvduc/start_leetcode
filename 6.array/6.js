@@ -34,6 +34,7 @@
  *
  *
  *
+ * Working
  *
  */
 
@@ -102,35 +103,6 @@ function logHorizontallyTwoArrayOfSevenDigitsElements(a1, a2) {
   let elementsBar = "";
 
   if (delta1 < delta2) {
-    let flagGroupThree = false;
-    let count = 0;
-
-    for (let i = 0; i <= a2.length - 1; ++i) {
-      count++;
-
-      if (count === 3) {
-        count = 0;
-        flagGroupThree = true;
-      }
-
-      if (i > a1.length - 1) {
-        continue;
-      }
-
-      if (i === a1.length - 1) {
-        elementsBar += a1[i];
-        continue;
-      }
-
-      if (flagGroupThree) {
-        elementsBar += a1[i] + "\n";
-        flagGroupThree = false;
-      }
-
-      if (!flagGroupThree) {
-        elementsBar += a1[i] + ", ";
-      }
-    }
   }
 
   if (delta1 === delta2) {
