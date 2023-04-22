@@ -118,18 +118,19 @@ var isPalindrome = function (n) {
    *
    *
    */
-  if (n < 0) return false;
 
   const length = getNumberLength(n);
   const isLengthOdd = length % 2 !== 0;
-  const delta = getTenExponent(length - 1);
+  let delta = getTenExponent(length - 1);
 
   console.log(`Information\nNumber: ${n}\nLength: ${length}`);
 
-  if (!isLengthOdd) {
+  if (n < 0) return false;
+
+  if (isLengthOdd) {
     let temporaryNumberBackwardly = n;
     let temporaryNumberForwardly = n;
-
+    let flag = true;
     const breakLoop = (length + 1) / 2;
 
     for (let i = breakLoop; i >= 1; i--) {
@@ -145,50 +146,97 @@ var isPalindrome = function (n) {
        * + c2 = 12321 - 2321  = 10000
        * + c3 = 10000 / 10000 = 1
        *
+       * + c1 = n % delta
+       * + c2 = n - c1
+       * + c3 = c2 / delta
+       * + variable = c1
        *
        */
-      console.log(v3);
+      const c1 = temporaryNumberForwardly % delta;
+      const c2 = temporaryNumberForwardly - c1;
+      const c3 = c2 / delta;
+      temporaryNumberForwardly = c1;
+      delta /= 10;
+
+      if (v1 !== c3) {
+        flag = false;
+        break;
+      }
     }
+
+    return flag;
   }
 
-  if (isLengthOdd) {
+  if (!isLengthOdd) {
+    /**
+     * --1234
+     * + 1221
+     * + length = 4
+     *
+     *
+     */
+    let flag = true;
+    let p1 = n;
+    let p2 = n;
+    let delta = getTenExponent(length - 1);
+    const breakLoop = length / 2;
+
+    for (let i = breakLoop; i >= 1; --i) {
+      const v1 = p1 % 10;
+      const v2 = p1 - v1;
+      const v3 = v2 / 10;
+      p1 = v3;
+
+      const c1 = p2 % delta;
+      const c2 = p2 - c1;
+      const c3 = c2 / delta;
+      delta /= 10;
+      p2 = c1;
+
+      if (c3 !== v1) {
+        flag = false;
+        break;
+      }
+    }
+
+    return flag;
   }
 };
 
 function test1() {
   const x = 12345;
   const result = isPalindrome(x);
-  console.log(result);
+  console.log("Is palindrome: " + result + "\n");
 }
 
 function test2() {
   const x = -121;
   const result = isPalindrome(x);
-  console.log(result);
+  console.log("Is palindrome: " + result + "\n");
 }
 
 function test3() {
   const x = 10;
   const result = isPalindrome(x);
-  console.log(result);
+  console.log("Is palindrome: " + result + "\n");
 }
 
 function test4() {
   const x = 12321;
   const result = isPalindrome(x);
-  console.log(result);
+  console.log("Is palindrome: " + result + "\n");
 }
 
 function test5() {
   const x = 1221;
   const result = isPalindrome(x);
-  console.log(result);
+  console.log("Is palindrome: " + result + "\n");
 }
 
 {
   test1();
-  // test2();
-  // test3();
-  // test4();
-  // test5();
+  test2();
+  test3();
+  test4();
+  test5();
 }
