@@ -51,8 +51,42 @@ function advanceLogArray(a) {
   console.log(arrayBar);
 }
 
+/**
+ *
+ * @param {String} s1
+ * @param {String} s2
+ *
+ */
+function isTwoStringTheSame(s1, s2) {
+  if (s1.length !== s2.length) return false;
+
+  for (let i = s1.length - 1; i >= 0; --i) {
+    if (s1[i] !== s2[i]) return false;
+  }
+
+  return true;
+}
+
+/**
+ *
+ * @param {String[]} as1
+ * @param {String[]} as2
+ *
+ */
+function isTwoArrayOfStringTheSame(as1, as2) {
+  if (as1.length !== as2.length) return false;
+
+  for (let i = as1.length - 1; i >= 0; --i) {
+    const s1i = as1[i];
+    const s2i = as2[i];
+    if (!isTwoStringTheSame(s1i, s2i)) return false;
+  }
+
+  return true;
+}
+
 function onboardOpenO3nToOn() {
-  const n = 4;
+  const n = 5;
   const a = generateArray(n);
   advanceLogArray(a);
 
@@ -73,26 +107,49 @@ function onboardOpenO3nToOn() {
 
   let j = 0;
   let k = 1;
+  let isKMeetLimit = false;
   const jikOn = [];
 
   for (let i = 0; i <= a.length - 1 - 1 - 1; i++) {
-    j++;
+    if (isKMeetLimit) {
+      j++;
+      k = j + 1;
+      isKMeetLimit = false;
 
-    k++;
-
-    if (k > a.length - 1) {
-      continue;
-    }
-
-    if (k <= a.length - 1) {
       jikOn.push(`(${i},${j},${k})`);
 
       i--;
-      j--;
+      continue;
+    }
+
+    if (j === a.length - 1 - 1) {
+      if (k === a.length - 1) {
+        i++;
+        jikOn.push(`(${i},${j},${k})`);
+      }
+    }
+
+    if (j < a.length - 1 - 1) {
+      j++;
+      k++;
+
+      if (k > a.length - 1) {
+        isKMeetLimit = true;
+        i--;
+        continue;
+      }
+
+      if (!isKMeetLimit) {
+        jikOn.push(`(${i},${j},${k})`);
+
+        i--;
+        j--;
+      }
     }
   }
 
   console.log(jikOn);
+  console.log(isTwoArrayOfStringTheSame(jikOn, jikOn3));
 }
 
 {
