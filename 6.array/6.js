@@ -43,27 +43,6 @@
  * @param {Array} a
  */
 function getArrayLength(a) {
-  /**
-   * -------0 1 2 3 4
-   * + a = [1,2,3,4,5]
-   * + result = 5
-   *
-   * + a = []
-   * + result = 0
-   *
-   *
-   * + a = [1,2,3,4,5]
-   * + i = 0
-   * + i = 1
-   * + i = 2
-   * + i = 3
-   * + i = 4
-   * + i = 5
-   *
-   *
-   *
-   */
-
   let i = 0;
   while (true) {
     if (a[i] === undefined) {
@@ -94,6 +73,7 @@ function generateSpace(n) {
 function logHorizontallyTwoArrayOfSevenDigitsElements(a1, a2) {
   console.log("Log horizontally two array of seven digits element program\n");
 
+  console.log(a1);
   const delta1 = getArrayLength(a1);
   const delta2 = getArrayLength(a2);
   const numberOfSpaces = 7;
@@ -103,6 +83,7 @@ function logHorizontallyTwoArrayOfSevenDigitsElements(a1, a2) {
   let elementsBar = "";
 
   if (delta1 < delta2) {
+    for (let i = 0; i <= a2.length - 1; ++i) {}
   }
 
   if (delta1 === delta2) {
