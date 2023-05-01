@@ -17,15 +17,11 @@
  */
 function generateMapElement(n) {
   const map = new Map();
-  const min = 0;
-  const max = 9;
 
   for (let i = 1; i <= n; ++i) {
-    const key = Math.floor(Math.random() * (max - min + 1)) + min;
-    const value = i;
-    // map.set(key, value);
-    map.set(1, i);
-    console.log(map);
+    const key = i;
+    const value = i - 1;
+    map.set(key, value);
   }
 
   return map;
@@ -36,12 +32,74 @@ function generateMapElement(n) {
  * @param {Map} m
  * @param {any} element
  */
-function mapLargeElementContainsFactor(m, factor) {}
+function isMapLargeElementContainsFactor(m, factor) {
+  let flag = m.has(factor);
+  return flag;
+}
+
+/**
+ *
+ * @param {Number} n
+ */
+function addCommaToLargeNumber(n) {
+  /**
+   * + n = 1000000
+   * + result = 1,000,000
+   *
+   */
+
+  let ns = n.toString();
+
+  if (ns.length < 3) {
+    return ns;
+  }
+
+  let result = "";
+  result += ns[0] + ",";
+
+  let countGroupThree = 0;
+
+  for (let i = 1; i <= ns.length - 1; ++i) {
+    countGroupThree++;
+
+    if (i === ns.length - 1) {
+      result += ns[i];
+      break;
+    }
+
+    if (countGroupThree === 3) {
+      countGroupThree = 0;
+      result += ns[i] + ",";
+      continue;
+    }
+
+    result += ns[i];
+  }
+
+  return result;
+}
+
+console.log(addCommaToLargeNumber(1000000));
 
 function test1() {
-  const n = 10000;
+  /**
+   *
+   */
+  const startTime = new Date();
+  const startMiliseconds = startTime.getMilliseconds();
+
+  const n = 1000000;
   const m = generateMapElement(n);
-  console.log(m);
+  const factor = 50;
+  const result = isMapLargeElementContainsFactor(m, factor);
+
+  const endTime = new Date();
+  const endMiliseconds = endTime.getMilliseconds();
+
+  const nComma = addCommaToLargeNumber(n);
+  console.log(result);
+  console.log(`${nComma} elements`);
+  console.log("Time: ", endMiliseconds - startMiliseconds, " ms");
 }
 
 {

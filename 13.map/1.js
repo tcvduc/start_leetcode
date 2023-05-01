@@ -18,6 +18,15 @@ function onboardMap() {
   console.log(m1); // unique key
 }
 
+function onboardMap2() {
+  const m = new Map();
+  for (let i = 0; i <= 10000; ++i) {
+    m.set(i, i);
+  }
+  console.log(m);
+}
+
 {
   onboardMap();
+  onboardMap2();
 }
