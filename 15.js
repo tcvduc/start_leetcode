@@ -140,27 +140,27 @@ function onboardRemoveDuplicateElementArray2d(a) {
 function threeSum(a) {
   let result = [];
 
-  // for (let i = a.length - 1; i >= 2; i--) {
+  // for (let i = a.length - 1; i >= 2; --i) {
   //   for (let j = i - 1; j >= 1; --j) {
   //     for (let k = j - 1; k >= 0; --k) {
-  //       if (a[i] + a[j] + a[k] === 0) {
-  //         result = push(result, [a[i], a[j], a[k]]);
+  //       if (a[k] + a[j] + a[i] === 0) {
+  //         result = push(result, [a[k], a[j], a[i]]);
   //       }
   //     }
   //   }
   // }
 
   for (let i = 0; i <= a.length - 1 - 1 - 1; ++i) {
-    for (let j = i + 1; j <= a.length - 1 - 1; j++) {
+    for (let j = i + 1; j <= a.length - 1 - 1; ++j) {
       for (let k = j + 1; k <= a.length - 1; ++k) {
-        if (a[i] + a[j] + a[k] === 0) {
+        if (a[k] + a[j] + a[i] === 0) {
           result = push(result, [a[i], a[j], a[k]]);
         }
       }
     }
   }
 
-  result = onboardRemoveDuplicateElementArray2d(result);
+  // result = onboardRemoveDuplicateElementArray2d(result);
 
   return result;
 }
