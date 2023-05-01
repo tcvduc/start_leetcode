@@ -140,9 +140,19 @@ function onboardRemoveDuplicateElementArray2d(a) {
 function threeSum(a) {
   let result = [];
 
-  for (let i = a.length - 1; i >= 2; i--) {
-    for (let j = i - 1; j >= 1; --j) {
-      for (let k = j - 1; k >= 0; --k) {
+  // for (let i = a.length - 1; i >= 2; i--) {
+  //   for (let j = i - 1; j >= 1; --j) {
+  //     for (let k = j - 1; k >= 0; --k) {
+  //       if (a[i] + a[j] + a[k] === 0) {
+  //         result = push(result, [a[i], a[j], a[k]]);
+  //       }
+  //     }
+  //   }
+  // }
+
+  for (let i = 0; i <= a.length - 1 - 1 - 1; ++i) {
+    for (let j = i + 1; j <= a.length - 1 - 1; j++) {
+      for (let k = j + 1; k <= a.length - 1; ++k) {
         if (a[i] + a[j] + a[k] === 0) {
           result = push(result, [a[i], a[j], a[k]]);
         }
@@ -161,6 +171,14 @@ function test1() {
   console.log(result); // [[-1,0,1],[-1,-1,2]]
 }
 
+function test2() {
+  const a = [-4, -2, 1, -5, -4, -4, 4, -2, 0, 4, 0, -2, 3, 1, -5, 0];
+  const result = threeSum(a);
+  console.log(result);
+  // [[-5,1,4],[-4,0,4],[-4,1,3],[-2,-2,4],[-2,1,1],[0,0,0]]
+}
+
 {
-  test1();
+  // test1();
+  test2();
 }
