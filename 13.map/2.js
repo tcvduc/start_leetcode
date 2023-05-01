@@ -46,6 +46,7 @@ function addCommaToLargeNumber(n) {
    * + n = 1000000
    * + result = 1,000,000
    *
+   * + n = 10,000,000
    */
 
   let ns = n.toString();
@@ -55,51 +56,101 @@ function addCommaToLargeNumber(n) {
   }
 
   let result = "";
-  result += ns[0] + ",";
 
-  let countGroupThree = 0;
+  if (ns < 10000000) {
+    result += ns[0] + ",";
 
-  for (let i = 1; i <= ns.length - 1; ++i) {
-    countGroupThree++;
+    let countGroupThree = 0;
 
-    if (i === ns.length - 1) {
+    for (let i = 1; i <= ns.length - 1; ++i) {
+      countGroupThree++;
+
+      if (i === ns.length - 1) {
+        result += ns[i];
+        break;
+      }
+
+      if (countGroupThree === 3) {
+        countGroupThree = 0;
+        result += ns[i] + ",";
+        continue;
+      }
+
       result += ns[i];
-      break;
     }
+  } else {
+    result += ns[0] + ns[1] + ",";
 
-    if (countGroupThree === 3) {
-      countGroupThree = 0;
-      result += ns[i] + ",";
-      continue;
+    let countGroupThree = 0;
+
+    for (let i = 2; i <= ns.length - 1; ++i) {
+      countGroupThree++;
+
+      if (i === ns.length - 1) {
+        result += ns[i];
+        break;
+      }
+
+      if (countGroupThree === 3) {
+        countGroupThree = 0;
+        result += ns[i] + ",";
+        continue;
+      }
+
+      result += ns[i];
     }
-
-    result += ns[i];
   }
 
   return result;
 }
 
-console.log(addCommaToLargeNumber(1000000));
+/**
+ *
+ * @param {Number} s
+ * @param {Number} e
+ *
+ */
+function getDeltaTimeMillisecond(s, e) {
+  if (e >= s) return e - s;
+  const tru = 1000;
+  return tru - s + e;
+}
+
+/**
+ *
+ * @param {Number} s
+ * @param {Number} e
+ *
+ */
+function getDeltaTimeSecond(s, e) {
+  if (e >= s) return e - s;
+  const tru = 60;
+  return tru - s + e;
+}
 
 function test1() {
-  /**
-   *
-   */
   const startTime = new Date();
-  const startMiliseconds = startTime.getMilliseconds();
+  const startSeconds = startTime.getSeconds();
+  const startMilliseconds = startTime.getMilliseconds();
 
-  const n = 1000000;
+  const n = 10000000;
   const m = generateMapElement(n);
   const factor = 50;
   const result = isMapLargeElementContainsFactor(m, factor);
 
   const endTime = new Date();
-  const endMiliseconds = endTime.getMilliseconds();
+  const endSeconds = endTime.getSeconds();
+  const endMilliseconds = endTime.getMilliseconds();
 
   const nComma = addCommaToLargeNumber(n);
   console.log(result);
   console.log(`${nComma} elements`);
-  console.log("Time: ", endMiliseconds - startMiliseconds, " ms");
+  const deltaTimeMillisecond = getDeltaTimeMillisecond(
+    startMilliseconds,
+    endMilliseconds
+  );
+  const deltaTimeSecond = getDeltaTimeSecond(startSeconds, endSeconds);
+  console.log(`Time: ${deltaTimeSecond}:${deltaTimeMillisecond} s:ms`);
 }
 
 {
