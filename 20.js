@@ -166,7 +166,123 @@ function isOpenAndCloseType2TheSame(s) {
  *
  * @param {String} s
  */
-function isOpenAndCloseType3TheSame(s) {
+function isOpenBracket(s) {
+  /**
+   * - Open Bracket
+   * + "(": open1
+   * + "[": open2
+   * + "{": open3
+   *
+   */
+  const map = new Map();
+  map.set("(", "open1");
+  map.set("[", "open2");
+  map.set("{", "open3");
+
+  const openString = "open";
+  const mapValue = map.get(s);
+
+  if (!mapValue) return false;
+
+  let loopString = "";
+  let count = 0;
+
+  for (let i = 0; i <= mapValue.length - 1; ++i) {
+    count++;
+    loopString += mapValue[i];
+    if (count === 4) {
+      break;
+    }
+  }
+
+  const flag = isTwoStringTheSame(openString, loopString);
+  return flag;
+}
+
+/**
+ *
+ * @param {String} s1
+ * @param {String} s2
+ *
+ */
+function isTheSameTypeOfBracket(s1, s2) {
+  /**
+   * - Is the same type of bracket
+   * + s1: [
+   * + s2: ]
+   * + result: true
+   *
+   * + s1: [
+   * + s2: }
+   * + result: false
+   *
+   *
+   */
+
+  const map = new Map();
+
+  map.set("(", "type1");
+  map.set(")", "type1");
+  map.set("[", "type2");
+  map.set("]", "type2");
+  map.set("{", "type3");
+  map.set("}", "type3");
+
+  const openValue = map.get(s1);
+  const closeValue = map.get(s2);
+  const flag = isTwoStringTheSame(openValue, closeValue);
+  return flag;
+}
+
+/**
+ *
+ * @param {String} s
+ */
+function stringToArray(s) {
+  /**
+   * + s = "abcdef"
+   * + result = ["a","b","c","d","e","f"]
+   *
+   */
+  const result = [];
+  for (let i = 0; i <= s.length - 1; ++i) {
+    result.push(s[i]);
+  }
+  return result;
+}
+
+/**
+ *
+ * @param {Array} a
+ * @param {Number} pos
+ */
+function arrayRemoveElementAtPos(a, pos) {
+  /**
+   * -------0 1 2 3 4
+   * + a = [1,2,3,4,5]
+   * + pos = 2
+   *
+   * ------------0 1 2 3
+   * + result = [1,2,4,5]
+   *
+   */
+  if (pos < 0 || pos > a.length - 1) return a;
+
+  const result = new Array(a.length - 1);
+  for (let i = 0; i <= pos - 1; ++i) {
+    result[i] = a[i];
+  }
+  for (let j = pos; j <= result.length - 1; ++j) {
+    result[j] = a[j + 1];
+  }
+  return result;
+}
+
+/**
+ *
+ * @param {String} s1
+ */
+function isOpenAndCloseType3TheSame(s1) {
   /**
    * -------01234567
    * + s = "(([]){})"
@@ -178,10 +294,33 @@ function isOpenAndCloseType3TheSame(s) {
    *       + i+=2
    *     + if false
    *
-   *
-   *
-   *
    **/
+
+  let flag = true;
+  let s = stringToArray(s1);
+
+  for (let i = 0; i <= s.length - 1; ) {
+    const si = s[i];
+    const isOpen = isOpenBracket(si);
+
+    if (isOpen) {
+      i++;
+    }
+
+    if (!isOpen) {
+      const sim1 = s[i - 1];
+      const isTheSameType = isTheSameTypeOfBracket(si, sim1);
+      if (!isTheSameType) {
+        flag = false;
+        break;
+      }
+
+      if (isTheSameType) {
+      }
+    }
+  }
+
+  return flag;
 }
 
 /**
