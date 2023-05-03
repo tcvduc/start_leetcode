@@ -280,6 +280,62 @@ function arrayRemoveElementAtPos(a, pos) {
 
 /**
  *
+ * @param {String} s
+ */
+function stringToArray1d(s) {
+  const result = [];
+  for (let i = 0; i <= s.length - 1; ++i) result.push(s[i]);
+  return result;
+}
+
+/**
+ *
+ * @param {Array} a
+ */
+function array1dToString(a) {
+  let s = "";
+  for (let i = 0; i <= a.length - 1; ++i) s += a[i];
+  return s;
+}
+
+/**
+ *
+ * @param {Array} a
+ */
+function array1dRemoveElementAtPos(a, pos) {
+  if (pos < 0 || pos > a.length - 1) return a;
+
+  const result = new Array(a.length - 1);
+
+  for (let i = 0; i <= pos - 1; ++i) result[i] = a[i];
+  for (let j = pos; j <= result.length - 1; ++j) result[j] = a[j + 1];
+
+  return result;
+}
+
+/**
+ *
+ * @param {String} s
+ * @param {Number} pos1
+ * @param {Number} pos2
+ *
+ */
+function doubleRemoveElementAtPos(s, pos1, pos2) {
+  let result = s;
+  if (pos2 > pos1) {
+    result = array1dRemoveElementAtPos(result, pos2);
+    result = array1dRemoveElementAtPos(result, pos1);
+  }
+
+  if (pos2 < pos1) {
+    result = array1dRemoveElementAtPos(result, pos1);
+    result = array1dRemoveElementAtPos(result, pos2);
+  }
+  return array1dToString(result);
+}
+
+/**
+ *
  * @param {String} s1
  */
 function isOpenAndCloseType3TheSame(s1) {
@@ -294,6 +350,10 @@ function isOpenAndCloseType3TheSame(s1) {
    *       + i+=2
    *     + if false
    *
+   *
+   * -------012345
+   * + s = "((){})"
+   *
    **/
 
   let flag = true;
@@ -305,6 +365,7 @@ function isOpenAndCloseType3TheSame(s1) {
 
     if (isOpen) {
       i++;
+      continue;
     }
 
     if (!isOpen) {
@@ -316,6 +377,10 @@ function isOpenAndCloseType3TheSame(s1) {
       }
 
       if (isTheSameType) {
+        const pos1 = i;
+        const pos2 = i - 1;
+        s = doubleRemoveElementAtPos(s, pos1, pos2);
+        i -= 2;
       }
     }
   }
