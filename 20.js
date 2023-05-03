@@ -354,6 +354,20 @@ function isOpenAndCloseType3TheSame(s1) {
    * -------012345
    * + s = "((){})"
    *
+   *
+   * -------0123
+   * + s = "({})"
+   *
+   *
+   * -------01
+   * + s = "()"
+   *
+   *
+   * + s = ""
+   *
+   *
+   *
+   *
    **/
 
   let flag = true;
@@ -387,6 +401,11 @@ function isOpenAndCloseType3TheSame(s1) {
 
   return flag;
 }
+
+// console.log(
+//   "isOpenAndCloseType3TheSame(s1): ",
+//   isOpenAndCloseType3TheSame("(([]){})")
+// );
 
 /**
  * @param {string} s
