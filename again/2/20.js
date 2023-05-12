@@ -82,15 +82,34 @@ function getBracketInfo() {
 }
 
 /**
+*
+* @param {Bracket} b1
+* @param {Bracket} b2 
+
+*/
+function isTwoBracketTheSameType(b1, b2) {
+  return b1.type === b2.type;
+}
+
+/**
  * @param {string} ss
  * @return {boolean}
  */
 var isValid = function (ss) {
   let flag = true;
+  let s = stringToArray(ss);
+  let isAllOpenBracket = true;
   const bracketInfo = getBracketInfo();
-  const s = stringToArray(ss);
 
   for (let i = 0; i <= s.length - 1; ) {
+    if (i < 0 && s.length !== 0) {
+      i++;
+    }
+
+    if (i < 0 && s.length === 0) {
+      break;
+    }
+
     const si = bracketInfo.get(s[i]);
 
     if (si.value === "open") {
@@ -99,14 +118,49 @@ var isValid = function (ss) {
     }
 
     if (si.value === "close") {
+      isAllOpenBracket = false;
+
       if (i - 1 < 0) {
         flag = false;
         break;
       }
+
       const sim1 = bracketInfo.get(s[i - 1]);
-      //   if(sim1.value)
+
+      if (sim1.value === "close") {
+        flag = false;
+        break;
+      }
+
+      if (sim1.value === "open") {
+        const flag2 = isTwoBracketTheSameType(si, sim1);
+
+        if (flag2) {
+          const pos1 = i;
+          const pos2 = i - 1;
+          s = array1dRemoveElementAtPos(s, pos1);
+          s = array1dRemoveElementAtPos(s, pos2);
+          i -= 2;
+          continue;
+        }
+
+        if (!flag2) {
+          flag = false;
+          break;
+        }
+      }
     }
   }
+
+  if (s.length !== 0) {
+    flag = false;
+  }
+
+  if (isAllOpenBracket) {
+    flag = false;
+  }
+
+  return flag;
 };
 
 function test1() {
@@ -199,8 +253,14 @@ function test15() {
   console.log(result);
 }
 
+function test16() {
+  const s = "{[]}";
+  const result = isValid(s);
+  console.log(result);
+}
+
 {
-  test1(); // true
+  // test1(); // true
   // test2(); // true
   // test3(); // false
   // test4(); // false
@@ -215,4 +275,5 @@ function test15() {
   // test13(); // false
   // test14(); // false
   //   test15(); // false
+  test16();
 }
